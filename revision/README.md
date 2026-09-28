@@ -15,6 +15,8 @@ All paths below are relative to this `revision/` directory. The parent README de
 
 `data_s1/Data_S1_revision_260928_v3.xlsx` is the current analysis workbook. The `Human_Expert` worksheet has two anonymized raters' scores for 70 run-2 outputs, and `analysis/human_expert_2rater_public_v1/` contains public aggregate analyses without the original filled evaluator forms or administrative blind key. The `PBA_Followup` worksheet summarizes the reported washing comparison; raw instrument files are not included.
 
+`analysis/compute_usage_summary.md` aggregates provider-reported token counts, API-call counts, retries or failures, and recorded runtime from all 276 public generation manifests. It also identifies compute fields that are not retrospectively recoverable and reproduces the existing usage-based cost estimate for the official Claude Core10 Pass 2 evidence audit.
+
 The source run status was required to be `COMPLETE`, with both `final.txt` and `full_output.txt` present and their source hashes matching the original manifest. Excluded failed and interrupted run directories were not silently converted to complete records. The Core10 count includes one additional canonical EOP run beyond the 100 second/third-replicate runs; the original first-replicate benchmark material remains under the parent `data/` bundle.
 
 The publication unit for paired Core10 analyses is the scientific case, not each stochastic response. The score files retain replicate-level values for audit, while case-level comparisons and summaries are in the named analysis folders.
