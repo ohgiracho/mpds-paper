@@ -1,0 +1,425 @@
+[RUN CONFIG]
+run_timestamp_utc: 2026-09-22T08:21:03.318439+00:00
+model: gemini-2.5-pro
+temperature: 0.5
+max_output_tokens: 8192
+language: "en"
+min_evidence_pointers: 3
+turn_sleep_sec: 0.2
+rounds: 3
+simulation_date: 2023
+topic: How should a lithium-metal-battery electrolyte and its interphases be co-designed for reversible operation across low and high temperatures while preserving desolvation kinetics, suppressing gas generation, and maintaining interphase integrity?
+
+knowledge_a_file: [LOCAL_PATH_REDACTED]
+REPRODUCIBILITY:
+provider: OpenAlex Works API
+keyword: wide temperature lithium metal battery electrolyte
+start_year: 2014
+end_year: 2023
+master_size: 550
+selected_top_n: 500
+ranking: default search relevance_score descending
+pagination: cursor
+retrieved_at: 2026-09-22T07:00:43.897208+00:00
+retrieval_id: q4_case_07_pool_A_2026-09-22T07:00:43.897208+00:00
+============================================================
+
+knowledge_b_file: [LOCAL_PATH_REDACTED]
+REPRODUCIBILITY:
+provider: OpenAlex Works API
+keyword: lithium metal battery electrolyte low temperature high temperature
+start_year: 2014
+end_year: 2023
+master_size: 550
+selected_top_n: 500
+ranking: default search relevance_score descending
+pagination: cursor
+retrieved_at: 2026-09-22T07:00:58.167764+00:00
+retrieval_id: q4_case_07_pool_B_2026-09-22T07:00:58.167764+00:00
+============================================================
+
+Context: [User's Experimental Situation]
+- Background: Lithium-metal batteries require an electrolyte that remains liquid and electrochemically functional across extreme temperatures.
+- Low-temperature bottleneck: Strong ion-solvent coordination slows desolvation and interfacial transfer, while mechanically unstable interphases repeatedly rupture during plating and stripping.
+- High-temperature bottleneck: Accelerated solvent and salt decomposition, trace-water reactions, gas generation, and interphase dissolution create safety and lifetime risks.
+- Design trade-off: Nonpolar solvents, liquefied-gas systems, and localized high-concentration approaches can improve one temperature regime but introduce limited operating directions, process complexity, safety concerns, or aggregation changes.
+- Core question: What electrolyte-interphase design principle can remain kinetically accessible at low temperature and chemically stable at high temperature without relying on incompatible formulations for each regime?
+- Goals:
+    1) Couple temperature-dependent solvation with interphase formation and mechanics.
+    2) Suppress low-temperature resistance and high-temperature parasitic reactions in one formulation concept.
+    3) Define validation across symmetric, half-cell, and practical full-cell conditions.
+
+============================================================
+
+[Battery-system specialist (Scientist A) - Round 1]
+Excellent. This is the fundamental question that has occupied our field for decades. The community has spent too much time chasing silver bullets—a novel additive here, a fancy salt there—without a cohesive, first-principles approach. The problem isn't just temperature; it's that the electrolyte's behavior is a deeply coupled system of thermodynamics and kinetics, and we often try to patch one part at the expense of another [ID: 5, 39].
+
+### Diagnosis of the Core Problem
+
+The central issue is the Li⁺ solvation sheath and the solid electrolyte interphase (SEI) it creates. These two are inextricably linked. The composition of the SEI is a direct consequence of the species available at the electrode surface, which is dictated by the solvation structure [ID: 265, 87]. An electrolyte designed for wide-temperature operation must produce an SEI that is *both* kinetically facile for Li⁺ transport at low temperatures and chemically/thermally stable at high temperatures.
+
+1.  **At Low Temperatures (-20°C and below):** The primary failure is kinetic. In conventional carbonate electrolytes, Li⁺ is strongly solvated by solvent molecules like ethylene carbonate (EC) [ID: 445]. This creates a high desolvation energy barrier at the interface, which becomes prohibitively large at low temperatures, leading to a massive charge-transfer resistance [ID: 344, 422]. Furthermore, the thermodynamics of electrolyte reduction at low temperatures can favor the formation of a mechanically weak, organic-rich, and ionically resistive SEI [ID: 87]. This fragile SEI fractures upon Li plating/stripping, exposing fresh Li metal, consuming more electrolyte, and leading to catastrophic failure. We see this sluggishness and instability plague many systems [ID: 148, 488].
+
+2.  **At High Temperatures (60°C and above):** The failure mode shifts to accelerated parasitic reactions. Everything becomes more reactive. The LiPF₆ salt, a workhorse of our field, is notoriously unstable and hydrolyzes with trace water to form HF, which attacks both the cathode and anode [ID: 96, 376]. Solvents oxidize on high-voltage cathodes, generating gas and consuming electrolyte [ID: 43, 115]. The SEI itself can dissolve or undergo conversion reactions, leading to continuous electrolyte consumption and thickening of the interphase [ID: 406]. This is not just a theoretical concern; we see it in pouch cells that swell and fail prematurely.
+
+The common mistake is to develop an electrolyte for one extreme, which then fails at the other. For example, liquefied gas electrolytes show promise at low temperatures but introduce significant safety and engineering challenges for high-temperature operation [ID: 2, 95].
+
+### A Unified Design Principle: Engineering the Anion-Rich Solvation Sheath
+
+The solution is not to find two different electrolytes in one, but to design a single system whose fundamental solvation structure inherently addresses both kinetic and stability challenges. My proposal is to abandon the traditional dilute, solvent-centric electrolyte model and engineer a **localized high-concentration electrolyte (LHCE)** with a carefully selected dual-salt system.
+
+The core principle is to force anions into the primary Li⁺ solvation sheath, creating a system where the anion, not just the solvent, dictates the interfacial chemistry [ID: 8, 11, 265].
+
+Here is the proposed formulation and its rationale:
+
+1.  **Primary Solvent:** Utilize weakly-solvating ethers or fluorinated ethers. These molecules, such as 1,2-dimethoxyethane (DME) derivatives or fluorinated ethers, have low melting points, high boiling points, and, crucially, a weaker binding energy with Li⁺ compared to carbonates [ID: 253, 352]. This immediately lowers the desolvation energy penalty, which is a key bottleneck at low temperatures [ID: 211, 494].
+
+2.  **Primary Salt:** Use Lithium bis(fluorosulfonyl)imide (LiFSI). It has higher thermal stability than LiPF₆ and its decomposition products (LiF, Li₂S, Li₃N) are key components of a stable, ionically conductive SEI [ID: 66, 114]. The goal is to build an inorganic-rich SEI from the start [ID: 56, 87].
+
+3.  **Secondary Salt/Additive:** Incorporate a salt like lithium difluorophosphate (LiPO₂F₂) or lithium difluoro(oxalato)borate (LiDFOB). These are multifunctional. They scavenge trace HF, but more importantly, they participate in forming a robust, LiF-rich CEI on the high-voltage cathode and further stabilize the SEI on the anode [ID: 4, 31, 199, 438]. This dual-salt approach creates synergistic effects that a single salt cannot achieve [ID: 31].
+
+4.  **Concentration & Diluent:** This is the key to practicality. Instead of a prohibitively viscous superconcentrated electrolyte [ID: 13], we create a "localized high-concentration" environment. A high concentration of LiFSI and the secondary salt are dissolved in a minimal amount of the primary ether solvent. This mixture is then diluted with a non-solvating, low-viscosity fluorinated ether [ID: 23, 199]. This diluent maintains low bulk viscosity and good wetting while preserving the anion-rich Li⁺ solvation clusters that are essential for forming a stable SEI [ID: 173].
+
+**How this unified design works across temperatures:**
+
+*   **Low Temperature Benefit:** The weakly coordinating solvent and anion-participating solvation structure lower the desolvation barrier. The diluent keeps viscosity low. This combination ensures facile kinetics. The SEI formed is inorganic-rich and remains ionically conductive, avoiding the kinetic trap of organic-heavy interphases [ID: 87, 211, 253]. We see this principle enabling function down to -40°C, -60°C, and even -70°C in some systems [ID: 59, 111, 494].
+*   **High Temperature Benefit:** The lack of "free," highly reactive solvent molecules minimizes parasitic reactions at both electrodes. The robust, inorganic-rich SEI/CEI is far more resistant to thermal decomposition and dissolution than conventional carbonate-derived interphases [ID: 3, 234, 239]. The inherent stability of fluorinated components and LiFSI further suppresses gas generation and side reactions up to 60°C and beyond [ID: 3, 52, 199].
+
+### A Mandate for Rigorous Validation
+
+A good-looking graph from a coin cell cycled at 25°C is meaningless. Any claim for a wide-temperature electrolyte must be validated with a standardized and rigorous protocol. I am tired of seeing our community repeat the same insufficient experiments.
+
+1.  **Symmetric Cells (Li || Li):** This is a screening tool, nothing more. We must demonstrate stable cycling for >500 hours at practical current densities (≥1 mA/cm²) and capacities (≥1 mAh/cm²) across the entire temperature range of interest, for instance, from -20°C to 60°C. Anything less is insufficient [ID: 7, 247].
+
+2.  **Full Cells (Practical Conditions):** This is where the real evaluation begins.
+    *   **Cathode:** Use a high-loading (e.g., >3 mAh/cm²) high-voltage cathode like NCM811 or LCO [ID: 3, 131, 159].
+    *   **Anode:** Use thin lithium foil (≤ 50 µm) to achieve a realistic, low N/P ratio (< 3). Cycling with a thick anode hides lithium consumption and is not a valid test [ID: 4, 66].
+    *   **Testing:** Perform long-term cycling (>300 cycles) at moderate rates (e.g., C/3) at multiple temperatures (-20°C, 25°C, 60°C). High-rate tests are also necessary to probe kinetic limitations [ID: 131, 173].
+
+3.  **Pouch Cells:** This is the final arbiter of viability. A pouch cell will expose any gas generation through swelling and will test the electrolyte's performance under practical stack pressure [ID: 22, 28, 83]. A successful electrolyte must enable stable cycling in a pouch cell without significant swelling, especially at elevated temperatures.
+
+4.  **Mechanistic Characterization:** Alongside electrochemical data, I demand proof of the underlying mechanism. Show me the NMR and Raman spectra proving the anion-rich solvation [ID: 80, 265]. Show me the cryo-TEM and XPS data demonstrating a thin, dense, LiF-rich SEI [ID: 87, 208]. Show me the OEMS data quantifying the suppression of CO₂ and H₂ gas at high voltage [ID: 376, 411].
+
+Only by adhering to this level of rigor—combining a sound fundamental principle with stringent, multi-level validation—can we move beyond incremental improvements and make genuine progress toward a practical, all-climate lithium-metal battery.
+
+--- Evidence Appendix (auto-generated from snapshot) ---
+Snapshot: Scientist A
+- [ID: 13 | Yuki Yamada, 2015 | Review—Superconcentrated Electrolytes for Lithium Batteries | Venue: Journal of The Electrochemical Society | DOI: https://doi.org/10.1149/2.0041514jes | OpenAlexID: https://openalex.org/W2243580176]
+- [ID: 31 | Gaojie Xu, 2019 | Formulation of Blended‐Lithium‐Salt Electrolytes for Lithium Batteries | Venue: Angewandte Chemie International Edition | DOI: https://doi.org/10.1002/anie.201906494 | OpenAlexID: https://openalex.org/W2994377960]
+- [ID: 87 | Suting Weng, 2023 | Temperature-dependent interphase formation and Li+ transport in lithium metal batteries | Venue: Nature Communications | DOI: https://doi.org/10.1038/s41467-023-40221-0 | OpenAlexID: https://openalex.org/W4385257145]
+- [ID: 173 | Wenlong Cai, 2023 | Quasi‐Localized High‐Concentration Electrolytes for High‐Voltage Lithium Metal Batteries | Venue: Advanced Energy Materials | DOI: https://doi.org/10.1002/aenm.202301396 | OpenAlexID: https://openalex.org/W4382401729]
+- [ID: 406 | Xia Cao, 2023 | Stability of solid electrolyte interphases and calendar life of lithium metal batteries | Venue: Energy & Environmental Science | DOI: https://doi.org/10.1039/d2ee03557j | OpenAlexID: https://openalex.org/W4321845062]
+- [ID: 445 | Yuqing Chen, 2023 | Breaking solvation dominance of ethylene carbonate via molecular charge engineering enables lower temperature battery | Venue: Nature Communications | DOI: https://doi.org/10.1038/s41467-023-43163-9 | OpenAlexID: https://openalex.org/W4389726555]
+
+[Electrolyte and interphase specialist (Scientist B) - Round 1]
+Your diagnosis of the problem is spot on. The community's fragmented approach, focusing on isolated parameters, has led to a graveyard of "breakthroughs" that fail under real-world conditions. Your insistence on a unified design principle and rigorous, practical validation protocols [ID: 83, 88] is precisely the mindset our field needs.
+
+However, I believe your proposed solution—a fluorinated, dual-salt localized high-concentration electrolyte (LHCE)—while elegant in principle, oversimplifies the brutal reality of interfacial mechanics and overlooks critical trade-offs, particularly concerning long-term stability and practical scalability.
+
+### A Critique of the LHCE "Silver Bullet"
+
+1.  **The Myth of the Perfectly "Inert" Diluent:** The LHCE concept hinges on a non-solvating diluent that reduces viscosity without participating in interfacial reactions [ID: 33]. This is a convenient fiction. In reality, these diluents are never truly inert. At the extreme potentials of a lithium metal anode, especially under high current or at elevated temperatures, they can and do decompose. Your proposed fluorinated ether diluents, while more stable than their non-fluorinated counterparts, are not immune. This introduces another set of decomposition products and potential failure modes you haven't accounted for.
+
+2.  **The Brittleness of a Purely Inorganic SEI:** You champion an anion-derived, inorganic-rich SEI, primarily composed of LiF, as the ideal [ID: 36, 86]. While LiF provides a high interfacial energy that can favor granular deposition, it is also notoriously brittle [ID: 222]. The immense stress and morphological changes during plating and stripping, especially at practical capacities, will inevitably lead to fracture. Once cracked, the underlying lithium is exposed, and the cycle of parasitic reactions begins anew. Relying solely on a hard, inorganic shell ignores the fundamental need for mechanical flexibility and self-healing capability at the interface [ID: 63, 180]. Recent work has even shown that LiF's primary role might not be mechanical protection at all, but rather its subsequent repair by the electrolyte is what determines performance [ID: 222].
+
+3.  **High-Temperature Stability is Not Guaranteed:** Your faith in the high-temperature stability of LiFSI-based concentrated systems is optimistic. While they are more stable than LiPF6/carbonate systems, they are not invincible. The reaction between lithiated graphite and LiFSI-based concentrated electrolytes has been shown to be a potent trigger for thermal runaway, even in non-flammable formulations [ID: 294]. The fundamental reactivity of the FSI- anion with lithium at elevated temperatures remains a significant heat source and a pathway to failure that cannot be ignored [ID: 480]. Ethers, even fluorinated ones, still face oxidative decomposition on high-voltage cathodes, a problem that concentration alone does not fully solve [ID: 312, 345].
+
+4.  **Cost and Scalability:** Your proposed formulation relies on expensive components: fluorinated ether solvents and high concentrations of LiFSI and other specialty salts [ID: 97]. For applications like electric vehicles, this is a non-starter. A solution that is not economically viable is not a solution; it is a laboratory curiosity [ID: 121].
+
+### A More Robust Proposal: Interface-First Co-Design
+
+Instead of searching for a single electrolyte formulation to solve all problems, I propose a more pragmatic, materials-centric approach. The electrolyte is a crucial *tool* for building a stable interface, but it is not the only one. My design principle is to **construct a multifunctional, hybrid solid-electrolyte interphase (SEI) *in-situ* that possesses both mechanical resilience and high ionic conductivity.**
+
+This is a multi-layered defense strategy:
+
+1.  **Electrolyte Foundation - Pragmatism and Tunability:** We begin with a foundation that prioritizes low-temperature kinetics without exorbitant cost.
+    *   **Solvent:** A **weakly-solvating, non-fluorinated ether** like cyclopentylmethyl ether (CPME) [ID: 400] or even dibutyl ether [ID: 376] is the starting point. These have low melting points and inherently low Li+ binding energy, directly addressing the low-temperature desolvation barrier [ID: 78, 452].
+    *   **Salts:** A dual-salt system is correct, but the choice is critical. We pair LiFSI, for its favorable decomposition into LiF and Li3N, with **lithium nitrate (LiNO3)**. LiNO3 is inexpensive and known to form a highly stable, passivating SEI on lithium, even in traditionally hostile carbonate electrolytes [ID: 28, 102, 152]. The challenge of its low solubility can be overcome via sustained-release mechanisms or careful solvent selection [ID: 152], ensuring its continuous presence at the interface. This combination provides both LiF and Li3N, creating a more complex and robust inorganic framework than LiF alone.
+
+2.  **Core Strategy - *In-Situ* Polymerized Flexible Shield:** This is the crux of my proposal. We must abandon the idea of a purely inorganic SEI and embrace a hybrid structure.
+    *   I propose incorporating an electrolyte additive, such as one containing **catechol and acrylic functional groups**, which undergoes *in-situ* anionic polymerization directly on the lithium surface upon the first charge [ID: 63].
+    *   This creates a **self-smoothing, flexible, and electronically insulating polymeric shield** that is covalently bonded to the anode. This polymer network acts as a mechanical barrier, physically suppressing dendrite nucleation and growth by homogenizing Li+ flux and providing steric repulsion [ID: 63]. It also accommodates the volume changes during cycling, preventing the cracking that plagues brittle inorganic SEIs.
+    *   The inorganic components (LiF, Li3N from salt decomposition) are then formed within this flexible polymer matrix. The result is a **hybrid SEI**: a tough, elastic organic backbone filled with highly ionically conductive inorganic nanoparticles. This structure provides the best of both worlds: the mechanical toughness of a polymer and the high Li+ conductivity of a ceramic [ID: 180, 249].
+
+3.  **Targeted High-Temperature and High-Voltage Stabilization:** Acknowledging the "no free lunch" principle, the oxidative stability of ethers at high voltage is a known weakness. Instead of relying solely on the bulk electrolyte structure, we must add a specific defense for the cathode.
+    *   The introduction of an additive like **lithium hexamethyldisilazide (LiHMDS)** is a targeted solution. It acts as a scavenger for both water and HF, preventing the degradation cascade at its source [ID: 160]. More importantly, it helps form a robust, thin cathode-electrolyte interphase (CEI) that protects high-nickel cathodes (like NCM811) from parasitic reactions, even at 4.5 V and 60°C [ID: 160]. This is a more direct and effective strategy than hoping a concentrated structure alone will suffice.
+
+**Validation Remains Paramount**
+
+I fully endorse your call for rigorous, multi-level validation. My proposed system must be subjected to the same harsh scrutiny:
+*   **Symmetric Cells (Li||Li):** Demonstrate >1000 hours of stable cycling at ≥1 mA/cm² and ≥1 mAh/cm² from -20°C to 60°C to prove interfacial stability [ID: 74, 472].
+*   **Practical Full Cells:** Use high-loading Ni-rich cathodes (>3.5 mAh/cm²) and thin lithium (≤50 µm, N/P < 3) to test under realistic conditions [ID: 88, 200].
+*   **Pouch Cells:** Confirm the absence of gas generation and mechanical integrity under stack pressure [ID: 83, 480].
+*   **Mechanistic Proof:** Provide direct evidence of the hybrid SEI structure using cryo-TEM and XPS [ID: 409, 116], confirm the *in-situ* polymerization with spectroscopy, and quantify the suppression of gas evolution with mass spectrometry [ID: 377].
+
+In conclusion, while the LHCE concept is a valuable contribution, a truly robust, all-climate lithium metal battery requires a more sophisticated, materials-engineering approach. We must actively build a multifunctional, hybrid interphase from the bottom up, rather than passively hoping for one to form from the top down. This "interface-first" design provides multiple, synergistic lines of defense against the kinetic, chemical, and mechanical failure modes that have plagued the lithium metal anode for decades.
+
+--- Evidence Appendix (auto-generated from snapshot) ---
+Snapshot: Scientist B
+- [ID: 33 | Xia Cao, 2020 | Review—Localized High-Concentration Electrolytes for Lithium Batteries | Venue: Journal of The Electrochemical Society | DOI: https://doi.org/10.1149/1945-7111/abd60e | OpenAlexID: https://openalex.org/W3117664282]
+- [ID: 63 | Dan Luo, 2021 | Constructing multifunctional solid electrolyte interface via in-situ polymerization for dendrite-free and low N/P ratio lithium metal batteries | Venue: Nature Communications | DOI: https://doi.org/10.1038/s41467-020-20339-1 | OpenAlexID: https://openalex.org/W3120085492]
+- [ID: 97 | Zhipeng Jiang, 2020 | Fluorobenzene, A Low‐Density, Economical, and Bifunctional Hydrocarbon Cosolvent for Practical Lithium Metal Batteries | Venue: Advanced Functional Materials | DOI: https://doi.org/10.1002/adfm.202005991 | OpenAlexID: https://openalex.org/W3090111254]
+- [ID: 121 | James T. Frith, 2023 | A non-academic perspective on the future of lithium-based batteries | Venue: Nature Communications | DOI: https://doi.org/10.1038/s41467-023-35933-2 | OpenAlexID: https://openalex.org/W4318049711]
+- [ID: 152 | Yayuan Liu, 2018 | Solubility-mediated sustained release enabling nitrate additive in carbonate electrolytes for stable lithium metal anode | Venue: Nature Communications | DOI: https://doi.org/10.1038/s41467-018-06077-5 | OpenAlexID: https://openalex.org/W2891628382]
+- [ID: 160 | Danfeng Zhang, 2022 | Lithium hexamethyldisilazide as electrolyte additive for efficient cycling of high-voltage non-aqueous lithium metal batteries | Venue: Nature Communications | DOI: https://doi.org/10.1038/s41467-022-34717-4 | OpenAlexID: https://openalex.org/W4309436644]
+- [ID: 222 | Mingfu He, 2019 | The intrinsic behavior of lithium fluoride in solid electrolyte interphases on lithium | Venue: Proceedings of the National Academy of Sciences | DOI: https://doi.org/10.1073/pnas.1911017116 | OpenAlexID: https://openalex.org/W2996591717]
+- [ID: 294 | Junxian Hou, 2020 | Thermal runaway of Lithium-ion batteries employing LiN(SO2F)2-based concentrated electrolytes | Venue: Nature Communications | DOI: https://doi.org/10.1038/s41467-020-18868-w | OpenAlexID: https://openalex.org/W3092189325]
+- [ID: 376 | Guorui Cai, 2022 | Solvent selection criteria for temperature-resilient lithium–sulfur batteries | Venue: Proceedings of the National Academy of Sciences | DOI: https://doi.org/10.1073/pnas.2200392119 | OpenAlexID: https://openalex.org/W4283836610]
+- [ID: 377 | Fredrik Larsson, 2017 | Toxic fluoride gas emissions from lithium-ion battery fires | Venue: Scientific Reports | DOI: https://doi.org/10.1038/s41598-017-09784-z | OpenAlexID: https://openalex.org/W2745830303]
+- [ID: 400 | Han Zhang, 2023 | Cyclopentylmethyl Ether, a Non‐Fluorinated, Weakly Solvating and Wide Temperature Solvent for High‐Performance Lithium Metal Battery | Venue: Angewandte Chemie International Edition | DOI: https://doi.org/10.1002/anie.202300771 | OpenAlexID: https://openalex.org/W4360601012]
+- [ID: 480 | Xiangqun Xu, 2022 | Dendrite‐accelerated thermal runaway mechanisms of lithium metal pouch batteries | Venue: SusMat | DOI: https://doi.org/10.1002/sus2.74 | OpenAlexID: https://openalex.org/W4283217269]
+
+[Battery-system specialist (Scientist A) - Round 2]
+Your points are well-taken, and I appreciate the rigor you bring to this discussion. We are in complete agreement that the goal is a practical, all-climate battery, not a delicate laboratory specimen. Your critique of a hypothetical, simplistic LHCE is sharp, but it mischaracterizes my position. I am not advocating for a "silver bullet," but for a system designed from a fundamental understanding of solvation chemistry, which is precisely where your "interface-first" proposal reveals its critical flaws.
+
+Your approach, while creative, introduces a host of uncontrolled variables and relies on sacrificial components—hallmarks of a patch, not a foundational solution.
+
+### A Critique of the "Interface-First" Polymerization Strategy
+
+1.  ***In-Situ* Polymerization is a Pandora's Box of Unpredictability:** The idea of forming a "self-smoothing, flexible, polymeric shield" [your ref: ID: 63] is seductive, but in practice, it's a nightmare of competing kinetics. The polymerization must proceed uniformly and completely, ahead of any parasitic reactions, across a temperature range spanning 80°C. What are the reaction kinetics at -20°C versus 60°C? How do you guarantee complete conversion of your monomers? Any unreacted additives become potent impurities, fouling the electrolyte and interfaces over time [ID: 39]. You're adding a complex, temperature-sensitive chemical reaction into a system that is already notoriously difficult to control. This is not robust engineering; it's wishful thinking.
+
+2.  **Sacrificial Additives are a Crutch, Not a Cure:** Your reliance on a scavenger like LiHMDS [your ref: ID: 160] to protect the cathode is an admission that the base electrolyte is not stable. Sacrificial additives, by definition, are consumed. Their depletion is a built-in failure mechanism, leading to a "knee" in performance degradation once the protection is gone [ID: 126]. A truly robust system must be *intrinsically* stable. Relying on a scavenger is like designing a ship with a slow leak and simply packing more buckets to bail it out. My approach is to build a better hull.
+
+3.  **The LiNO₃ Problem:** You correctly identify LiNO₃ as a useful SEI-forming agent but gloss over its fatal flaw: poor solubility in the very ether solvents you propose for low-temperature performance [ID: 288]. Your suggestion of "sustained-release mechanisms" [your ref: ID: 152] is vague and adds yet another layer of complex, unproven processing. Furthermore, LiNO₃ is known to be consumed during cycling, making it another sacrificial component that limits long-term calendar and cycle life [ID: 406].
+
+### A More Fundamental Solution: Solvation Structure Engineering
+
+Instead of adding reactive components to form an interface, my principle is to design an electrolyte that *inherently forms a stable, multi-component inorganic interphase* through the controlled decomposition of its primary constituents. This is achieved by precisely tuning the Li⁺ solvation environment.
+
+My proposal is a **multi-salt, weakly-coordinating fluorinated electrolyte**, which can be described as a "quasi-localized high-concentration" [ID: 173] or "high-entropy" system [ID: 80, 146].
+
+1.  **The Power of a Multi-Anion Solvation Sheath:** By using a mixture of weakly solvating fluorinated solvents (e.g., FEMC, TTE) [ID: 173, 211] and a higher concentration of multiple salts (e.g., **LiFSI and LiDFOB** [ID: 199, 334]), we force anions to participate directly in the Li⁺ primary solvation sheath [ID: 11, 265]. This is the central control mechanism. It ensures that upon reduction at the anode, it is the anions—not the solvents—that decompose first. This process is far more controllable than the chaotic decomposition of conventional electrolytes or the uncertain kinetics of *in-situ* polymerization.
+
+2.  **Building a Robust, Self-Healing Inorganic SEI:** Your critique of a brittle, pure-LiF SEI is valid [ID: 127], but that is not what my system produces. The co-decomposition of FSI⁻ and DFOB⁻ anions creates a **composite inorganic SEI** rich in LiF, Li₃N, and lithium borate/phosphate species [ID: 3, 59]. This multi-component, often amorphous or nanocrystalline, structure does not suffer from the brittleness of pure LiF. It has superior mechanical integrity and, critically, the ongoing cycling provides a continuous, low-level supply of these components, allowing the SEI to **dynamically self-heal** micro-cracks that form during Li plating/stripping. This is vastly superior to a static, one-time-polymerized layer that, once fractured, offers no mechanism for repair.
+
+3.  **Intrinsic High-Voltage and Wide-Temperature Stability:** This design directly addresses the entire temperature and voltage window without relying on sacrificial "band-aids."
+    *   **Low Temperature (-20°C and below):** The weak Li⁺-solvent interaction in these fluorinated systems, further modulated by the high-entropy salt mixture, inherently lowers the desolvation energy barrier [ID: 87, 438, 494]. This is the fundamental solution to sluggish low-temperature kinetics, enabling fast charging even at sub-zero temperatures [ID: 438].
+    *   **High Temperature (≥60°C):** The high concentration and fluorinated nature of the solvents lead to fewer "free" solvent molecules and higher boiling points, enhancing thermal stability [ID: 234]. The anion-derived CEI formed on the cathode is more stable at high voltage than a solvent-derived one, effectively protecting high-nickel cathodes up to 4.5V and beyond [ID: 173, 326]. This is a fundamental stability, not one dependent on a depleting scavenger.
+
+4.  **Addressing Practicality and Cost:** You correctly note the high cost of fluorinated materials and LiFSI [your ref: ID: 97, 121]. This is a fair point regarding current market prices. However, cost is a function of manufacturing scale, not a fundamental law of science [ID: 64]. The history of LIBs is one of dramatic cost reduction through scaled production [ID: 17, 466]. A simple, stable liquid electrolyte, even with more expensive initial components, is far more amenable to high-throughput, low-cost roll-to-roll manufacturing than a system requiring precise control over an *in-situ* polymerization reaction, which adds immense quality control costs and processing complexity.
+
+In summary, your proposal attempts to build a house of cards, relying on the delicate balance of polymerization kinetics and the finite lifetime of sacrificial additives. My approach is to build a foundation of stone. By engineering the solvation sheath itself, we create an electrolyte that *proactively* and *continuously* forms the exact type of robust, multi-component, self-healing inorganic interphase needed for stable, all-climate operation. This is not a "silver bullet"—it is rigorous, fundamental electrochemistry. And like you, I insist it be proven in high-loading pouch cells across the full temperature range [ID: 3, 22, 262, 334], with full mechanistic validation.
+
+--- Evidence Appendix (auto-generated from snapshot) ---
+Snapshot: Scientist A
+- [ID: 39 | Jacqueline Edge, 2021 | Lithium ion battery degradation: what you need to know | Venue: Physical Chemistry Chemical Physics | DOI: https://doi.org/10.1039/d1cp00359c | OpenAlexID: https://openalex.org/W3139510216]
+- [ID: 64 | James T. Frith, 2023 | A non-academic perspective on the future of lithium-based batteries | Venue: Nature Communications | DOI: https://doi.org/10.1038/s41467-023-35933-2 | OpenAlexID: https://openalex.org/W4318049711]
+- [ID: 126 | Peter M. Attia, 2022 | Review—“Knees” in Lithium-Ion Battery Aging Trajectories | Venue: Journal of The Electrochemical Society | DOI: https://doi.org/10.1149/1945-7111/ac6d13 | OpenAlexID: https://openalex.org/W4229052262]
+- [ID: 127 | Mingfu He, 2019 | The intrinsic behavior of lithium fluoride in solid electrolyte interphases on lithium | Venue: Proceedings of the National Academy of Sciences | DOI: https://doi.org/10.1073/pnas.1911017116 | OpenAlexID: https://openalex.org/W2996591717]
+- [ID: 173 | Wenlong Cai, 2023 | Quasi‐Localized High‐Concentration Electrolytes for High‐Voltage Lithium Metal Batteries | Venue: Advanced Energy Materials | DOI: https://doi.org/10.1002/aenm.202301396 | OpenAlexID: https://openalex.org/W4382401729]
+- [ID: 234 | Jianhui Wang, 2021 | Concentrated Electrolytes Widen the Operating Temperature Range of Lithium‐Ion Batteries | Venue: Advanced Science | DOI: https://doi.org/10.1002/advs.202101646 | OpenAlexID: https://openalex.org/W3183654966]
+- [ID: 288 | Xiang Li, 2021 | Nitrate additives for lithium batteries: Mechanisms, applications, and prospects | Venue: eScience | DOI: https://doi.org/10.1016/j.esci.2021.12.006 | OpenAlexID: https://openalex.org/W4200478228]
+- [ID: 406 | Xia Cao, 2023 | Stability of solid electrolyte interphases and calendar life of lithium metal batteries | Venue: Energy & Environmental Science | DOI: https://doi.org/10.1039/d2ee03557j | OpenAlexID: https://openalex.org/W4321845062]
+- [ID: 438 | Yumeng Zhao, 2023 | Strong Solvent and Dual Lithium Salts Enable Fast-Charging Lithium-Ion Batteries Operating from −78 to 60 °C | Venue: Journal of the American Chemical Society | DOI: https://doi.org/10.1021/jacs.3c08313 | OpenAlexID: https://openalex.org/W4387116111]
+
+[Electrolyte and interphase specialist (Scientist B) - Round 2]
+Your critique of a simplified LHCE is astute, but your proposed solution—a complex cocktail of fluorinated solvents and multiple salts—is a classic case of chasing one ideal property at the expense of several practical necessities. You aim to build a "hull of stone" but neglect that this hull is too heavy, too viscous, and too expensive to ever set sail. It is a solution that solves a problem in a computational model but fails in a real-world, high-energy-density pouch cell.
+
+### A Critique of the "High-Concentration, Fluorinated" Approach
+
+1.  **Viscosity, Wettability, and the Low-Temperature Reality:** Your primary claim for low-temperature performance hinges on reduced desolvation energy [ID: 438]. This is a valid point at the molecular level, but it ignores the macroscopic reality of ion transport. High-concentration electrolytes (HCEs), and their diluted cousins (LHCEs), are notoriously viscous [ID: 6, 15]. This high viscosity severely impedes bulk ionic conductivity and leads to poor wetting of porous electrodes and separators, especially as temperatures drop [ID: 98]. This is not a trivial issue; it is a fundamental kinetic bottleneck that throttles rate capability and leads to concentration polarization, promoting dendrite growth—the very problem you claim to solve [ID: 264]. A practical cell, especially a high-loading pouch cell, requires lean electrolyte conditions, where poor wettability becomes a catastrophic failure point [ID: 6, 63]. Your system is fundamentally incompatible with the form factor of a high-energy battery.
+
+2.  **The "Self-Healing" SEI is a Myth of Managed Degradation:** You praise an anion-derived, inorganic SEI that "dynamically self-heals." Let's be clear about what this means: it means the electrolyte is continuously decomposing to patch cracks. This process irreversibly consumes both active lithium and electrolyte components, leading to a steady decline in Coulombic efficiency and a finite cycle life [ID: 222]. This is not stability; it is managed failure. Furthermore, the idea that a mixture of LiFSI and LiDFOB neatly decomposes into a perfect, robust composite is an oversimplification. The decomposition pathways are complex and temperature-dependent [ID: 36, 99]. At low temperatures, these reactions can be kinetically hindered, leading to the formation of undesirable, organic-rich, and ionically resistive interphases—precisely the opposite of what is needed [ID: 36, 73]. Where is the cryo-TEM and XPS data proving your ideal SEI forms and is stable from -20°C to 60°C? Without it, your "self-healing" SEI is an unproven hypothesis.
+
+3.  **The High Cost and Hidden Dangers of Fluorination:** You dismiss the exorbitant cost of fluorinated solvents and salts like LiFSI as a problem of scale [ID: 121]. This is disingenuous. These are specialty chemicals with complex, energy-intensive syntheses and significant environmental footprints [ID: 119, 315]. A "solution" that is not economically and environmentally sustainable is an academic exercise, not a practical technology. More critically, you ignore the unique safety risks. While you tout non-flammability, you overlook the highly exothermic reactions that can occur between LiFSI and lithiated anodes at elevated temperatures, which can trigger thermal runaway even without a flame [ID: 294]. Furthermore, the decomposition of these fluorinated electrolytes is known to generate significant volumes of gas (CO₂, H₂, etc.), a critical failure mode for pouch cells that leads to delamination and rapid performance decay [ID: 431].
+
+### A Pragmatic Solution: *In-Situ* Engineering of a Multifunctional Hybrid Interphase
+
+My approach is not a "patch," but a targeted, bottom-up engineering strategy. I begin with a practical, low-viscosity, and cost-effective electrolyte backbone and use minute quantities of synergistic additives to construct robust, functional interphases *in-situ*. This is precision engineering, not a brute-force chemical flood.
+
+My proposal is a **low-concentration carbonate/ether electrolyte modified with synergistic additives to form a hybrid organic-inorganic SEI and a stable CEI.**
+
+1.  **A Foundation of Low Viscosity and Low Cost:** I start with a conventional, low-viscosity electrolyte, such as a blend of carbonates (EMC/DEC) and ethers (DOL/DME) [ID: 59, 102]. This ensures excellent ionic conductivity and electrode wetting across a wide temperature range from the outset. Novel, non-fluorinated, weakly solvating ethers can further reduce the desolvation energy barrier for superior low-temperature kinetics without the viscosity and cost penalties of your system [ID: 78, 400, 452]. This foundation is practical, scalable, and compatible with lean electrolyte operation.
+
+2.  **Building a Better SEI: The Hybrid Approach:** A purely inorganic SEI is brittle. A purely organic one is often too soft. The solution is a hybrid.
+    *   **Inorganic Framework:** I introduce lithium nitrate (LiNO₃). You correctly note its solubility issues, but this is easily overcome by using a small amount of a high-donor-number co-solvent like TPPO or TMU, which enhances its solubility and draws the NO₃⁻ anion into the Li⁺ solvation sheath [ID: 28, 102]. This enables the *in-situ* formation of a Li₃N-rich inner SEI, which is known to be a fast ion conductor and effective dendrite suppressor.
+    *   **Flexible Organic Matrix:** To counter the brittleness of the inorganic components, I include an additive like 1,3-dioxolane (DOL) or a catechol-group-containing monomer [ID: 63, 249]. These polymerize specifically at the reductive lithium surface, creating a flexible, self-smoothing, and tough outer organic layer. This hybrid structure—a robust inorganic foundation sheathed in an adaptive organic matrix—is mechanically superior to any purely inorganic SEI and can accommodate the volume changes during cycling without fracture [ID: 63, 180].
+
+3.  **A Unified Solution for Both Electrodes:** Your approach requires different chemistries for the anode and cathode interphases. My strategy is more elegant. The same high-donor-number additive (e.g., TPPO) that helps form the anode SEI also preferentially adsorbs and oxidizes on the high-nickel cathode surface [ID: 102]. This forms a thin, stable Cathode Electrolyte Interphase (CEI) that is critical for preventing parasitic reactions, transition metal dissolution, and capacity fade when cycling to high voltages (≥4.5 V) and at high temperatures (≥60°C) [ID: 102, 192]. This is not a "sacrificial" additive in the sense of a simple scavenger; it is an *interphase architect* that stabilizes both electrodes simultaneously.
+
+4.  **Proof, Not Postulation:** This is not wishful thinking. The efficacy of this strategy is demonstrable.
+    *   **Mechanism:** I will use cryo-TEM and XPS depth profiling to confirm the formation of the gradient, hybrid SEI [ID: 126, 409, 472]. Operando NMR will track the additive consumption and confirm the polymerization process [ID: 343].
+    *   **Performance:** The result is stable, dendrite-free cycling at high current densities (e.g., 3 mA cm⁻²) and high areal capacities (e.g., 3 mAh cm⁻²) [ID: 102]. Full cells with high-loading Ni-rich cathodes (NCM811) demonstrate excellent capacity retention over hundreds of cycles at both low (-15°C) and high (70°C) temperatures [ID: 102]. This performance is achieved in practical pouch cells, not just idealized coin cells [ID: 63].
+
+In conclusion, your strategy of using high-concentration fluorinated electrolytes is a dead end. It is an expensive, viscous, and ultimately impractical approach that creates as many problems as it solves. My strategy of using targeted, multifunctional additives in a low-cost, low-viscosity electrolyte is a far more sophisticated and practical path forward. It allows for the precise, *in-situ* engineering of robust, hybrid interphases that provide stability across the entire operational window without compromising on cost, manufacturability, or safety. That is the hallmark of a true materials engineering solution.
+
+--- Evidence Appendix (auto-generated from snapshot) ---
+Snapshot: Scientist B
+- [ID: 63 | Dan Luo, 2021 | Constructing multifunctional solid electrolyte interface via in-situ polymerization for dendrite-free and low N/P ratio lithium metal batteries | Venue: Nature Communications | DOI: https://doi.org/10.1038/s41467-020-20339-1 | OpenAlexID: https://openalex.org/W3120085492]
+- [ID: 98 | Johannes Landesfeind, 2019 | Temperature and Concentration Dependence of the Ionic Transport Properties of Lithium-Ion Battery Electrolytes | Venue: Journal of The Electrochemical Society | DOI: https://doi.org/10.1149/2.0571912jes | OpenAlexID: https://openalex.org/W2972556039]
+- [ID: 102 | Peitao Xiao, 2021 | High-Performance Lithium Metal Batteries with a Wide Operating Temperature Range in Carbonate Electrolyte by Manipulating Interfacial Chemistry | Venue: ACS Energy Letters | DOI: https://doi.org/10.1021/acsenergylett.1c01528 | OpenAlexID: https://openalex.org/W3195934016]
+- [ID: 121 | James T. Frith, 2023 | A non-academic perspective on the future of lithium-based batteries | Venue: Nature Communications | DOI: https://doi.org/10.1038/s41467-023-35933-2 | OpenAlexID: https://openalex.org/W4318049711]
+- [ID: 222 | Mingfu He, 2019 | The intrinsic behavior of lithium fluoride in solid electrolyte interphases on lithium | Venue: Proceedings of the National Academy of Sciences | DOI: https://doi.org/10.1073/pnas.1911017116 | OpenAlexID: https://openalex.org/W2996591717]
+- [ID: 264 | Xieyu Xu, 2020 | Role of Li‐Ion Depletion on Electrode Surface: Underlying Mechanism for Electrodeposition Behavior of Lithium Metal Anode | Venue: Advanced Energy Materials | DOI: https://doi.org/10.1002/aenm.202002390 | OpenAlexID: https://openalex.org/W3092659451]
+- [ID: 294 | Junxian Hou, 2020 | Thermal runaway of Lithium-ion batteries employing LiN(SO2F)2-based concentrated electrolytes | Venue: Nature Communications | DOI: https://doi.org/10.1038/s41467-020-18868-w | OpenAlexID: https://openalex.org/W3092189325]
+- [ID: 343 | Yanting Jin, 2018 | Understanding Fluoroethylene Carbonate and Vinylene Carbonate Based Electrolytes for Si Anodes in Lithium Ion Batteries with NMR Spectroscopy | Venue: Journal of the American Chemical Society | DOI: https://doi.org/10.1021/jacs.8b03408 | OpenAlexID: https://openalex.org/W2851304407]
+- [ID: 431 | Ben Rowden, 2020 | A review of gas evolution in lithium ion batteries | Venue: Energy Reports | DOI: https://doi.org/10.1016/j.egyr.2020.02.022 | OpenAlexID: https://openalex.org/W3027513684]
+- [ID: 438 | Boyang Liu, 2017 | Rapid Thermal Annealing of Cathode-Garnet Interface toward High-Temperature Solid State Batteries | Venue: Nano Letters | DOI: https://doi.org/10.1021/acs.nanolett.7b01934 | OpenAlexID: https://openalex.org/W2735305954]
+
+[Battery-system specialist (Scientist A) - Round 3]
+Your argument against high-concentration, fluorinated systems is a familiar one, and it fundamentally misdiagnoses the problem. You've constructed a strawman of a viscous, expensive, and impractical electrolyte, while proposing a "solution" that is, frankly, a house of cards built on an unstable foundation. Your reliance on conventional carbonates and ethers, patched up with a cocktail of additives, ignores decades of research on their inherent limitations, especially at the voltage and temperature extremes required for next-generation batteries.
+
+Let's be clear. Your proposed "low-viscosity" carbonate/ether blend is precisely the wrong starting point.
+
+1.  **Your "Low-Viscosity" Foundation is a Low-Temperature Trap:** You criticize the viscosity of concentrated systems, but you ignore the real kinetic killer at low temperatures: the high desolvation energy of conventional solvents like carbonates and ethers [ID: 148, 426]. At sub-zero temperatures, the strong Li⁺-solvent interaction in your system becomes the primary bottleneck, leading to sluggish charge transfer and promoting lithium plating [ID: 344]. Furthermore, recent work shows that at low temperatures, the decomposition pathways in these conventional electrolytes change, leading to the formation of a resistive, organic-rich, and metastable SEI—the exact opposite of what is needed [ID: 87]. Your foundation is fundamentally flawed for all-climate operation. A recent study even demonstrated that by breaking the solvation dominance of ethylene carbonate through molecular charge engineering, LIBs could operate down to -100 °C [ID: 445]. This highlights that solvation chemistry, not just bulk viscosity, is the key.
+
+2.  **Your "Hybrid SEI" is an Unstable, Heterogeneous Mess:** Your proposal to build a "hybrid" SEI using LiNO₃, TPPO, and polymerizing additives is a recipe for continuous degradation, not stability. First, the cornerstone of your carbonate-based system, lithium carbonate (Li₂CO₃), has been shown by cryogenic TEM to be inherently unstable in contact with lithium metal, continuously reacting and generating gas [ID: 208]. Building an SEI on such a foundation is futile. Second, you rely on a complex interplay of multiple additives, each with its own decomposition pathway. LiNO₃ is notoriously unstable at high voltages [ID: 288], and its solubility in carbonates is poor, requiring yet another co-solvent [ID: 96]. This is not "elegant engineering"; it is a complex, poorly controlled system that will inevitably lead to a thick, resistive, and non-uniform SEI, increasing impedance and consuming active lithium with every cycle [ID: 39].
+
+3.  **You Cannot Stabilize an Unstable Backbone:** The most glaring flaw is your attempt to use high-nickel cathodes (NCM811) cycling to 4.5 V with a carbonate/ether electrolyte. This is a non-starter. The oxidative decomposition of ethers and carbonates at these potentials is severe, leading to massive gas generation, transition metal dissolution, and catastrophic capacity fade [ID: 115, 376, 398]. Your TPPO additive might form a CEI, but it's a sacrificial layer fighting a losing battle against an electrolyte that is actively trying to decompose. You are applying a band-aid to a mortal wound.
+
+### The Correct Approach: Solvation Structure Engineering with Weakly Solvating Electrolytes
+
+My approach is not brute-force high concentration. It is a targeted strategy based on a fundamental principle: **control the Li⁺ solvation shell to dictate the interphase chemistry**. This leads to a solution that is robust across the entire temperature and voltage window. My proposed solution is a **moderately concentrated, weakly solvating fluorinated ether-based electrolyte.**
+
+1.  **Mechanism: Engineering the Solvation Sheath.** The key is to use solvents with low solvating power, such as fluorinated ethers (e.g., FEMC, or monofluoride ethers [ID: 22, 173]) or even liquefied gases [ID: 2, 95]. These "weakly solvating" solvents, by design, cannot compete with anions for a place in the Li⁺ primary solvation shell [ID: 352]. This forces anions like FSI⁻ or DFOB⁻ to coordinate directly with the Li⁺, creating an "anion-rich" solvation structure even at moderate concentrations (e.g., 1.5-2.0 M) [ID: 66, 114]. This approach provides the benefits of superconcentrated electrolytes—a stable, anion-derived SEI—without the crippling viscosity and cost [ID: 23].
+
+2.  **Wide-Temperature Performance by Design:** This engineered solvation structure is the key to wide-temperature operation. The weak Li⁺-solvent interaction drastically lowers the desolvation energy barrier, enabling fast interfacial kinetics even at temperatures down to -40°C or below [ID: 211, 494]. Unlike your system where the SEI itself becomes resistive at low temperatures [ID: 87], my anion-derived SEI is predominantly inorganic (e.g., LiF, Li₃N) and maintains high ionic conductivity across the temperature range [ID: 56, 265]. We have demonstrated stable cycling of high-voltage cells from -20°C to 60°C [ID: 52] and even down to -70°C with optimized nitrile co-solvents [ID: 494].
+
+3.  **Inherent Stability at Both Electrodes:** Because the electrolyte is designed for anion-driven decomposition, it forms a dense, thin, and mechanically robust LiF-rich SEI on the lithium anode [ID: 56, 161]. This is fundamentally more stable and less resistive than the unstable, organic-rich SEI formed from your carbonate system [ID: 208, 265]. On the cathode side, the high oxidative stability of fluorinated ethers and salts prevents the parasitic reactions that plague your system, enabling stable cycling of NCM811 and LCO cathodes to 4.5 V, 4.7 V, and even 5.0 V [ID: 3, 52, 173, 326]. This is a unified solution, not a patchwork of additives for each electrode.
+
+4.  **Practicality and Proof:** This isn't just theory. We have demonstrated the viability of this approach in practical cell formats. A 320 mAh Li||NCM811 multi-layer pouch cell using a monofluoride ether electrolyte delivered a specific energy of 426 Wh kg⁻¹ with 80% retention after 200 cycles [ID: 22]. A quasi-localized HCE based on fluorinated carbonates enabled stable cycling of Li||LCO pouch cells from -20°C to 45°C at 4.5V [ID: 173]. These are not coin-cell curiosities; they are demonstrations in formats relevant to real-world applications.
+
+In conclusion, your approach of trying to salvage obsolete carbonate/ether systems with additives is a dead end. It creates complex, unstable interfaces and fails to address the fundamental thermodynamic and kinetic challenges at temperature and voltage extremes. My strategy of engineering the Li⁺ solvation shell with weakly-solvating fluorinated electrolytes provides a fundamental, robust, and unified solution. It creates stable, inorganic-rich interphases on both electrodes, enabling fast kinetics and high stability across the entire operational map. This is the rigorous, mechanism-driven science that will deliver the next generation of all-climate, high-energy batteries.
+
+--- Evidence Appendix (auto-generated from snapshot) ---
+Snapshot: Scientist A
+- [ID: 22 | Guangzhao Zhang, 2023 | A monofluoride ether-based electrolyte solution for fast-charging and low-temperature non-aqueous lithium metal batteries | Venue: Nature Communications | DOI: https://doi.org/10.1038/s41467-023-36793-6 | OpenAlexID: https://openalex.org/W4322008430]
+- [ID: 23 | Xia Cao, 2020 | Review—Localized High-Concentration Electrolytes for Lithium Batteries | Venue: Journal of The Electrochemical Society | DOI: https://doi.org/10.1149/1945-7111/abd60e | OpenAlexID: https://openalex.org/W3117664282]
+- [ID: 39 | Jacqueline Edge, 2021 | Lithium ion battery degradation: what you need to know | Venue: Physical Chemistry Chemical Physics | DOI: https://doi.org/10.1039/d1cp00359c | OpenAlexID: https://openalex.org/W3139510216]
+- [ID: 52 | Zhihong Piao, 2023 | A Semisolvated Sole-Solvent Electrolyte for High-Voltage Lithium Metal Batteries | Venue: Journal of the American Chemical Society | DOI: https://doi.org/10.1021/jacs.3c08733 | OpenAlexID: https://openalex.org/W4387966468]
+- [ID: 87 | Suting Weng, 2023 | Temperature-dependent interphase formation and Li+ transport in lithium metal batteries | Venue: Nature Communications | DOI: https://doi.org/10.1038/s41467-023-40221-0 | OpenAlexID: https://openalex.org/W4385257145]
+- [ID: 96 | Zhihong Piao, 2021 | Constructing a Stable Interface Layer by Tailoring Solvation Chemistry in Carbonate Electrolytes for High‐Performance Lithium‐Metal Batteries | Venue: Advanced Materials | DOI: https://doi.org/10.1002/adma.202108400 | OpenAlexID: https://openalex.org/W3217430193]
+- [ID: 173 | Wenlong Cai, 2023 | Quasi‐Localized High‐Concentration Electrolytes for High‐Voltage Lithium Metal Batteries | Venue: Advanced Energy Materials | DOI: https://doi.org/10.1002/aenm.202301396 | OpenAlexID: https://openalex.org/W4382401729]
+- [ID: 208 | Bing Han, 2021 | Poor Stability of Li 2 CO 3 in the Solid Electrolyte Interphase of a Lithium‐Metal Anode Revealed by Cryo‐Electron Microscopy | Venue: Advanced Materials | DOI: https://doi.org/10.1002/adma.202100404 | OpenAlexID: https://openalex.org/W3157307438]
+- [ID: 288 | Xiang Li, 2021 | Nitrate additives for lithium batteries: Mechanisms, applications, and prospects | Venue: eScience | DOI: https://doi.org/10.1016/j.esci.2021.12.006 | OpenAlexID: https://openalex.org/W4200478228]
+- [ID: 344 | T. Richard Jow, 2018 | Factors Limiting Li+Charge Transfer Kinetics in Li-Ion Batteries | Venue: Journal of The Electrochemical Society | DOI: https://doi.org/10.1149/2.1221802jes | OpenAlexID: https://openalex.org/W2792697810]
+- [ID: 352 | Zhijie Wang, 2023 | Weakly solvating electrolytes for next-generation lithium batteries: design principles and recent advances | Venue: Energy Materials and Devices | DOI: https://doi.org/10.26599/emd.2023.9370003 | OpenAlexID: https://openalex.org/W4386509670]
+- [ID: 445 | Yuqing Chen, 2023 | Breaking solvation dominance of ethylene carbonate via molecular charge engineering enables lower temperature battery | Venue: Nature Communications | DOI: https://doi.org/10.1038/s41467-023-43163-9 | OpenAlexID: https://openalex.org/W4389726555]
+- [ID: 494 | Laibing Luo, 2023 | Enabling Ultralow‐Temperature (−70 °C) Lithium‐Ion Batteries: Advanced Electrolytes Utilizing Weak‐Solvation and Low‐Viscosity Nitrile Cosolvent | Venue: Advanced Materials | DOI: https://doi.org/10.1002/adma.202308881 | OpenAlexID: https://openalex.org/W4388302770]
+
+[Electrolyte and interphase specialist (Scientist B) - Round 3]
+Your argument is a classic example of focusing on a single, idealized mechanism—the "LiF-rich SEI"—while conveniently ignoring the harsh realities of cost, processability, and the inherent trade-offs of your chosen chemistry. You paint a picture of my approach as a "house of cards," yet your proposed solution is a fragile, expensive glass sculpture, beautiful in theory but guaranteed to shatter under practical stress. You've fixated on fluorination as a panacea, but in doing so, you've created a system with its own critical, and perhaps more severe, flaws.
+
+Let's deconstruct your argument based on fundamental principles, not wishful thinking.
+
+**1. The "Weakly Solvating" Fluorinated Ether is a Brittle, Expensive Trap.**
+
+You champion a LiF-rich SEI as the ultimate goal, but you fundamentally misunderstand its nature. A purely inorganic, LiF-dominant SEI is not a silver bullet; it's a liability. Recent work has unequivocally shown that LiF is mechanically fragile and easily compromised during plating, making it intrinsically unable to protect the lithium anode on its own [ID: 222]. The perceived stability of "LiF-rich" systems comes not from the LiF itself, but from the continuous *in-situ repair* of the interface by the electrolyte [ID: 222]. Your system, which relies on a supposedly stable fluorinated ether, lacks the dynamic, self-healing components necessary for long-term stability. You are building a rigid wall that will crack, not a resilient barrier that can adapt.
+
+Furthermore, you dismiss concerns about viscosity and cost. This is a fatal oversight for any practical system. Fluorinated solvents are notoriously expensive and often lead to lower ionic conductivity and higher viscosity compared to their non-fluorinated counterparts [ID: 18, 121]. You claim to avoid the issues of HCEs, but you're simply trading one problem for another. The paper you yourself champion [your ID 22, my ID 18] explicitly states that while their monofluoride ether improves oxidative stability, it comes at the cost of ionic conductivity. There is no free lunch. Your approach sacrifices kinetics and economic viability for a simplistic, and ultimately flawed, interfacial concept.
+
+**2. Your High-Voltage "Solution" is Incomplete and Inconsistent.**
+
+Your claim of broad high-voltage stability is built on shaky ground. You criticize my use of additives, yet your entire strategy hinges on the specific decomposition of fluorinated molecules. You cite a pouch cell with a monofluoride ether cycling to high voltage [your ID 22, my ID 18], which is a commendable result. However, you also use a "quasi-localized HCE" with fluorinated *carbonates* as evidence [your ID 173, my ID 220]. You cannot have it both ways. If fluorinated *ethers* are the key, why do you need to borrow evidence from fluorinated *carbonates*? This reveals the weakness of your core thesis: it is not the solvent class itself, but the specific tuning of the entire electrolyte system that matters.
+
+More importantly, your focus on ether oxidation ignores the other half of the battery. High-nickel cathodes like NCM811 are prone to transition metal dissolution, which is exacerbated at high temperatures and high states of charge [ID: 192, 266]. Dissolved manganese and nickel ions migrate to the anode and poison the SEI, catalyzing further electrolyte decomposition and accelerating failure [ID: 266]. A simple LiF layer does little to stop this. You are so focused on preventing solvent oxidation that you've ignored the equally destructive chemical crosstalk that will doom your cell.
+
+### A Superior Approach: A Synergistic, Multi-Component Localized Electrolyte
+
+Instead of a simplistic, one-component-fixes-all approach, I propose a system engineered for synergy. The goal is not to create a single "perfect" interphase, but a dynamic, resilient, and multifunctional system that addresses all failure modes simultaneously. My solution is a **dual-salt, additized Localized High-Concentration Electrolyte (LHCE)**.
+
+**1. Mechanism: Engineering Stability and Kinetics from the Ground Up.**
+The foundation is a localized high-concentration electrolyte [ID: 33]. We start with a thermally stable, high-boiling point solvent like sulfolane and a high concentration of salt (e.g., LiFSI), creating the anion-rich solvation sheath you correctly identify as beneficial. Then, we add a carefully selected, non-solvating diluent with a low melting point, such as ethyl acetate (EA) [ID: 83]. This masterstroke achieves the "best of both worlds": the stable interfacial chemistry of an HCE with the low viscosity, high conductivity, and excellent low-temperature performance of a dilute electrolyte [ID: 33, 83]. This design has been proven to enable operation from -40 °C to over 90 °C [ID: 59, 83], a far wider and more practical range than your proposed system.
+
+**2. The Multifunctional Interphase: A Hybrid of Strength and Flexibility.**
+A purely inorganic SEI is brittle [ID: 222]. A purely organic SEI is too soft. True stability requires a hybrid.
+*   **Inorganic Framework:** I employ a **dual-salt system**, such as LiFSI combined with lithium difluorophosphate (LiPO2F2) [ID: 59] or lithium difluoro(oxalato)borate (LiDFOB) [ID: 83]. These additives work synergistically to create a robust, LiF- and phosphate/borate-rich inorganic scaffold. This is not just a simple LiF layer; it's a complex, engineered composite with superior ionic conductivity and mechanical properties [ID: 42, 380].
+*   **Self-Healing Polymer Network:** To complement the rigid inorganic scaffold, I introduce an **in-situ polymerizing additive** containing catechol and acrylic groups [ID: 63]. Upon the first charge, this additive polymerizes directly on the lithium surface, forming a flexible, self-smoothing, and ionically conductive polymer network. This network physically constrains Li nucleation, homogenizes ion flux, and provides the flexibility to accommodate volume changes where a brittle LiF layer would simply crack [ID: 63, 249]. This is how you build a truly stable, dendrite-free anode.
+
+**3. Proven Performance Under Practical Conditions.**
+This is not a theoretical exercise. This synergistic approach has demonstrated remarkable performance under realistic conditions.
+*   **Wide Temperature Operation:** Dual-salt carbonate systems have shown excellent cycling from -40 °C to 90 °C [ID: 59]. LHCEs based on sulfolane/ester mixtures have shown high rate capability (10C) and stable cycling at -40°C [ID: 83].
+*   **High Areal Capacity & Pouch Cells:** Anion-manipulated electrolytes based on these principles have demonstrated excellent performance in high-loading Li metal pouch cells [ID: 6]. In-situ polymerization strategies have enabled stable cycling at 10 mA cm⁻² and under lean electrolyte conditions [ID: 63].
+
+In conclusion, your obsession with fluorinated ethers has led you to a solution that is expensive, kinetically sluggish, and mechanically fragile. You've ignored the well-established principles of synergistic design that have driven real progress. My approach—a multifunctional, dual-salt LHCE—is a holistic engineering solution. It combines the benefits of HCEs, the kinetics of dilute electrolytes, the robustness of hybrid inorganic-organic SEIs, and the self-healing nature of in-situ polymerization. It is designed from first principles to be stable, efficient, and practical across the entire operational window. That is how you solve the problem.
+
+--- Evidence Appendix (auto-generated from snapshot) ---
+Snapshot: Scientist B
+- [ID: 6 | Nannan Sun, 2022 | Anionic Coordination Manipulation of Multilayer Solvation Structure Electrolyte for High‐Rate and Low‐Temperature Lithium Metal Battery | Venue: Advanced Energy Materials | DOI: https://doi.org/10.1002/aenm.202200621 | OpenAlexID: https://openalex.org/W4295932124]
+- [ID: 33 | Xia Cao, 2020 | Review—Localized High-Concentration Electrolytes for Lithium Batteries | Venue: Journal of The Electrochemical Society | DOI: https://doi.org/10.1149/1945-7111/abd60e | OpenAlexID: https://openalex.org/W3117664282]
+- [ID: 59 | Xuehui Shangguan, 2019 | Additive‐Assisted Novel Dual‐Salt Electrolyte Addresses Wide Temperature Operation of Lithium–Metal Batteries | Venue: Small | DOI: https://doi.org/10.1002/smll.201900269 | OpenAlexID: https://openalex.org/W2921954478]
+- [ID: 63 | Dan Luo, 2021 | Constructing multifunctional solid electrolyte interface via in-situ polymerization for dendrite-free and low N/P ratio lithium metal batteries | Venue: Nature Communications | DOI: https://doi.org/10.1038/s41467-020-20339-1 | OpenAlexID: https://openalex.org/W3120085492]
+- [ID: 83 | Shuangshuang Lin, 2021 | A Multifunctional Dual‐Salt Localized High‐Concentration Electrolyte for Fast Dynamic High‐Voltage Lithium Battery in Wide Temperature Range | Venue: Advanced Energy Materials | DOI: https://doi.org/10.1002/aenm.202101775 | OpenAlexID: https://openalex.org/W3192501834]
+- [ID: 222 | Mingfu He, 2019 | The intrinsic behavior of lithium fluoride in solid electrolyte interphases on lithium | Venue: Proceedings of the National Academy of Sciences | DOI: https://doi.org/10.1073/pnas.1911017116 | OpenAlexID: https://openalex.org/W2996591717]
+- [ID: 266 | Cun Wang, 2019 | Overlooked electrolyte destabilization by manganese (II) in lithium-ion batteries | Venue: Nature Communications | DOI: https://doi.org/10.1038/s41467-019-11439-8 | OpenAlexID: https://openalex.org/W2964598890]
+
+
+============================================================
+[FINAL SYNTHESIS]
+To: The Research Team
+From: Research Director
+Date: October 26, 2023
+Subject: Resolution and Path Forward on Wide-Temperature Lithium-Metal Electrolyte Co-Design
+
+I have completed my review of the debate between Scientist A and Scientist B. Both have presented compelling, evidence-based arguments that cut to the core of the challenges facing all-climate lithium-metal batteries. Their shared insistence on rigorous, practical validation—moving beyond coin cells to high-loading pouch cells tested across the full temperature range—is a standard we will adopt immediately.
+
+The central conflict is between two design philosophies: Scientist A’s pursuit of an *intrinsically stable* system via solvation-sheath engineering, and Scientist B’s more pragmatic, *materials-engineering* approach focused on building a multifunctional hybrid interphase. Both arguments have significant merit and expose the weaknesses in the other's position. A synthesis of their strongest points provides the most promising path forward.
+
+### Synthesis of Arguments
+
+**1. On the Electrolyte Backbone: Solvation vs. Practicality**
+
+*   **Scientist A** argues that the fundamental bottleneck at low temperature is high desolvation energy, not just bulk viscosity. They advocate for weakly-solvating fluorinated ethers to lower this energy barrier, creating an anion-rich solvation shell that dictates interphase chemistry even at moderate concentrations. Scientist A [ID: 87, 352, 445]. This approach is designed for intrinsic stability at high voltage and low temperature. Scientist A [ID: 52, 494].
+*   **Scientist B** counters that fully fluorinated systems are prohibitively expensive, viscous, and suffer from poor electrode wettability, making them impractical for high-energy pouch cells. Scientist B [ID: 98, 121]. They propose starting with a low-cost, low-viscosity backbone (e.g., non-fluorinated ethers or carbonate/ether blends) and leveraging the Localized High-Concentration Electrolyte (LHCE) concept with non-solvating diluents to achieve a practical balance of properties. Scientist B [ID: 33, 83, 400].
+
+**2. On Interphase Mechanics: Inorganic Rigidity vs. Hybrid Flexibility**
+
+*   **Scientist A** champions a multi-component *inorganic* SEI (rich in LiF, Li₃N, borates) formed from the controlled decomposition of multiple anion salts (e.g., LiFSI, LiDFOB). Scientist A [ID: 3, 59]. They argue this creates a dense, ionically conductive layer that can "self-heal" through continuous, low-level electrolyte consumption, providing superior stability to a static layer.
+*   **Scientist B** delivers a powerful rebuttal, citing evidence that purely inorganic layers like LiF are inherently brittle and prone to fracture during cycling. Scientist B [ID: 222]. They argue that Scientist A’s "self-healing" is simply managed degradation. Instead, Scientist B proposes a *hybrid* SEI: a robust inorganic framework complemented by a flexible, *in-situ polymerized* organic matrix that can accommodate volume changes without cracking, physically suppressing dendrites. Scientist B [ID: 63, 180, 249].
+
+**3. On Stability Strategy: Intrinsic vs. Additive-Engineered**
+
+*   **Scientist A** insists on intrinsic stability, arguing that a properly designed weakly-solvating electrolyte does not require "sacrificial" additives, which are a built-in failure mechanism. Scientist A [ID: 126]. The inherent oxidative stability of the fluorinated components is sufficient to protect high-voltage cathodes. Scientist A [ID: 173, 326].
+*   **Scientist B** argues this is a simplistic view that ignores failure modes like transition metal dissolution. Scientist B [ID: 266]. They advocate for a more targeted approach, using multifunctional additives that act as "interphase architects" to simultaneously form a robust anode SEI and a protective cathode CEI, providing a more comprehensive defense. Scientist B [ID: 102, 160].
+
+### Decision and Recommended Path Forward
+
+Neither approach is a silver bullet. Scientist A's focus on fundamental solvation chemistry is correct but leads to a system that may be too brittle and expensive. Scientist B's focus on mechanical resilience and practicality is crucial but relies on complex additive packages that can be difficult to control.
+
+The most probable path to success lies in a synergistic combination of these two philosophies. We will pursue the development of a **multifunctional, hybrid-interphase electrolyte system based on the LHCE principle.**
+
+The proposed composition is as follows:
+
+1.  **Electrolyte Architecture: Localized High-Concentration Electrolyte (LHCE).** Both scientists converge on the benefits of separating the solvation environment from bulk properties. This architecture provides the best framework, combining the stable interfacial chemistry of a high-concentration electrolyte with the low viscosity and superior transport properties of a dilute system. Scientist B [ID: 33, 83].
+
+2.  **Solvent System: Weakly Solvating Ether + Non-Solvating Diluent.** We will prioritize lowering the Li⁺ desolvation energy, per Scientist A's core principle. Scientist A [ID: 87, 344]. However, to manage cost and viscosity, we will focus on *moderately* fluorinated ethers (e.g., FEMC) or advanced non-fluorinated ethers (e.g., CPME) for the solvating component. Scientist A [ID: 22], Scientist B [ID: 400]. This will be paired with a low-viscosity, non-solvating fluorinated ester or ether as the diluent.
+
+3.  **Salt System: Dual-Anion for a Multi-Component Inorganic Framework.** Both agree on a multi-salt approach. We will use **LiFSI** as the primary salt for its thermal stability and favorable decomposition products. Scientist A [ID: 66, 114]. This will be paired with a secondary salt like **LiDFOB** or **LiPO₂F₂**. This combination will serve as the primary source for a robust, multi-component inorganic scaffold rich in LiF, Li₃N, and borate/phosphate species, as advocated by both debaters. Scientist A [ID: 31], Scientist B [ID: 59].
+
+4.  **Interphase Design: In-Situ Polymerized Flexible Matrix.** Scientist B’s critique of the brittleness of purely inorganic SEIs is decisive. Scientist B [ID: 222]. Therefore, we will incorporate a small amount of an **in-situ polymerizing additive** (e.g., containing catechol/acrylic functionality). This additive will form a flexible, electronically insulating polymer network on the anode surface during formation. Scientist B [ID: 63]. This hybrid organic-inorganic structure will provide both the high ionic conductivity of the inorganic components and the mechanical flexibility needed to accommodate Li volume changes and suppress dendrites. Scientist B [ID: 180, 249]. This directly addresses the primary mechanical failure mode without relying on the continuous electrolyte degradation that Scientist A's "self-healing" implies.
+
+This synthesized approach leverages the fundamental solvation principles of Scientist A while incorporating the critical mechanical and practical considerations of Scientist B. It is designed to proactively form a robust, multi-layered, and adaptive interphase, rather than relying solely on the intrinsic (and potentially brittle) properties of a single material.
+
+### Evidence Map
+
+The following recommendations are supported by the evidence presented in the debate:
+
+*   **Adopt the Localized High-Concentration Electrolyte (LHCE) architecture.**
+    *   Supporting Evidence: Scientist A [ID: 173], Scientist B [ID: 33, 83]
+*   **Utilize a weakly-solvating ether solvent to lower desolvation energy for better low-temperature kinetics.**
+    *   Supporting Evidence: Scientist A [ID: 87, 211, 352, 445], Scientist B [ID: 78, 400, 452]
+*   **Employ a dual-salt system (e.g., LiFSI + LiDFOB/LiPO₂F₂) to build a multi-component inorganic SEI/CEI.**
+    *   Supporting Evidence: Scientist A [ID: 31, 199, 438], Scientist B [ID: 59, 83]
+*   **Incorporate an in-situ polymerizing additive to create a flexible organic matrix, forming a hybrid SEI.**
+    *   Supporting Evidence: Scientist B [ID: 63, 180, 249]
+*   **Acknowledge and design for the inherent brittleness of purely inorganic LiF-based interphases.**
+    *   Supporting Evidence: Scientist A [ID: 127], Scientist B [ID: 222]
+*   **Mandate rigorous validation in high-loading pouch cells (>3 mAh/cm²) with lean electrolyte and low N/P ratios (<3) across the full temperature range (-20°C to 60°C).**
+    *   Supporting Evidence: Scientist A [ID: 3, 22, 66, 131], Scientist B [ID: 63, 83, 88]
+
+This integrated strategy represents our most promising path toward a commercially viable, all-climate lithium-metal battery. Let's move forward with this design and subject it to the rigorous validation protocols we have all agreed upon.
+
+--- Evidence Appendix (Scientist A snapshot) ---
+- [ID: 22 | Guangzhao Zhang, 2023 | A monofluoride ether-based electrolyte solution for fast-charging and low-temperature non-aqueous lithium metal batteries | Venue: Nature Communications | DOI: https://doi.org/10.1038/s41467-023-36793-6 | OpenAlexID: https://openalex.org/W4322008430]
+- [ID: 31 | Gaojie Xu, 2019 | Formulation of Blended‐Lithium‐Salt Electrolytes for Lithium Batteries | Venue: Angewandte Chemie International Edition | DOI: https://doi.org/10.1002/anie.201906494 | OpenAlexID: https://openalex.org/W2994377960]
+- [ID: 126 | Peter M. Attia, 2022 | Review—“Knees” in Lithium-Ion Battery Aging Trajectories | Venue: Journal of The Electrochemical Society | DOI: https://doi.org/10.1149/1945-7111/ac6d13 | OpenAlexID: https://openalex.org/W4229052262]
+- [ID: 127 | Mingfu He, 2019 | The intrinsic behavior of lithium fluoride in solid electrolyte interphases on lithium | Venue: Proceedings of the National Academy of Sciences | DOI: https://doi.org/10.1073/pnas.1911017116 | OpenAlexID: https://openalex.org/W2996591717]
+- [ID: 173 | Wenlong Cai, 2023 | Quasi‐Localized High‐Concentration Electrolytes for High‐Voltage Lithium Metal Batteries | Venue: Advanced Energy Materials | DOI: https://doi.org/10.1002/aenm.202301396 | OpenAlexID: https://openalex.org/W4382401729]
+
+--- Evidence Appendix (Scientist B snapshot) ---
+- [ID: 59 | Xuehui Shangguan, 2019 | Additive‐Assisted Novel Dual‐Salt Electrolyte Addresses Wide Temperature Operation of Lithium–Metal Batteries | Venue: Small | DOI: https://doi.org/10.1002/smll.201900269 | OpenAlexID: https://openalex.org/W2921954478]
+- [ID: 63 | Dan Luo, 2021 | Constructing multifunctional solid electrolyte interface via in-situ polymerization for dendrite-free and low N/P ratio lithium metal batteries | Venue: Nature Communications | DOI: https://doi.org/10.1038/s41467-020-20339-1 | OpenAlexID: https://openalex.org/W3120085492]
+- [ID: 222 | Mingfu He, 2019 | The intrinsic behavior of lithium fluoride in solid electrolyte interphases on lithium | Venue: Proceedings of the National Academy of Sciences | DOI: https://doi.org/10.1073/pnas.1911017116 | OpenAlexID: https://openalex.org/W2996591717]
+- [ID: 266 | Cun Wang, 2019 | Overlooked electrolyte destabilization by manganese (II) in lithium-ion batteries | Venue: Nature Communications | DOI: https://doi.org/10.1038/s41467-019-11439-8 | OpenAlexID: https://openalex.org/W2964598890]
+- [ID: 400 | Han Zhang, 2023 | Cyclopentylmethyl Ether, a Non‐Fluorinated, Weakly Solvating and Wide Temperature Solvent for High‐Performance Lithium Metal Battery | Venue: Angewandte Chemie International Edition | DOI: https://doi.org/10.1002/anie.202300771 | OpenAlexID: https://openalex.org/W4360601012]
+

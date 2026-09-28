@@ -1,0 +1,118 @@
+{
+  "config_id": "corpus_size_sensitivity_v1",
+  "status": "FROZEN_BEFORE_RETRIEVAL",
+  "frozen_date": "2026-09-20",
+  "purpose": "Reviewer-requested sensitivity analysis of the MPDS retrieval-corpus size using nested OpenAlex evidence pools.",
+  "source_repository_commit": "fe30cc5f3c6bd2f20be3e2bf116b758b0e8c6314",
+  "design": {
+    "condition": "mpds",
+    "selected_case_ids": [2, 4, 15, 29],
+    "corpus_sizes": [100, 250, 500, 1000],
+    "replicates": [1, 2, 3],
+    "expected_outputs": 48,
+    "expected_logical_generation_calls_per_output": 9,
+    "expected_minimum_generation_calls": 432,
+    "execution_order": "Block-randomized by replicate, then shuffled over all case-by-corpus-size cells within each block.",
+    "execution_order_seed": 20260920
+  },
+  "generation": {
+    "model": "gemini-2.5-pro",
+    "backend": "vertex-adc",
+    "vertex_location": "global",
+    "temperature": 0.5,
+    "max_output_tokens": 8192,
+    "rounds": 3,
+    "turn_sleep_seconds": 0.2,
+    "minimum_evidence_pointers": 3,
+    "persona_excerpt_characters_per_pool": 70000,
+    "debate_knowledge_policy": "The full selected top-N snapshot is supplied on each of that scientist's three debate turns, matching the submitted MPDS implementation.",
+    "fixed_factors": [
+      "case-specific simulation date",
+      "case-specific problem statement and user context",
+      "case-specific situation file",
+      "two-persona MPDS architecture",
+      "three debate rounds with two turns per round",
+      "moderator synthesis",
+      "citation validation and regeneration policy",
+      "model, backend, location, temperature, and output-token limit"
+    ],
+    "only_manipulated_factor": "Number of relevance-ranked OpenAlex records retained per pool before the unchanged MPDS pipeline is run."
+  },
+  "retrieval": {
+    "provider": "OpenAlex Works API",
+    "endpoint": "https://api.openalex.org/works",
+    "master_size_per_pool": 1000,
+    "per_page": 100,
+    "pagination": "cursor",
+    "ranking": "OpenAlex search default: relevance_score descending",
+    "required_filter": "has_abstract:true plus the case-specific publication-date window",
+    "nested_rule": "For each case and pool, retrieve one ordered top-1000 master snapshot once; top-100, top-250, and top-500 are exact ordered prefixes of that master.",
+    "input_root": "corpus_size_sensitivity_inputs_v1",
+    "api_key_env": "OPENALEX_API_KEY",
+    "mailto_env": "OPENALEX_MAILTO"
+  },
+  "output": {
+    "run_set": "runs_corpus_size_sensitivity_v1",
+    "batch_status_file": "runs_corpus_size_sensitivity_v1/batch_status.json"
+  },
+  "case_selection_rule": {
+    "criteria": [
+      "Retain one manuscript case study.",
+      "Cover distinct battery chemistries and both material-design and protocol-centered tasks.",
+      "Require at least 1000 abstract-bearing OpenAlex results in both evidence pools without broadening the submitted query or cutoff.",
+      "Avoid selecting multiple near-duplicate sodium-ion morphology tasks when a more diverse case is available."
+    ],
+    "selected_cases": [
+      {
+        "case_id": 2,
+        "case_name": "Mo,Ni sulfide(2)",
+        "stratum": "manuscript Case Study 1 / sodium-ion anode / composition-process trade-off",
+        "pool_a": {"keyword": "metal chalcogenide anodes", "start_year": 2007, "end_year": 2016},
+        "pool_b": {"keyword": "spray-dried microspheres", "start_year": 2007, "end_year": 2016}
+      },
+      {
+        "case_id": 4,
+        "case_name": "V2O3(4)",
+        "stratum": "aqueous zinc-ion cathode / multivalent transport",
+        "pool_a": {"keyword": "carbon nanotube microspheres", "start_year": 2011, "end_year": 2020},
+        "pool_b": {"keyword": "vanadium oxide cathodes", "start_year": 2011, "end_year": 2020}
+      },
+      {
+        "case_id": 15,
+        "case_name": "Li-Se(15)",
+        "stratum": "lithium-selenium cathode / host confinement and shuttle suppression",
+        "pool_a": {"keyword": "porous carbon host", "start_year": 2007, "end_year": 2016},
+        "pool_b": {"keyword": "selenium cathodes", "start_year": 2007, "end_year": 2016}
+      },
+      {
+        "case_id": 29,
+        "case_name": "a-MnO2(29)",
+        "stratum": "aqueous zinc-ion / testing-protocol reasoning",
+        "pool_a": {"keyword": "manganese dioxide cathodes", "start_year": 2015, "end_year": 2024},
+        "pool_b": {"keyword": "zinc-ion testing", "start_year": 2015, "end_year": 2024}
+      }
+    ],
+    "documented_exclusion": {
+      "case_id": 1,
+      "case_name": "Glitter-Cake(1)",
+      "reason": "The unchanged pool-A query and 2015-2024 cutoff currently return only 782 abstract-bearing core OpenAlex works, so a genuine nested top-1000 condition cannot be constructed without altering the retrieval universe."
+    }
+  },
+  "analysis_lock": {
+    "unit": "case mean across three stochastic replicates",
+    "primary_generation_outputs": [
+      "full final moderator synthesis",
+      "citation utilization",
+      "input and output tokens",
+      "API-call count",
+      "wall-clock runtime",
+      "retry and error count"
+    ],
+    "deferred_blind_outcomes": [
+      "IHQ without CPI",
+      "Full IHQ",
+      "scientific-practical validity"
+    ],
+    "interpretation": "Treat 500 papers as a practical operating point if quality plateaus by 500 while cost or runtime continues to increase; do not claim formal optimality from this four-case sensitivity experiment."
+  }
+}

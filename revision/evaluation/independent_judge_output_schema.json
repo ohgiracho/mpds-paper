@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "MPDS blinded multi-candidate evaluation",
+  "type": "object",
+  "required": ["packet_id", "candidate_scores", "overall_order", "ties"],
+  "properties": {
+    "packet_id": {"type": "string"},
+    "candidate_scores": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "alias", "idea_novelty", "mechanistic_originality", "tradeoff_reframing",
+          "cross_perspective_integration", "scientific_correctness", "physical_plausibility",
+          "evidence_support", "citation_traceability", "constraint_adherence",
+          "falsifiability_actionability", "full_ihq", "ihq_without_cpi", "flags", "rationale"
+        ],
+        "properties": {
+          "alias": {"type": "string"},
+          "idea_novelty": {"type": "integer", "minimum": 0, "maximum": 5},
+          "mechanistic_originality": {"type": "integer", "minimum": 0, "maximum": 5},
+          "tradeoff_reframing": {"type": "integer", "minimum": 0, "maximum": 5},
+          "cross_perspective_integration": {"type": "integer", "minimum": 0, "maximum": 5},
+          "scientific_correctness": {"type": "integer", "minimum": 0, "maximum": 5},
+          "physical_plausibility": {"type": "integer", "minimum": 0, "maximum": 5},
+          "evidence_support": {"type": "integer", "minimum": 0, "maximum": 5},
+          "citation_traceability": {"type": "integer", "minimum": 0, "maximum": 5},
+          "constraint_adherence": {"type": "integer", "minimum": 0, "maximum": 5},
+          "falsifiability_actionability": {"type": "integer", "minimum": 0, "maximum": 5},
+          "full_ihq": {"type": "integer", "minimum": 0, "maximum": 20},
+          "ihq_without_cpi": {"type": "integer", "minimum": 0, "maximum": 15},
+          "flags": {
+            "type": "object",
+            "additionalProperties": {"enum": ["yes", "no", "uncertain"]}
+          },
+          "rationale": {"type": "string"}
+        }
+      }
+    },
+    "overall_order": {"type": "array", "items": {"type": "string"}},
+    "ties": {"type": "array", "items": {"type": "array", "items": {"type": "string"}}}
+  }
+}

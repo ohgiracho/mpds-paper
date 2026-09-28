@@ -1,0 +1,76 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "MPDS blinded Pass 2 evidence audit v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["packet_id", "candidate_audits"],
+  "properties": {
+    "packet_id": {
+      "type": "string",
+      "pattern": "^case_[0-9]{2}__rep_[0-9]{2}$"
+    },
+    "candidate_audits": {
+      "type": "array",
+      "minItems": 5,
+      "maxItems": 5,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "alias",
+          "evidence_support",
+          "citation_traceability",
+          "central_claims",
+          "flags",
+          "audit_rationale",
+          "uncertainty_notes"
+        ],
+        "properties": {
+          "alias": {
+            "enum": ["Candidate A", "Candidate B", "Candidate C", "Candidate D", "Candidate E"]
+          },
+          "evidence_support": {"type": "integer", "minimum": 0, "maximum": 5},
+          "citation_traceability": {"type": "integer", "minimum": 0, "maximum": 5},
+          "central_claims": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 5,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["claim_id", "claim_text", "cited_evidence_labels", "support_status", "rationale"],
+              "properties": {
+                "claim_id": {"type": "string", "pattern": "^C[1-5]$"},
+                "claim_text": {"type": "string", "minLength": 1},
+                "cited_evidence_labels": {
+                  "type": "array",
+                  "uniqueItems": true,
+                  "items": {"type": "string"}
+                },
+                "support_status": {
+                  "enum": ["supported", "partially_supported", "unsupported", "contradicted", "unverifiable"]
+                },
+                "rationale": {"type": "string", "minLength": 1}
+              }
+            }
+          },
+          "flags": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "consequential_unsupported_or_contradicted_claim",
+              "fabricated_or_invalid_citation_identifier"
+            ],
+            "properties": {
+              "consequential_unsupported_or_contradicted_claim": {"enum": ["yes", "no", "uncertain"]},
+              "fabricated_or_invalid_citation_identifier": {"enum": ["yes", "no", "uncertain"]}
+            }
+          },
+          "audit_rationale": {"type": "string", "minLength": 1},
+          "uncertainty_notes": {"type": "string"}
+        }
+      }
+    }
+  }
+}
+

@@ -1,0 +1,119 @@
+{
+  "config_id": "core_replication_subset_v1",
+  "status": "FROZEN",
+  "frozen_date": "2026-09-12",
+  "purpose": "Three-replicate stochastic robustness analysis on a prespecified, scientifically stratified subset of the 30-case benchmark.",
+  "canonical_repository_commit": "fe30cc5f3c6bd2f20be3e2bf116b758b0e8c6314",
+  "replicate_policy": "practical",
+  "model": "gemini-2.5-pro",
+  "temperature": 0.5,
+  "max_output_tokens": 8192,
+  "backend": "vertex-adc",
+  "vertex_location": "global",
+  "vertex_project_handling": "Read at execution time from the authorized local Google Cloud configuration; never commit the project identifier.",
+  "conditions": [
+    "raw",
+    "eo",
+    "eop",
+    "ds",
+    "mpds"
+  ],
+  "target_replicates": [1, 2, 3],
+  "legacy_replicate_1_policy": {
+    "reuse_when_practical_eligibility_is_true": true,
+    "rerun_all_three_when_practical_eligibility_is_false": true,
+    "disclosure": "Legacy replicate 1 lacks an embedded run-specific code hash and exact API token metadata; reuse is limited to outputs that passed the observable topic, cutoff, model, temperature, prompt/code, rounds, and frozen-evidence audit."
+  },
+  "selection_rule": {
+    "primary_criteria": [
+      "Include both manuscript case studies.",
+      "Stratify across solid-state, lithium-ion, sodium-ion, potassium-ion, aqueous zinc-ion, and lithium-selenium systems.",
+      "Include both reviewer-identified high-leakage prompts and lower-leakage controls.",
+      "Include the protocol-centered case 29 to reduce dependence on particle-morphology tasks.",
+      "Cover cathode, anode, architecture, composition, transport, confinement, and testing-protocol reasoning."
+    ],
+    "legacy_score_use": "Legacy IHQ scores were not a primary inclusion rule. They were checked only after scientific stratification to confirm that the subset was not composed solely of favorable MPDS outcomes.",
+    "separate_from_deleak_subset": true
+  },
+  "selected_case_ids": [1, 2, 3, 4, 8, 15, 18, 22, 29, 30],
+  "execution_priority": [1, 2, 29, 8, 3, 4, 15, 18, 22, 30],
+  "pilot": {
+    "case_id": 1,
+    "core_conditions": ["raw", "eo", "eop", "ds", "mpds"],
+    "count_legacy_as_replicate_1": true,
+    "new_replicates": [2, 3],
+    "expected_new_logical_generation_calls": 40
+  },
+  "cases": [
+    {
+      "case_id": 1,
+      "case_slug": "case_01",
+      "case_name": "Glitter-Cake(1)",
+      "stratum": "solid-state cathode / manuscript Case Study 2 / very-high leakage",
+      "reason": "Directly addresses the reviewer-raised Case Study 2 consistency and prompt-leakage concerns."
+    },
+    {
+      "case_id": 2,
+      "case_slug": "case_02",
+      "case_name": "Mo,Ni sulfide(2)",
+      "stratum": "sodium-ion anode / manuscript Case Study 1",
+      "reason": "Anchors the second manuscript case study and the electrolyte/interphase blind-spot discussion."
+    },
+    {
+      "case_id": 3,
+      "case_slug": "case_03",
+      "case_name": "NiMoO4(3)",
+      "stratum": "lithium-ion oxide anode / process-density trade-off / EOP repair",
+      "reason": "Represents oxide microsphere design and provides a direct validation case for the corrected EOP pipeline."
+    },
+    {
+      "case_id": 4,
+      "case_slug": "case_04",
+      "case_name": "V2O3(4)",
+      "stratum": "aqueous zinc-ion cathode",
+      "reason": "Adds a cathode-side multivalent-ion transport problem outside the dominant Li/Na anode group."
+    },
+    {
+      "case_id": 8,
+      "case_slug": "case_08",
+      "case_name": "PBA(8)",
+      "stratum": "sodium-ion anode / reviewer-named very-high leakage",
+      "reason": "The reviewer explicitly identified its hollow-sulfide/rGO wording as answer-revealing."
+    },
+    {
+      "case_id": 15,
+      "case_slug": "case_15",
+      "case_name": "Li-Se(15)",
+      "stratum": "lithium-selenium cathode / host confinement",
+      "reason": "Introduces shuttle suppression, selenium confinement, and electrolyte-access trade-offs."
+    },
+    {
+      "case_id": 18,
+      "case_slug": "case_18",
+      "case_name": "HC PIB(18)",
+      "stratum": "potassium-ion anode",
+      "reason": "Tests generalization to large-ion transport and severe alloying/conversion volume change."
+    },
+    {
+      "case_id": 22,
+      "case_slug": "case_22",
+      "case_name": "NiO(22)",
+      "stratum": "lithium-ion anode / one-dimensional architecture / very-high leakage",
+      "reason": "Provides a second, structurally distinct high-leakage stress test through the tube-in-tube clue."
+    },
+    {
+      "case_id": 29,
+      "case_slug": "case_29",
+      "case_name": "a-MnO2(29)",
+      "stratum": "aqueous zinc-ion testing protocol",
+      "reason": "The only protocol-centered task, reducing dependence on morphology-generation questions."
+    },
+    {
+      "case_id": 30,
+      "case_slug": "case_30",
+      "case_name": "metal selenide(30)",
+      "stratum": "recent sodium-ion composition/encapsulation design",
+      "reason": "Adds a 2024 cutoff and a composition-versus-inactive-mass/transport trade-off."
+    }
+  ]
+}

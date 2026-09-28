@@ -1,0 +1,127 @@
+{
+  "config_id": "lost_in_middle_position_control_v1",
+  "status": "FROZEN_BEFORE_GENERATION",
+  "frozen_date": "2026-09-21",
+  "purpose": "Reviewer-requested position-control analysis of evidence utilization in long-context MPDS generation.",
+  "source_repository_commit": "fe30cc5f3c6bd2f20be3e2bf116b758b0e8c6314",
+  "design": {
+    "condition": "mpds",
+    "selected_case_ids": [29, 1, 30, 2],
+    "block_labels": ["X", "Y", "Z"],
+    "orderings": ["XYZ", "YZX", "ZXY"],
+    "replicates": [1, 2, 3],
+    "expected_outputs": 36,
+    "expected_logical_generation_calls_per_output": 9,
+    "expected_minimum_generation_calls": 324,
+    "execution_order": "Block-randomized by replicate, then shuffled over all case-by-ordering cells within each block.",
+    "execution_order_seed": 20260921
+  },
+  "case_selection_rule": {
+    "eligible_case_set": "The prespecified Core10 robustness subset.",
+    "eligibility": "Both frozen submitted evidence pools must contain exactly 500 records.",
+    "ranking": "Descending combined character count of the two frozen submitted evidence files; no outcome score is used.",
+    "selected_top_n": 4,
+    "selected_cases": [
+      {
+        "case_id": 29,
+        "case_name": "a-MnO2(29)",
+        "pool_a_characters": 842082,
+        "pool_b_characters": 951494,
+        "combined_characters": 1793576,
+        "rank": 1
+      },
+      {
+        "case_id": 1,
+        "case_name": "Glitter-Cake(1)",
+        "pool_a_characters": 833476,
+        "pool_b_characters": 918406,
+        "combined_characters": 1751882,
+        "rank": 2
+      },
+      {
+        "case_id": 30,
+        "case_name": "metal selenide(30)",
+        "pool_a_characters": 914543,
+        "pool_b_characters": 738103,
+        "combined_characters": 1652646,
+        "rank": 3
+      },
+      {
+        "case_id": 2,
+        "case_name": "Mo,Ni sulfide(2)",
+        "pool_a_characters": 832095,
+        "pool_b_characters": 792723,
+        "combined_characters": 1624818,
+        "rank": 4
+      }
+    ]
+  },
+  "position_manipulation": {
+    "source": "Frozen submitted knowledge snapshots listed in audit/knowledge_snapshot_manifest.csv.",
+    "partition_unit": "Complete evidence-record text blocks, preserving every record byte sequence and original ID.",
+    "partition_rule": "For each case and scientist pool separately, split the canonical relevance-ranked record sequence into three contiguous blocks with deterministic minimum squared character imbalance.",
+    "within_block_order": "Canonical order is preserved.",
+    "rotations": {
+      "XYZ": {"front": "X", "middle": "Y", "rear": "Z"},
+      "YZX": {"front": "Y", "middle": "Z", "rear": "X"},
+      "ZXY": {"front": "Z", "middle": "X", "rear": "Y"}
+    },
+    "identity_control": "Each record and each fixed block appears once at every position; only block order changes.",
+    "persona_control": "Persona synthesis always receives the canonical source snapshot. Only evidence presented during the six debate turns is reordered.",
+    "header_policy": "The identical canonical source header is retained in every ordering and excluded from block-utilization denominators.",
+    "no_inserted_markers": true,
+    "id_policy": "Original record IDs are retained and never renumbered."
+  },
+  "generation": {
+    "model": "gemini-2.5-pro",
+    "backend": "vertex-adc",
+    "vertex_location": "global",
+    "temperature": 0.5,
+    "max_output_tokens": 8192,
+    "rounds": 3,
+    "turn_sleep_seconds": 0.2,
+    "minimum_evidence_pointers": 3,
+    "expected_persona_excerpt_characters_per_pool": 70000,
+    "fixed_factors": [
+      "case-specific simulation date, debate topic, user context, and situation file",
+      "canonical persona-synthesis evidence and persona prompt",
+      "the exact evidence-record multiset and record IDs",
+      "two-persona MPDS architecture and three debate rounds",
+      "moderator synthesis and citation-validation policy",
+      "model, backend, location, temperature, and output-token limit"
+    ],
+    "only_manipulated_factor": "The front, middle, or rear position of each fixed evidence block during debate turns."
+  },
+  "inputs": {
+    "audit_manifest": "audit/knowledge_snapshot_manifest.csv",
+    "input_root": "lost_in_middle_inputs_v1"
+  },
+  "output": {
+    "run_set": "runs_lost_in_middle_position_control_v1",
+    "batch_status_file": "runs_lost_in_middle_position_control_v1/batch_status.json"
+  },
+  "analysis_lock": {
+    "primary_outcome_family": "evidence utilization",
+    "primary_metrics": [
+      "unique cited papers from each fixed block",
+      "citation occurrences from each fixed block",
+      "citation share from each fixed block",
+      "block-level evidence coverage",
+      "unique and occurrence utilization in the final moderator synthesis"
+    ],
+    "primary_analysis_unit": "Case-level position means after averaging three stochastic replicates and the two scientist pools/fixed blocks nested within case.",
+    "descriptive_unit": "Fixed case-pool-block shown at front, middle, and rear under cyclic rotation.",
+    "secondary_blind_outcomes": [
+      "IHQ without CPI",
+      "Full IHQ",
+      "scientific-practical validity"
+    ],
+    "secondary_evaluation_scope": "Final moderator synthesis only; personas and debate transcript are excluded.",
+    "interpretation": {
+      "middle_utilization_lower": "Position sensitivity consistent with lost-in-the-middle.",
+      "utilization_only": "Positional utilization bias with limited effect on final hypothesis quality.",
+      "no_material_difference": "No substantial position effect observed in the tested long-context subset.",
+      "heterogeneous": "Long-context position effect is task-dependent."
+    }
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "config_id": "independent_judge_sonnet5_pass2_anthropic_split_v1",
+  "status": "FROZEN_FOR_OFFICIAL_PASS2_EXECUTION",
+  "frozen_date": "2026-09-15",
+  "inherits": "independent_judge_sonnet5_pass2_anthropic_v1",
+  "requested_model": "claude-sonnet-5",
+  "endpoint_expected": "https://api.anthropic.com/v1/messages",
+  "api_key_env": "ANTHROPIC_API_KEY",
+  "max_output_tokens_per_candidate": 4000,
+  "thinking_parameter": "omitted",
+  "packets": "evaluation/evidence_audit_packets_core10_n3_v2",
+  "prompt": "evaluation/judge_prompt_pass2_single_candidate_v1.md",
+  "canonical_schema": "evaluation/evidence_audit_output_schema_v1.json",
+  "execution_unit": "one independent candidate section per API request; five candidate audits assembled back into the original packet",
+  "provider_strict_tool_schema": true,
+  "strict_constraint_mapping": "Integer 0-5 score ranges are represented by enums. Nonempty-string constraints are enforced by candidate-level and final local validation because the provider rejected the equivalent regex grammar as too complex.",
+  "format_reminder": "Each request explicitly requires substantive nonempty claim_text, claim rationale, and audit_rationale fields. This is an output-completeness instruction and does not change the rubric.",
+  "acceptance_rule": "A packet is complete only when Candidate A-E are each returned once and the assembled packet passes the unchanged canonical validator.",
+  "transport_normalization": "Repeated identical cited-evidence labels within one claim are reduced to their first occurrence in order. This preserves the evidence-label set and does not alter scores, support status, claims, or rationales; every occurrence is recorded in the run manifest.",
+  "automatic_retries": 0,
+  "prompt_cache": "The unchanged supplementary module is marked with an ephemeral cache breakpoint.",
+  "methodological_effect": "No scoring change. Pass 2 already requires independent candidate audits; splitting is a transport amendment required by the provider grammar-size limit. Blinding, rubric, source abstracts, score scales, and canonical validation are unchanged."
+}

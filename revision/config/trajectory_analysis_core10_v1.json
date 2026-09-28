@@ -1,0 +1,86 @@
+{
+  "config_id": "trajectory_analysis_core10_v1",
+  "status": "FROZEN_BEFORE_ANY_TRAJECTORY_EVALUATION_CALL",
+  "frozen_date": "2026-09-21",
+  "analysis_character": "exploratory_post_hoc_mechanistic",
+  "purpose": "Evaluate how critiques and alternative perspectives modify and integrate into final scientific hypotheses across DS, MPDS, SAIR, and SES trajectories.",
+  "conditions": ["ds", "mpds", "sair", "ses"],
+  "selected_case_ids": [1, 2, 3, 4, 8, 15, 18, 22, 29, 30],
+  "replicates": [1, 2, 3],
+  "expected_trajectories": 120,
+  "expected_packets": 30,
+  "core_run_set": "runs_core10_vertex_gemini_2_5_pro_20260912",
+  "component_run_set": "runs_component_controls_core10_v2",
+  "legacy_repository": "../mpds_github_prep/github_repo",
+  "replicate1_eligibility": "audit/replicate1_eligibility.csv",
+  "packet_directory": "evaluation/trajectory_analysis_core10_v1/blind_packets",
+  "analysis_directory": "evaluation/trajectory_analysis_core10_v1",
+  "judge_run_directory": "judge_runs_sonnet5_20260921/trajectory_analysis_core10_v1",
+  "blinding": {
+    "seed": 9217346,
+    "method": "seeded balanced cyclic rotation",
+    "aliases": ["Trajectory A", "Trajectory B", "Trajectory C", "Trajectory D"],
+    "claim": "Condition labels are masked, but complete architectural blinding is not possible because trajectory structures differ."
+  },
+  "packet_preprocessing": {
+    "retain": [
+      "scientific task and simulation date",
+      "all substantive stage text in chronological order",
+      "speaker or stage labels needed to understand interaction",
+      "final synthesis"
+    ],
+    "remove": [
+      "run configuration and local filesystem paths",
+      "automatically generated evidence appendices",
+      "citation-validation metadata",
+      "API usage metadata"
+    ],
+    "truncation": "none",
+    "mpds_persona_note": "Only enacted persona labels preserved in stored transcripts are supplied; persona summaries were not uniformly stored for legacy replicate 1 and are therefore excluded for all replicates."
+  },
+  "evaluator": {
+    "provider": "Official Anthropic Messages API",
+    "endpoint": "https://api.anthropic.com/v1/messages",
+    "api_key_env": "ANTHROPIC_API_KEY",
+    "requested_model": "claude-sonnet-5",
+    "max_output_tokens": 8000,
+    "temperature_override": null,
+    "thinking_parameter": "omitted",
+    "external_tools": "disabled_except_required_submission_tool",
+    "max_attempts": 2,
+    "retry_rule": "HTTP/API failures are preserved and stop the active batch. One deterministic retry is allowed only for an HTTP-200 response that fails strict local structural validation."
+  },
+  "dimensions": [
+    "tension_recognition",
+    "adaptive_revision",
+    "tradeoff_resolution",
+    "nonadditive_synthesis"
+  ],
+  "primary_comparisons": [
+    ["mpds", "ds"],
+    ["mpds", "sair"],
+    ["mpds", "ses"]
+  ],
+  "inference": {
+    "unit": "case",
+    "replicate_aggregation": "mean of three replicates within each condition and case",
+    "n_cases": 10,
+    "bootstrap_repetitions": 10000,
+    "bootstrap_seed": 9217347,
+    "tests": ["exact paired sign-flip", "Wilcoxon signed-rank"],
+    "multiplicity": "Holm correction separately across the 12 prespecified dimension-level p-values for each test family (3 contrasts x 4 dimensions).",
+    "emphasis": "Effect direction, paired confidence intervals, and win/tie/loss are emphasized; non-significance is not interpreted as equivalence."
+  },
+  "qualitative_example_rule": {
+    "case_1": "largest absolute case-level exploratory-composite difference for MPDS versus SAIR",
+    "case_2": "largest absolute case-level exploratory-composite difference for MPDS versus SES among remaining cases",
+    "case_3": "smallest maximum absolute exploratory-composite gap across MPDS-versus-SAIR and MPDS-versus-SES among remaining cases",
+    "representative_replicate": "replicate whose paired exploratory-composite difference is closest to the case-level mean difference; ties use the lower replicate number",
+    "event": "first substantive event in recorded order, otherwise the first recorded event"
+  },
+  "interpretation_limits": [
+    "Do not describe this as a primary benchmark or preregistered superiority test.",
+    "Do not claim that MPDS is proven superior, optimal, or universally preferred.",
+    "Do not modify or rescore existing Pass 1, Pass 2, or SAIR/SES results."
+  ]
+}

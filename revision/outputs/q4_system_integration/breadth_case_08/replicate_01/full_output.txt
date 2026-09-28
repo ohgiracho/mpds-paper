@@ -1,0 +1,495 @@
+[RUN CONFIG]
+run_timestamp_utc: 2026-09-22T08:31:22.292685+00:00
+model: gemini-2.5-pro
+temperature: 0.5
+max_output_tokens: 8192
+language: "en"
+min_evidence_pointers: 3
+turn_sleep_sec: 0.2
+rounds: 3
+simulation_date: 2023
+topic: How should a low-temperature graphite electrolyte and SEI be designed to reconcile bulk ionic conductivity with rapid desolvation, SEI lithium-ion conduction, electron blocking, and solvent exclusion?
+
+knowledge_a_file: [LOCAL_PATH_REDACTED]
+REPRODUCIBILITY:
+provider: OpenAlex Works API
+keyword: low temperature graphite lithium ion battery electrolyte
+start_year: 2014
+end_year: 2023
+master_size: 550
+selected_top_n: 500
+ranking: default search relevance_score descending
+pagination: cursor
+retrieved_at: 2026-09-22T07:01:12.972959+00:00
+retrieval_id: q4_case_08_pool_A_2026-09-22T07:01:12.972959+00:00
+============================================================
+
+knowledge_b_file: [LOCAL_PATH_REDACTED]
+REPRODUCIBILITY:
+provider: OpenAlex Works API
+keyword: low temperature graphite solid electrolyte interphase
+start_year: 2014
+end_year: 2023
+master_size: 550
+selected_top_n: 500
+ranking: default search relevance_score descending
+pagination: cursor
+retrieved_at: 2026-09-22T07:01:27.436357+00:00
+retrieval_id: q4_case_08_pool_B_2026-09-22T07:01:27.436357+00:00
+============================================================
+
+Context: [User's Experimental Situation]
+- Background: Graphite bulk diffusion is not necessarily the dominant low-temperature limitation; transport across the SEI and desolvation at the graphite-electrolyte interface can carry substantially larger barriers.
+- Interfacial bottleneck: Slow desolvation and SEI diffusion produce concentration polarization, charge-transfer resistance, solvent co-intercalation, graphite damage, and lithium plating.
+- Solvation trade-off: Strong ion-solvent interaction aids salt dissociation and bulk transport but impedes interfacial desolvation. Weak solvation can ease solvent removal while lowering ionic conductivity.
+- SEI-design gap: The relationship between SEI chemistry, ion conduction, electron blocking, solvent adsorption or deprivation, mechanics, and temperature-dependent kinetics remains insufficiently quantified.
+- Core question: What electrolyte and SEI design should balance these coupled properties rather than optimizing one transport descriptor in isolation?
+- Goals:
+    1) Identify measurable SEI descriptors for ionic, electronic, mechanical, and solvent-interaction behavior.
+    2) Preserve low-temperature charge transfer without sacrificing bulk electrolyte function.
+    3) Propose experiments that separate desolvation, SEI diffusion, electron leakage, and graphite solid-state diffusion.
+
+============================================================
+
+[Battery-system specialist (Scientist A) - Round 1]
+The problem you've outlined is the central kinetic challenge in low-temperature lithium-ion electrochemistry. Too many researchers focus on superficial properties like freezing point, which is trivial, or chase high bulk ionic conductivity in isolation, which is misguided [ID: 16, 164]. The true bottlenecks are interfacial, and they are inextricably linked: the energy barrier of Li+ desolvation and the sluggish ionic transport through the solid electrolyte interphase (SEI) [ID: 44, 172, 375]. At low temperatures, these two factors conspire to create a massive charge-transfer resistance (Rct), which drives up the overpotential, invites lithium plating, and causes irreversible capacity loss and catastrophic failure [ID: 64, 144, 492].
+
+### Diagnosis of the Core Problem
+
+The fundamental issue is a failure to treat the electrolyte as a complete, dynamic system. Instead, it's often viewed as a collection of independent components—a solvent for conductivity, a salt for ions, and an additive for the SEI. This is incorrect. The solvation shell of the Li-ion dictates not only its transport in the bulk but also the species available for reduction at the anode surface, thereby defining the SEI's composition and, consequently, its transport properties [ID: 46, 194, 450].
+
+1.  **The Solvation Dilemma is Real but Misunderstood:** Conventional wisdom correctly identifies the trade-off: strongly coordinating solvents like ethylene carbonate (EC) are excellent for salt dissociation and forming a stable SEI at room temperature, but they create a tightly bound solvation sheath around the Li+. At low temperatures, the thermal energy is insufficient to overcome the high activation energy required to strip these solvent molecules away, leading to a prohibitive desolvation barrier [ID: 44, 108]. This is the primary origin of high Rct [ID: 172]. Conversely, weakly coordinating solvents may lower the desolvation barrier but often suffer from poor salt dissociation, leading to low ionic conductivity and potential solvent co-intercalation with graphite [ID: 26, 324].
+
+2.  **The SEI is Not a Static Film; It's a Temperature-Dependent Bottleneck:** The SEI formed from conventional carbonate electrolytes is a heterogeneous mosaic of organic species (like lithium ethylene dicarbonate, LEDC) and inorganic species (like Li2CO3 and LiF) [ID: 287, 51]. At low temperatures, the ionic conductivity of these organic components plummets, turning the SEI into a virtual insulator. Furthermore, recent work shows that at low temperatures, electrolyte reduction pathways are altered, favoring the formation of an even more resistive, organic-rich, and metastable SEI [ID: 194]. This sluggish interfacial transport is a distinct, and often dominant, resistance that must be addressed separately from desolvation [ID: 448].
+
+### Proposed Solution: A Rationally Designed, Anion-Centric Electrolyte System
+
+The solution is not to find a perfect single solvent but to engineer the entire electrolyte system to decouple bulk transport from interfacial kinetics. We must move beyond the "trial-and-error" addition of film-formers and instead design an electrolyte that *a priori* dictates a favorable Li+ solvation structure and forces the formation of a desirable SEI.
+
+My proposal is based on the principles of **Localized High-Concentration Electrolytes (LHCEs)**, which offer a mechanistic path to resolving these coupled problems [ID: 35].
+
+1.  **Manipulate the Solvation Shell:** We begin with a high-concentration formulation of a salt with a weakly coordinating anion, such as lithium bis(fluorosulfonyl)imide (LiFSI), in a suitable solvent like an ether (e.g., dimethoxyethane, DME) [ID: 20, 26]. At high concentrations (e.g., >3 M), there are insufficient solvent molecules to fully solvate the Li+ ions, forcing the FSI- anions to enter the primary solvation sheath [ID: 15, 212]. This creates a "contact ion pair" or "aggregate" dominant structure. This is the critical step.
+
+2.  **Introduce an Inert Diluent:** The resulting highly concentrated electrolyte is often too viscous for practical use. We then add a carefully selected, non-solvating "diluent"—typically a hydrofluoroether like bis(2,2,2-trifluoroethyl) ether (BTFE)—to reduce viscosity and restore bulk ionic conductivity without breaking up the essential Li+-anion-solvent clusters [ID: 26, 35]. This is the "localization" that gives LHCEs their name. This design directly addresses the core challenge: it maintains the favorable interfacial properties of a concentrated electrolyte while restoring the favorable bulk transport properties of a dilute one.
+
+### How This Solves the Low-Temperature Bottlenecks:
+
+*   **Reduced Desolvation Barrier:** The desolvation process is no longer about stripping strongly bound EC molecules. Instead, it's a lower-energy reorganization of the anion-rich solvation sheath at the graphite interface. The activation energy for charge transfer (Ea of Rct) is dramatically lowered because the Li+ is already partially "desolvated" by the anions [ID: 3, 52, 111].
+
+*   **Anion-Derived, Inorganic-Rich SEI:** Because anions are an integral part of the Li+ solvation shell that approaches the anode, they are preferentially reduced over the solvent molecules [ID: 26, 234]. The decomposition of FSI- yields a thin, dense, and mechanically robust SEI dominated by inorganic LiF [ID: 194]. A LiF-rich SEI is known to be a superior Li+ conductor with low electronic conductivity, effectively suppressing further electrolyte reduction and, critically, inhibiting the co-intercalation of ether solvents that plagues graphite anodes [ID: 26, 166]. This directly creates a low-resistance, stable interphase optimized for low-temperature operation.
+
+*   **Suppression of Lithium Plating:** By minimizing both the desolvation barrier and the SEI transport resistance, the total charge-transfer resistance is kept low. This prevents the anode potential from dropping below 0 V vs. Li/Li+ during charging, thereby favoring intercalation over Li plating even at high rates and low temperatures [ID: 160].
+
+### Experimental Validation Protocol
+
+To prove this mechanism and quantify the improvements, a rigorous, multi-faceted experimental plan is required. Simply showing a capacity-vs-cycle plot is insufficient.
+
+1.  **Characterize Solvation Structure:** Use Raman and Nuclear Magnetic Resonance (NMR) spectroscopy to compare the conventional electrolyte with the proposed LHCE. We must show a clear shift in solvent and anion vibrational/resonance peaks, providing direct evidence of anion participation in the Li+ primary solvation shell [ID: 46, 91, 450].
+
+2.  **Decouple and Quantify Resistances:**
+    *   Employ **temperature-dependent Electrochemical Impedance Spectroscopy (EIS)** on three-electrode graphite || Li-ref || NMC pouch cells [ID: 239, 376]. This is non-negotiable as it allows separation of anode and cathode impedances.
+    *   From the Nyquist plots at various temperatures (e.g., 25°C down to -40°C), we will extract:
+        *   **Bulk Resistance (Rb):** From the high-frequency intercept.
+        *   **SEI Resistance (R_SEI):** From the high-frequency semicircle.
+        *   **Charge-Transfer Resistance (Rct):** From the mid-frequency semicircle.
+    *   Construct Arrhenius plots for each resistance component. A successful design will show a significantly lower activation energy for Rct in the LHCE system compared to the baseline, providing quantitative proof of a lowered desolvation barrier [ID: 172, 294]. The activation energy for R_SEI will quantify the improvement in interfacial Li+ transport.
+
+3.  **Analyze the SEI Composition and Morphology:**
+    *   After formation and after extended low-temperature cycling, harvest the graphite anodes in an inert environment.
+    *   Use **X-ray Photoelectron Spectroscopy (XPS)** to quantify the surface composition, specifically the ratio of inorganic components (LiF from FSI- reduction) to organic components (from any residual solvent reduction) [ID: 287, 51]. We must demonstrate that the LHCE produces a more inorganic, LiF-rich SEI.
+    *   Use **Cryogenic Transmission Electron Microscopy (Cryo-TEM)** to visualize the SEI's morphology and thickness directly. This will show the thin, dense nature of the LHCE-derived SEI compared to the thicker, more amorphous SEI from conventional electrolytes [ID: 103, 389].
+
+By following this mechanistic approach—rationally designing the solvation environment to control SEI formation—we can resolve the coupled interfacial bottlenecks. This is not a matter of finding a magic additive, but of systematically engineering the entire electrolyte environment to achieve predictable, high performance at low temperatures.
+
+--- Evidence Appendix (auto-generated from snapshot) ---
+Snapshot: Scientist A
+- [ID: 35 | Xia Cao, 2020 | Review—Localized High-Concentration Electrolytes for Lithium Batteries | Venue: Journal of The Electrochemical Society | DOI: https://doi.org/10.1149/1945-7111/abd60e | OpenAlexID: https://openalex.org/W3117664282]
+- [ID: 160 | Q. Q. Liu, 2017 | Effects of Electrolyte Additives and Solvents on Unwanted Lithium Plating in Lithium-Ion Cells | Venue: Journal of The Electrochemical Society | DOI: https://doi.org/10.1149/2.1081706jes | OpenAlexID: https://openalex.org/W2605145269]
+- [ID: 172 | T. Richard Jow, 2018 | Factors Limiting Li+Charge Transfer Kinetics in Li-Ion Batteries | Venue: Journal of The Electrochemical Society | DOI: https://doi.org/10.1149/2.1221802jes | OpenAlexID: https://openalex.org/W2792697810]
+- [ID: 194 | Suting Weng, 2023 | Temperature-dependent interphase formation and Li+ transport in lithium metal batteries | Venue: Nature Communications | DOI: https://doi.org/10.1038/s41467-023-40221-0 | OpenAlexID: https://openalex.org/W4385257145]
+- [ID: 448 | Dong‐Joo Yoo, 2022 | Understanding the Role of SEI Layer in Low-Temperature Performance of Lithium-Ion Batteries | Venue: ACS Applied Materials & Interfaces | DOI: https://doi.org/10.1021/acsami.1c23934 | OpenAlexID: https://openalex.org/W4213429775]
+
+[Electrolyte and interphase specialist (Scientist B) - Round 1]
+Your diagnosis of the coupled interfacial problems—sluggish desolvation and poor SEI conductivity—is spot on. We agree that bulk conductivity is a red herring and the interface is where the battle is won or lost [ID: 29, 37, 180]. Your focus on manipulating the Li+ solvation shell to dictate SEI chemistry is the correct mechanistic approach.
+
+However, I find your proposed solution—a singular focus on LiFSI-based Localized High-Concentration Electrolytes (LHCEs)—to be overly prescriptive and to overlook both fundamental challenges with that specific system and more pragmatic, alternative pathways that achieve the same goals with potentially greater success.
+
+My critique rests on three points:
+1.  Your faith in the LiF-rich SEI as a panacea is misplaced; it ignores its intrinsic mechanical fragility.
+2.  You can achieve the desired weak solvation and favorable SEI without resorting to costly and viscous high-concentration formulations.
+3.  Your proposal neglects the crucial, temperature-dependent nature of SEI formation itself.
+
+### The Problem with a Purely LiF-Centric SEI
+
+You champion the LiF-rich SEI formed from anion reduction as the ideal structure for low-temperature performance [ID: 26, 194]. While LiF is indeed a good Li+ conductor and poor electron conductor, this view is dangerously simplistic. Work by He et al. has demonstrated that LiF is mechanically fragile and easily compromised during plating and stripping [ID: 11]. Its apparent success is not due to its own robustness, but rather the ability of the surrounding electrolyte to perform *in situ* repair, often by forming an elastomeric "outer layer" from solvent decomposition products [ID: 11]. An SEI composed *solely* of brittle inorganic components is a recipe for fracture and continuous electrolyte consumption, especially on graphite, which undergoes volume changes during intercalation. A successful SEI requires a balance of ionic conductivity and mechanical compliance, the latter of which is typically provided by polymeric or organic species you seek to eliminate [ID: 146, 154].
+
+### A More Direct Path: Weakly Solvating Solvents
+
+Instead of forcing anion participation through brute-force high concentration, a more elegant and scalable approach is to design the solvent system itself to be weakly solvating. This directly lowers the Li+ desolvation energy barrier without the viscosity, cost, and wetting problems associated with LHCEs [ID: 42].
+
+My proposed solution centers on **fluorinated ester-based electrolytes**.
+
+1.  **Solvent Design for Low Desolvation Energy:** Utilize solvents like ethyl trifluoroacetate (ETFA), ethyl difluoroacetate (EDFA), or methyl propionate (MP) [ID: 10, 69, 56]. The electron-withdrawing effect of the fluorine atoms reduces the charge on the carbonyl oxygen, inherently weakening the Li+-solvent binding energy [ID: 133]. This achieves the low desolvation barrier you're looking for, but through rational solvent design rather than high salt concentration [ID: 119]. Work by Mo et al. even shows a "sweet spot," where moderate fluorination (EDFA) balances weak solvation with sufficient salt dissociation, outperforming more heavily fluorinated analogues [ID: 69].
+
+2.  **SEI Engineering with Additives and Co-solvents:** These ester solvents can be paired with traditional film-formers like fluoroethylene carbonate (FEC) [ID: 10, 56]. This combination allows for the formation of a hybrid SEI that is not only rich in conductive LiF (from FEC reduction) but also contains beneficial organic and organo-borate/phosphate species (from ester or salt additive reduction, e.g., LiDFOB) [ID: 41, 102]. This creates a composite structure with both high ionic conductivity and the necessary mechanical flexibility to endure cycling [ID: 41]. This is a more nuanced and robust design than a purely inorganic, brittle LiF layer. For instance, Liang et al. demonstrated that introducing an inorganic anion switch (LiDFP) into a carboxylate solvent electrolyte mitigates SEI swelling and forms a stable, low-swelling Li3PO4-rich SEI, which is far superior to a purely organic-anion derived one [ID: 41].
+
+### The Critical Role of SEI Formation Temperature
+
+Your proposal seems to assume an SEI formed at room temperature will perform optimally at -30°C. This is a flawed assumption. Suting Weng et al. showed that low temperatures fundamentally alter thermodynamic reaction pathways, favoring the formation of a metastable, organic-rich SEI even in fluorinated electrolytes [ID: 45]. This highlights that the SEI is a dynamic entity whose composition depends on its formation conditions.
+
+Yang et al. explicitly tackled this, investigating the SEI's evolution at different temperatures and proposing an "effective room-temperature SEI formation strategy for low-temperature operations" [ID: 10, 105]. This is a critical detail. The formation protocol must be optimized to build an interphase that is kinetically facile at the target operating temperature. Simply forming a standard "good" SEI at 25°C is insufficient. Furthermore, recent modeling by Wu et al. shows that temperature and surface charge dictate the competitive reduction between anions and additives in the electric double layer (EDL), explaining why an additive like FEC can be more effective at low temperature in certain systems [ID: 28]. Your LHCE proposal does not account for these dynamic, temperature-dependent competitive reactions at the interface.
+
+### My Proposed Experimental Validation
+
+I agree with the spirit of your validation protocol, but it must be a comparative study to be meaningful.
+
+1.  **Test Systems:** We must compare three systems in parallel:
+    a.  **Baseline:** 1M LiPF6 in EC/EMC.
+    b.  **Your Proposal:** LiFSI/DME/BTFE LHCE.
+    c.  **My Proposal:** 1M LiPF6 in EDFA/FEC/EMC [ID: 69, 133].
+
+2.  **Characterization:** Your proposed suite of Raman/NMR, temperature-dependent EIS, and XPS/Cryo-TEM is excellent. We will apply it to all three systems.
+    *   The Arrhenius plots of R_ct and R_SEI will be the ultimate arbiter of interfacial kinetics [ID: 80, 233]. I predict my ester-based system will show a comparably low activation energy for R_ct to your LHCE, but without the high bulk resistance at very low temperatures.
+    *   XPS and Cryo-TEM will reveal the SEI composition and morphology. I expect your LHCE to produce a thin, dense, but heavily inorganic (LiF) SEI [ID: 6, 160]. My system will produce a composite SEI, blending LiF with flexible polymeric/organic species, which I argue is superior for long-term stability [ID: 41, 50].
+
+3.  **Crucial Addition—Mechanical Probing:** I would add **in-situ Atomic Force Microscopy (AFM)** to monitor SEI morphology evolution during cycling [ID: 208, 275] and perform nano-indentation on cryo-preserved samples to directly measure the Young's modulus of the resulting SEI [ID: 146]. This directly tests my central hypothesis: your LiF-rich SEI will be stiff and brittle, while the SEI from my system will exhibit superior mechanical compliance, which is essential for accommodating graphite's volume changes and preventing cracking.
+
+In summary, while the LHCE concept is a powerful tool, it is not a universal solution. A more direct approach, focusing on weakly solvating *solvents* like fluorinated esters, offers a more tunable, scalable, and ultimately more robust solution by creating an SEI that intelligently balances ionic conductivity with the mechanical compliance necessary for stable, long-term cycling at low temperatures.
+
+--- Evidence Appendix (auto-generated from snapshot) ---
+Snapshot: Scientist B
+- [ID: 11 | Mingfu He, 2019 | The intrinsic behavior of lithium fluoride in solid electrolyte interphases on lithium | Venue: Proceedings of the National Academy of Sciences | DOI: https://doi.org/10.1073/pnas.1911017116 | OpenAlexID: https://openalex.org/W2996591717]
+- [ID: 28 | Qisheng Wu, 2023 | Effect of the Electric Double Layer (EDL) in Multicomponent Electrolyte Reduction and Solid Electrolyte Interphase (SEI) Formation in Lithium Batteries | Venue: Journal of the American Chemical Society | DOI: https://doi.org/10.1021/jacs.2c11807 | OpenAlexID: https://openalex.org/W4317798212]
+- [ID: 41 | Jia‐Yan Liang, 2023 | Mitigating Swelling of the Solid Electrolyte Interphase using an Inorganic Anion Switch for Low‐temperature Lithium‐ion Batteries | Venue: Angewandte Chemie International Edition | DOI: https://doi.org/10.1002/anie.202300384 | OpenAlexID: https://openalex.org/W4321996743]
+- [ID: 42 | Xia Cao, 2020 | Review—Localized High-Concentration Electrolytes for Lithium Batteries | Venue: Journal of The Electrochemical Society | DOI: https://doi.org/10.1149/1945-7111/abd60e | OpenAlexID: https://openalex.org/W3117664282]
+- [ID: 45 | Suting Weng, 2023 | Temperature-dependent interphase formation and Li+ transport in lithium metal batteries | Venue: Nature Communications | DOI: https://doi.org/10.1038/s41467-023-40221-0 | OpenAlexID: https://openalex.org/W4385257145]
+- [ID: 69 | Yanbing Mo, 2023 | Fluorinated Solvent Molecule Tuning Enables Fast‐Charging and Low‐Temperature Lithium‐Ion Batteries | Venue: Advanced Energy Materials | DOI: https://doi.org/10.1002/aenm.202301285 | OpenAlexID: https://openalex.org/W4383196670]
+- [ID: 119 | Qiuyan Li, 2017 | Li + -Desolvation Dictating Lithium-Ion Battery’s Low-Temperature Performances | Venue: ACS Applied Materials & Interfaces | DOI: https://doi.org/10.1021/acsami.7b13887 | OpenAlexID: https://openalex.org/W2768128272]
+- [ID: 133 | Dong‐Joo Yoo, 2023 | Rational Design of Fluorinated Electrolytes for Low Temperature Lithium‐Ion Batteries | Venue: Advanced Energy Materials | DOI: https://doi.org/10.1002/aenm.202204182 | OpenAlexID: https://openalex.org/W4362736353]
+- [ID: 146 | Josefine McBrayer, 2021 | Mechanical studies of the solid electrolyte interphase on anodes in lithium and lithium ion batteries | Venue: Nanotechnology | DOI: https://doi.org/10.1088/1361-6528/ac17fe | OpenAlexID: https://openalex.org/W3185063122]
+
+[Battery-system specialist (Scientist A) - Round 2]
+You raise several valid and well-established points regarding the complexities of interfacial science. We are in complete agreement that the problem of low-temperature performance is not one of bulk electrolyte freezing, but of interfacial kinetics [ID: 44, 172, 329]. Your focus on the desolvation energy barrier and SEI conductivity is precisely where the science must be directed.
+
+However, your proposed solution—substituting high concentration with weakly solvating fluorinated esters—is a textbook example of solving one problem while creating a more severe one. You have correctly identified the target (weak solvation) but have chosen a fundamentally flawed tool for a graphite anode system. Your argument overlooks the critical issue of solvent co-intercalation, misinterprets the nature of the LHCE-derived SEI, and fails to appreciate how the LHCE concept elegantly solves the very temperature-dependent effects you raise.
+
+My position remains firm: a rationally designed LHCE is the superior mechanistic approach. Let me deconstruct your argument.
+
+### 1. You Mischaracterize the LHCE-Derived SEI and Overstate the Viability of Organic SEIs
+
+You correctly point out that pure LiF is mechanically brittle [ID: 166], but your conclusion that this invalidates the LHCE approach is a gross oversimplification. You are conflating a simple, thick LiF layer with the sophisticated, composite interphase formed from an LHCE.
+
+First, the issue of graphite compatibility is paramount. The primary reason conventional ether-based electrolytes, which offer excellent low-temperature bulk properties, fail on graphite is due to solvent co-intercalation, leading to exfoliation and catastrophic failure [ID: 26, 133]. The foundational principle of the LHCE is that by eliminating "free" solvent molecules, the reduction potential of the coordinated solvent is raised, preventing co-intercalation altogether [ID: 26, 35]. Your proposed ester-based system, being a dilute solution, is fundamentally susceptible to this failure mode. Your reliance on FEC [your ID: 10, 56] is merely a patch—an attempt to form a passivating layer before the ester solvent itself destroys the anode. This is a race against kinetics that you are unlikely to win, especially at low temperatures.
+
+Second, the SEI from an LHCE is not pure LiF. It is an inorganic-rich *composite* formed by the preferential decomposition of the anion (e.g., FSI⁻) which is part of the primary Li⁺ solvation sheath [ID: 26, 35]. This process creates a thin, dense, and uniform mosaic of LiF and other anion reduction products (e.g., Li₂S, Li₃N). This is mechanistically superior to relying on additives to build a passivating polymer layer. Such polymer layers, formed from uncontrolled solvent or additive decomposition, often lead to a thicker, more resistive, and less stable SEI over long-term cycling [ID: 204, 441]. The LHCE approach *dictates* the SEI chemistry from the start.
+
+### 2. Fluorinated Esters Are a Pragmatic Compromise, Not a Superior Solution
+
+Your proposal to use weakly solvating fluorinated esters like EDFA or MP [your ID: 69, 133] is a direct attempt to lower the desolvation energy barrier, which is a sound objective [ID: 44, 120]. However, you are ignoring the consequences for the graphite anode.
+
+As established, esters are prone to co-intercalation. A 2021 study by Cho et al. demonstrated that a methyl propionate (MP)-based electrolyte absolutely required FEC to even function in a graphite full cell, highlighting the ester's intrinsic incompatibility [ID: 125]. Furthermore, a 2023 study by Mo et al. showed that while moderate fluorination of esters can be beneficial, the system still relies on forming a robust SEI to prevent solvent attack [ID: 111]. The problem is that at low temperatures, the kinetics of this protective SEI formation from an additive are severely hindered.
+
+The LHCE approach circumvents this entirely. By creating a unique solvation structure where anions are pulled into the primary solvation shell and all solvent molecules are bound, we achieve two things simultaneously:
+1.  **Weakened effective solvation:** The Li⁺ is coordinated by multiple species, facilitating its release at the interface, achieving the low desolvation barrier you seek [ID: 35, 78].
+2.  **Thermodynamic stability:** The absence of free solvent molecules prevents their co-intercalation into graphite, solving the fundamental problem that plagues your proposed ester system [ID: 26].
+
+The viscosity and cost issues you associate with high-concentration electrolytes have been largely mitigated by the "localized" HCE concept, which uses an inert, non-solvating diluent (like a hydrofluoroether) to maintain low viscosity and cost while preserving the essential Li⁺-anion-solvent coordination locally [ID: 26, 35].
+
+### 3. Temperature-Dependent SEI Formation Argues *for* LHCEs, Not Against Them
+
+Your most insightful point is that SEI formation pathways are temperature-dependent [your ID: 45, 28]. Indeed, work by Weng et al. confirms that at low temperatures, thermodynamics can shift to favor the formation of a less stable, organic-rich SEI with poor Li⁺ transport, even in fluorinated systems [ID: 194]. However, you draw the wrong conclusion from this fact.
+
+This phenomenon makes your additive-reliant ester system *more vulnerable*, not less. At low temperatures, the diffusion of your FEC additive to the anode surface will be sluggish. The bulk solvent—your fluorinated ester—is therefore more likely to be reduced first, forming precisely the kind of poor-quality, high-resistance organic SEI that cripples low-temperature performance [ID: 194, 338].
+
+The LHCE architecture is inherently more robust to these temperature effects. The primary SEI-forming species—the FSI⁻ or PF₆⁻ anion—is not a minor additive fighting to diffuse to the interface. It is a major component of the electrolyte, already present in the Li⁺ solvation sheath that delivers the ion to the anode surface [ID: 26, 35]. This guarantees that the desired inorganic-rich SEI precursors are always at the reaction front, ensuring the formation of a stable, low-resistance interphase regardless of the operating temperature. This is the definition of rational, mechanistic control.
+
+### A Refined Experimental Protocol
+
+Your proposed validation is a good start, but it can be improved to more decisively test our competing hypotheses.
+
+1.  **Test Systems:** I agree with a three-way comparison.
+    a.  **Baseline:** 1M LiPF₆ in EC/EMC (3:7).
+    b.  **My Proposal:** 1.5M LiFSI in DME/BTFE (1:2 molar ratio) LHCE [ID: 26]. This is a proven system for inhibiting co-intercalation.
+    c.  **Your Proposal:** 1M LiPF₆ in MP/FEC (9:1 by wt) [ID: 125]. This directly tests the viability of an ester-based system on graphite.
+
+2.  **Characterization:**
+    *   **Temperature-Dependent EIS:** This is non-negotiable. We will perform a full Arrhenius analysis of R_ct and R_SEI for all three systems after formation and after 100 cycles at -20°C [ID: 19, 59, 269]. I predict my LHCE will show not only a low activation energy for charge transfer but also a significantly lower absolute R_SEI after cycling, proving its superior interfacial stability.
+    *   **SEI Composition (XPS/Cryo-TEM):** We will analyze the SEI formed at 25°C and at -20°C. I predict your ester-based system will show a dramatically different, more organic-rich, and thicker SEI when formed at low temperature, confirming the kinetic trap described by Weng et al. [ID: 194]. The LHCE-derived SEI will be thinner, denser, and maintain its inorganic-rich character across temperatures.
+    *   **Crucial Addition: In-situ Dilatometry and Gas Analysis:** To directly probe the graphite compatibility you have overlooked, we must measure electrode swelling and gas evolution during the first formation cycle at both 25°C and -20°C using on-line electrochemical mass spectrometry (OEMS) [ID: 406, 155]. I predict your ester-based system will show significant and irreversible swelling and gas evolution (H₂, CO, C₂H₄), clear evidence of solvent co-intercalation and decomposition. My LHCE system will show minimal swelling and gas evolution, providing direct, mechanistic proof of its superior stability with graphite [ID: 26].
+
+In conclusion, while your goal of weak solvation is correct, your chosen path via fluorinated esters is a dead end for graphite anodes. It creates a fundamental instability that must be patched with additives—a strategy that fails at low temperatures. The LHCE approach is not a "brute force" method; it is a sophisticated manipulation of solvation chemistry that simultaneously solves desolvation kinetics, prevents solvent co-intercalation, and ensures the formation of a robust, inorganic-rich SEI even in the challenging kinetic environment of low temperatures. Performance follows mechanism, and the mechanism of the LHCE is simply superior.
+
+--- Evidence Appendix (auto-generated from snapshot) ---
+Snapshot: Scientist A
+- [ID: 26 | Lili Jiang, 2020 | Inhibiting Solvent Co‐Intercalation in a Graphite Anode by a Localized High‐Concentration Electrolyte in Fast‐Charging Batteries | Venue: Angewandte Chemie International Edition | DOI: https://doi.org/10.1002/anie.202009738 | OpenAlexID: https://openalex.org/W3094540307]
+- [ID: 111 | Yanbing Mo, 2023 | Fluorinated Solvent Molecule Tuning Enables Fast‐Charging and Low‐Temperature Lithium‐Ion Batteries | Venue: Advanced Energy Materials | DOI: https://doi.org/10.1002/aenm.202301285 | OpenAlexID: https://openalex.org/W4383196670]
+- [ID: 125 | Yoon-Gyo Cho, 2021 | Enabling the Low-Temperature Cycling of NMC||Graphite Pouch Cells with an Ester-Based Electrolyte | Venue: ACS Energy Letters | DOI: https://doi.org/10.1021/acsenergylett.1c00484 | OpenAlexID: https://openalex.org/W3159462241]
+- [ID: 166 | Mingfu He, 2019 | The intrinsic behavior of lithium fluoride in solid electrolyte interphases on lithium | Venue: Proceedings of the National Academy of Sciences | DOI: https://doi.org/10.1073/pnas.1911017116 | OpenAlexID: https://openalex.org/W2996591717]
+- [ID: 194 | Suting Weng, 2023 | Temperature-dependent interphase formation and Li+ transport in lithium metal batteries | Venue: Nature Communications | DOI: https://doi.org/10.1038/s41467-023-40221-0 | OpenAlexID: https://openalex.org/W4385257145]
+
+[Electrolyte and interphase specialist (Scientist B) - Round 2]
+Your analysis is sharp, and you've correctly identified the central kinetic challenges: desolvation and SEI transport [ID: 29, 37]. Your advocacy for the Localized High-Concentration Electrolyte (LHCE) model is an elegant theoretical argument. However, as a pragmatic mechanist, I must point out that it is an academically interesting but practically flawed solution for graphite anodes at low temperatures. It prioritizes one problem—solvent co-intercalation—at the expense of creating significant, and in some cases, more severe, issues related to kinetics, mechanical stability, and cost.
+
+My position is that a well-engineered, EC-free electrolyte using weakly-solvating fluorinated esters with targeted additives is the more robust and commercially viable path. Your argument overstates the risks of my approach while conveniently ignoring the inherent burdens of the LHCE model.
+
+### 1. The "Inorganic-Rich" SEI is a Brittle Cage, Not a Silver Bullet
+
+You champion the anion-derived, inorganic-rich SEI of the LHCE as mechanistically superior. I challenge this premise. While LiF is a component of a good SEI, an SEI composed *primarily* of rigid inorganic species like LiF and Li₃N is a mechanical liability on a graphite anode.
+
+First, graphite is not a zero-strain anode; it undergoes volume changes during lithiation and delithiation. A highly rigid, brittle, inorganic SEI is prone to fracture under this mechanical stress [ID: 83, 146]. This constant cracking and reforming consumes active lithium and electrolyte, leading to capacity fade and impedance growth—the very problems we aim to solve. Work by He et al. has shown that the mechanical integrity of LiF is easily compromised, and it is the *in-situ repair* by the electrolyte that dictates performance [ID: 11]. This undermines the entire concept of a static, perfectly passivating inorganic layer.
+
+Second, the SEI formed by additives like fluoroethylene carbonate (FEC) is not a crude "patch." It is a sophisticated, self-assembling composite. It combines a rigid inorganic component (LiF) with a flexible, polymeric organic component (e.g., poly(FEC)) [ID: 9, 47, 194]. This hybrid structure provides the ideal combination of properties: the LiF provides electron-blocking capability, while the polymer matrix imparts mechanical flexibility to accommodate the anode's volume changes without fracture [ID: 194]. This is not a kinetic race; it is a designed composite interphase. Your dismissal of this proven strategy is a fundamental misreading of the literature.
+
+### 2. LHCEs Trade One Kinetic Bottleneck for Another, at Prohibitive Cost
+
+You correctly identify that high desolvation energy is a major contributor to low-temperature impedance [ID: 119]. However, the total impedance is a sum of resistances, including bulk electrolyte resistance (R_bulk), SEI resistance (R_SEI), and charge-transfer resistance (R_ct) [ID: 180, 486]. While LHCEs may lower the desolvation barrier, they severely penalize bulk transport.
+
+High salt concentrations, even when "localized," lead to dramatically increased viscosity and consequently, lower ionic conductivity [ID: 42, 212]. This effect is magnified at low temperatures, where viscosity increases exponentially. You are solving the desolvation problem at the interface only to create a massive ion traffic jam in the bulk electrolyte [ID: 29, 37]. My proposed ester-based systems, being dilute, possess intrinsically lower viscosity and higher bulk conductivity, especially at low temperatures [ID: 56, 202].
+
+Furthermore, let's be pragmatic about materials. The salts (LiFSI) and fluorinated ether diluents (e.g., BTFE) required for LHCEs are an order of magnitude more expensive than the LiPF₆ and ester/carbonate solvents used in my proposed system [ID: 42, 230]. A solution that is not scalable or cost-effective is not a solution; it is an academic curiosity.
+
+### 3. Weakly-Solvating Esters are a Proven, Practical Solution
+
+The logic behind my approach is direct and effective. The primary problem is the high melting point and strong Li⁺ binding of EC [ID: 119, 44]. The solution is to replace it.
+
+**First, we replace EC with a weakly solvating, low-melting-point solvent** like methyl propionate (MP) or ethyl trifluoroacetate (ETFA) [ID: 56, 133, 69]. This directly attacks the largest kinetic barrier—desolvation—and ensures the electrolyte remains liquid with low viscosity at cryogenic temperatures.
+
+**Second, we manage graphite compatibility with a proven film-forming additive.** You claim this is a "patch," but the data says otherwise. Cho et al. demonstrated that an MP-based electrolyte with FEC enables stable cycling of NMC||graphite pouch cells at -20°C and even discharge at -40°C [ID: 56]. Yang et al. achieved a reversible capacity of 183 mAh g⁻¹ at -30°C in a graphite/Li cell using an ETFA-based electrolyte with FEC [ID: 10, 105]. This is achieved because a robust SEI is formed during the initial cycles at room temperature, which then effectively passivates the graphite and prevents solvent co-intercalation during subsequent low-temperature operation [ID: 10, 105]. This is not a flaw; it is a standard and effective engineering protocol. Your citation of Jiang et al. [your ID: 26] is misleading; that work used DME, an ether well-known for its aggressive co-intercalation, which is not representative of the ester systems I propose.
+
+### 4. Temperature-Dependent SEI Formation is an Engineering Specification, Not a Fatal Flaw
+
+You correctly note that SEI formation pathways are temperature-dependent, and that low temperatures can favor the formation of a less-stable, organic-rich SEI [ID: 45]. You argue this makes my additive-based approach vulnerable. I argue the opposite.
+
+This very fact necessitates a multi-step formation protocol, which is common industrial practice. The optimal SEI is deliberately formed under controlled conditions (e.g., room temperature) where the kinetics favor the desired decomposition pathway of the additive [ID: 10, 105]. This pre-formed, stable, and flexible SEI then enables robust performance at low temperatures.
+
+Conversely, you assume the LHCE-derived SEI is immune to temperature effects. This is a tenuous assumption. The thermodynamics of anion vs. solvent reduction are absolutely temperature-dependent, as is the structure of the electric double layer that dictates which species are available for reduction [ID: 28, 45]. It is entirely possible that at low temperatures, the complex, aggregated ion clusters in an LHCE become kinetically trapped, leading to unforeseen and detrimental reduction pathways. Your system's complexity is its weakness.
+
+### A More Rigorous Experimental Protocol
+
+Your proposed experiment is a reasonable starting point, but it lacks the focus on practical constraints and mechanical realities. I propose the following amendments:
+
+1.  **Test Systems:** I agree with your three-way comparison.
+    a.  **Baseline:** 1M LiPF₆ in EC/EMC (3:7).
+    b.  **Your Proposal:** 1.5M LiFSI in DME/BTFE (1:2) LHCE.
+    c.  **My Proposal:** 1M LiPF₆ in methyl propionate (MP)/FEC (9:1 wt%) [ID: 56]. This is a proven low-temperature system.
+
+2.  **Characterization:**
+    *   **Long-Term Cycling at Multiple Temperatures:** We must test at 25°C, -20°C, and -40°C for at least 300 cycles. This will expose the cumulative effect of impedance growth. I predict your LHCE will suffer from progressive polarization due to its high viscosity, while my ester system will remain stable.
+    *   **SEI Mechanical Properties:** Composition is only half the story. We must use in-situ AFM or nano-indentation to measure the Young's modulus and fracture toughness of the SEI formed in each system [ID: 146, 154]. I predict the LHCE will form a brittle, high-modulus SEI, while the ester+FEC system will form a more compliant, fracture-resistant composite SEI better suited for graphite.
+    *   **Full Pouch Cell Analysis:** We must use commercial-format pouch cells (>1 Ah) to assess practical performance. This allows for realistic measurement of gas evolution via OEMS as you suggest, but also critical metrics like impedance growth and irreversible swelling, which are direct indicators of long-term parasitic reactions [ID: 269, 395].
+    *   **Cost and Safety Analysis:** A pragmatic assessment requires a bottom-up cost analysis of each electrolyte formulation. Furthermore, we must conduct nail penetration and thermal ramp tests on the full pouch cells to quantify the real-world safety benefits, as non-flammability claims must be validated at the cell level [ID: 334, 424].
+
+In summary, the LHCE is a fascinating concept for manipulating solvation, but it is a sledgehammer approach that creates as many problems as it solves. It is complex, expensive, and its kinetic and mechanical properties at low temperatures are liabilities. The weakly-solvating ester approach is a more targeted, pragmatic, and proven strategy. It directly addresses the primary kinetic bottleneck of desolvation while leveraging decades of research into additive-based SEI engineering to create a mechanically robust and ionically conductive interface. It is the more promising and practical path toward viable low-temperature batteries.
+
+--- Evidence Appendix (auto-generated from snapshot) ---
+Snapshot: Scientist B
+- [ID: 11 | Mingfu He, 2019 | The intrinsic behavior of lithium fluoride in solid electrolyte interphases on lithium | Venue: Proceedings of the National Academy of Sciences | DOI: https://doi.org/10.1073/pnas.1911017116 | OpenAlexID: https://openalex.org/W2996591717]
+- [ID: 45 | Suting Weng, 2023 | Temperature-dependent interphase formation and Li+ transport in lithium metal batteries | Venue: Nature Communications | DOI: https://doi.org/10.1038/s41467-023-40221-0 | OpenAlexID: https://openalex.org/W4385257145]
+- [ID: 56 | Yoon-Gyo Cho, 2021 | Enabling the Low-Temperature Cycling of NMC||Graphite Pouch Cells with an Ester-Based Electrolyte | Venue: ACS Energy Letters | DOI: https://doi.org/10.1021/acsenergylett.1c00484 | OpenAlexID: https://openalex.org/W3159462241]
+- [ID: 119 | Qiuyan Li, 2017 | Li + -Desolvation Dictating Lithium-Ion Battery’s Low-Temperature Performances | Venue: ACS Applied Materials & Interfaces | DOI: https://doi.org/10.1021/acsami.7b13887 | OpenAlexID: https://openalex.org/W2768128272]
+- [ID: 194 | Yanting Jin, 2018 | Understanding Fluoroethylene Carbonate and Vinylene Carbonate Based Electrolytes for Si Anodes in Lithium Ion Batteries with NMR Spectroscopy | Venue: Journal of the American Chemical Society | DOI: https://doi.org/10.1021/jacs.8b03408 | OpenAlexID: https://openalex.org/W2851304407]
+
+[Battery-system specialist (Scientist A) - Round 3]
+Your position is well-articulated, but it represents an incremental, empirical approach that patches over fundamental flaws rather than solving them. You propose swapping one solvent for another and adding a film-former, a strategy that has been explored for years with limited success precisely because it fails to address the core mechanistic conflicts [ID: 42, 164, 375]. My advocacy for Localized High-Concentration Electrolytes (LHCEs) is not merely theoretical; it is a rational design based on first principles of solvation chemistry and interfacial physics, which creates an electrolyte system that is *inherently* suited for low-temperature, high-rate operation on graphite.
+
+Your argument rests on a series of flawed premises about SEI mechanics, electrolyte kinetics, and the stability of your proposed system.
+
+### 1. The Anion-Derived SEI: Robust Nanocomposite, Not a "Brittle Cage"
+
+Your characterization of the LHCE-derived SEI as a "brittle cage" is a simplistic and inaccurate caricature. You correctly state that a purely inorganic, monolithic layer would be prone to fracture on graphite. However, the SEI formed from an LHCE is not a monolithic ceramic. It is a dense, thin, and robust nanocomposite formed by the preferential decomposition of anions [ID: 26, 35].
+
+The key distinction you miss is the *mechanism of formation*. In your additive-based system, FEC reduction competes with solvent reduction, leading to a heterogeneous, often thicker, and less-defined mixture of LiF, Li₂CO₃, and polymeric species [ID: 283, 287]. In an LHCE, the solvation structure is engineered such that anions (like FSI⁻) are forced into the primary Li⁺ solvation shell and are therefore the most readily available species for reduction at the anode surface [ID: 35, 234]. This results in a highly compact, LiF-rich interphase that is fundamentally different from an additive-derived one. It is not just "inorganic-rich"; it is a rationally constructed barrier whose primary function is to *block solvent molecules* from reaching the graphite surface, thereby preventing co-intercalation—the primary failure mode of ether electrolytes with graphite [ID: 26].
+
+Furthermore, your claim that a flexible polymer is necessary for mechanical stability is a false dichotomy. The SEI from an LHCE isn't brittle; it is *dense* and *self-limiting*. Because it effectively passivates the surface and prevents ongoing solvent decomposition, it remains thin and is less susceptible to the stresses that fracture thick, continuously growing SEIs. Your proposed flexible SEI is also a "leaky" SEI, constantly allowing some degree of solvent transport and slow parasitic reactions, leading to continuous impedance growth and lithium loss over hundreds of cycles [ID: 22, 66].
+
+### 2. LHCEs Decouple Solvation from Bulk Transport; Your System Does Not
+
+You fundamentally misrepresent the kinetics of LHCEs by conflating them with traditional high-concentration electrolytes (HCEs). The entire purpose of the "localized" concept—the addition of a non-solvating diluent—is to break up the viscous, networked ion aggregates of an HCE, thereby restoring bulk fluidity and ionic conductivity while preserving the desirable Li⁺ solvation environment locally [ID: 35]. Papers by Jiang et al. and Cao et al. explicitly demonstrate that LHCEs enable fast-charging and excellent rate capability, which would be impossible if bulk transport were the crippling bottleneck you describe [ID: 26, 35].
+
+The dominant kinetic barrier at low temperatures is the energy required for Li⁺ to shed its tightly bound solvent shell before intercalation—the desolvation energy [ID: 44, 120, 172]. Your ester-based system only marginally improves this over EC. My LHCE approach attacks this problem directly. By forcing anions into the solvation sheath, the Li⁺-solvent interaction is intrinsically weakened, drastically lowering the desolvation energy barrier [ID: 3, 52, 108]. This is the essence of rational design.
+
+Conversely, the FEC additive you rely on actively works against fast charging. It is well-established that film-forming additives increase the initial charge-transfer resistance (R_ct) of the anode [ID: 160]. Liu et al. demonstrated a clear correlation: electrolytes that increase R_negative (which includes R_ct and R_SEI) *decrease* the onset current for lithium plating [ID: 160]. Your "solution" for graphite compatibility actively makes the cell more prone to plating at the high rates required for fast charging.
+
+### 3. "Proven" Ester Solutions are a Compromise with Inherent Flaws
+
+The ester-based electrolytes you champion are not a novel solution but a well-known compromise. While they offer a lower freezing point than EC, they are not electrochemically stable on graphite and rely entirely on the efficacy of the SEI formed by additives like FEC [ID: 125, 233]. This reliance is a critical vulnerability.
+
+You propose a pre-formation protocol at room temperature to build this SEI. This is an admission of a fundamental flaw: the system cannot form a stable interphase under the target operating conditions. What happens when this pre-formed SEI inevitably sustains mechanical damage during cycling at -20°C? The repair process will be governed by low-temperature kinetics, leading to the formation of a kinetically-favored, organic-rich, and highly resistive SEI—the exact failure mode we seek to avoid [ID: 194]. An LHCE, by contrast, is designed so that the anion is the thermodynamically and kinetically preferred species for reduction across a wider temperature range, making the SEI formation and repair mechanism far more robust and consistent [ID: 234].
+
+My LHCE approach offers a fundamental solution to solvent co-intercalation by ensuring there are virtually no "free" solvent molecules available to intercalate [ID: 26]. Your additive approach merely suppresses it, leaving the cell vulnerable to failure if the SEI is compromised.
+
+### A Mechanistically-Driven Experimental Protocol
+
+Your proposed experiment is a good start, but it lacks the deep mechanistic probes required to truly differentiate these systems. I propose a more rigorous protocol to expose the underlying physics.
+
+1.  **Test Systems:**
+    a.  **Baseline:** 1 M LiPF₆ in EC/EMC (3:7).
+    b.  **Your Proposal (Empirical Fix):** 1 M LiPF₆ in Methyl Propionate/FEC (9:1 wt%) [ID: 125].
+    c.  **My Proposal (Rational Design):** 1.2 M LiFSI in 1,1,2,2-tetrafluoroethyl-2,2,3,3-tetrafluoropropyl ether (TTE)/bis(2,2,2-trifluoroethyl) ether (BTFE) (1:2 vol/vol). This is an EC-free, ether-based LHCE designed for weak solvation, high voltage stability, and anion-derived SEI formation [ID: 26, 35].
+
+2.  **Characterization (Focus on Mechanism):**
+    *   **Cryogenic TEM/STEM of the SEI:** We must directly visualize the SEI formed on graphite after cycling at both 25°C and -20°C. This is non-negotiable. It will reveal the morphology, thickness, and crystallinity (or lack thereof) of the interphase [ID: 103, 389]. I predict your system will show a thicker, more heterogeneous, polymer-rich SEI, while mine will show a thin, dense, inorganic-rich layer.
+    *   **Temperature-Swept Electrochemical Impedance Spectroscopy (EIS):** Using three-electrode cells, we will measure impedance from 25°C down to -40°C. Fitting this data to an equivalent circuit model will allow us to deconvolve R_bulk, R_SEI, and R_ct [ID: 19, 269]. This will quantitatively test my hypothesis: your system will be limited by a high R_ct (desolvation), while my LHCE will show a much lower R_ct but a manageable R_bulk.
+    *   **Computational Modeling (DFT/MD):** We must calculate the Li⁺ desolvation energy barriers for each electrolyte and model the Electric Double Layer (EDL) structure at the graphite surface [ID: 234, 450]. This will provide the fundamental physical explanation for the EIS results and confirm whether anions are preferentially driven to the interface in the LHCE system.
+    *   **Lithium Plating Quantification:** We will cycle cells at increasing C-rates at -10°C and then disassemble them for post-mortem analysis. We will use chemical titration methods to precisely quantify the amount of "dead lithium" (plated Li) on the anode surface [ID: 461]. This provides a direct, quantitative measure of failure, moving beyond simple capacity fade curves.
+
+In conclusion, your approach is an empirical patch on an outdated electrolyte paradigm. It prioritizes bulk conductivity at the expense of interfacial kinetics and stability. My approach, based on the LHCE principle, is a fundamental redesign of the electrolyte's molecular environment. It rationally engineers the Li⁺ solvation shell to simultaneously lower the desolvation energy, enable an anion-derived SEI that blocks solvent co-intercalation, and create a robust, self-limiting interphase. It addresses the root causes of failure, rather than merely treating the symptoms. True progress is methodical, not empirical.
+
+--- Evidence Appendix (auto-generated from snapshot) ---
+Snapshot: Scientist A
+- [ID: 26 | Lili Jiang, 2020 | Inhibiting Solvent Co‐Intercalation in a Graphite Anode by a Localized High‐Concentration Electrolyte in Fast‐Charging Batteries | Venue: Angewandte Chemie International Edition | DOI: https://doi.org/10.1002/anie.202009738 | OpenAlexID: https://openalex.org/W3094540307]
+- [ID: 35 | Xia Cao, 2020 | Review—Localized High-Concentration Electrolytes for Lithium Batteries | Venue: Journal of The Electrochemical Society | DOI: https://doi.org/10.1149/1945-7111/abd60e | OpenAlexID: https://openalex.org/W3117664282]
+- [ID: 125 | Yoon-Gyo Cho, 2021 | Enabling the Low-Temperature Cycling of NMC||Graphite Pouch Cells with an Ester-Based Electrolyte | Venue: ACS Energy Letters | DOI: https://doi.org/10.1021/acsenergylett.1c00484 | OpenAlexID: https://openalex.org/W3159462241]
+- [ID: 160 | Q. Q. Liu, 2017 | Effects of Electrolyte Additives and Solvents on Unwanted Lithium Plating in Lithium-Ion Cells | Venue: Journal of The Electrochemical Society | DOI: https://doi.org/10.1149/2.1081706jes | OpenAlexID: https://openalex.org/W2605145269]
+- [ID: 194 | Suting Weng, 2023 | Temperature-dependent interphase formation and Li+ transport in lithium metal batteries | Venue: Nature Communications | DOI: https://doi.org/10.1038/s41467-023-40221-0 | OpenAlexID: https://openalex.org/W4385257145]
+- [ID: 234 | Qisheng Wu, 2023 | Effect of the Electric Double Layer (EDL) in Multicomponent Electrolyte Reduction and Solid Electrolyte Interphase (SEI) Formation in Lithium Batteries | Venue: Journal of the American Chemical Society | DOI: https://doi.org/10.1021/jacs.2c11807 | OpenAlexID: https://openalex.org/W4317798212]
+- [ID: 461 | Eric J. McShane, 2020 | Quantification of Inactive Lithium and Solid–Electrolyte Interphase Species on Graphite Electrodes after Fast Charging | Venue: ACS Energy Letters | DOI: https://doi.org/10.1021/acsenergylett.0c00859 | OpenAlexID: https://openalex.org/W3026488851]
+
+[Electrolyte and interphase specialist (Scientist B) - Round 3]
+Your argument for Localized High-Concentration Electrolytes is elegant in theory but dangerously detached from electrochemical and mechanical reality. You champion a "rational design" that, upon closer inspection, trades one set of well-understood problems for a host of new, less-tractable ones. Your dismissal of a synergistic, multi-component approach as "empirical patching" misunderstands the very nature of interfacial engineering. A stable, low-impedance interface is not a monolith; it is a carefully balanced composite.
+
+Your entire case rests on a foundation of idealized assumptions. Let's dismantle them one by one.
+
+### 1. The Anion-Derived SEI: A Brittle Reality, Not a "Robust Nanocomposite"
+
+You praise the anion-derived SEI from LHCEs as a thin, dense, solvent-blocking layer. While it is true that preferential anion reduction can form a LiF-rich SEI [ID: 6, 91], you conveniently ignore the well-documented mechanical properties of lithium fluoride. Work by He et al. has shown that LiF is intrinsically fragile and easily compromised during plating and stripping [ID: 11]. An SEI dominated by a brittle inorganic component is fundamentally unsuited for a graphite anode, which undergoes volumetric expansion and contraction with every cycle. The idea that this thin, rigid film will remain intact over hundreds of cycles, especially under the increased stress of low-temperature operation, is wishful thinking.
+
+My approach, which you caricature, intentionally cultivates a composite SEI. Additives like FEC or VC do not just form "a heterogeneous mixture"; they are known to generate polymeric species alongside inorganic components like LiF and Li₂CO₃ [ID: 9, 215]. This is not a flaw; it is the entire point. This organic/polymeric matrix provides the mechanical flexibility and elasticity necessary to accommodate the breathing of the graphite particles without fracture [ID: 22, 146]. Your "dense, self-limiting" layer is a brittle shell waiting to crack. Once it does, the underlying graphite is exposed directly to your ether-based electrolyte, leading to catastrophic solvent co-intercalation and exfoliation—the very failure mode you claim to have solved [ID: 96]. A stable SEI requires both rigidity and elasticity, a balance your system lacks [ID: 154].
+
+### 2. The Unavoidable Trade-Offs of LHCEs: Viscosity, Cost, and Kinetics
+
+You claim that the diluent in an LHCE "restores bulk fluidity." This is a relative statement that obscures the practical reality. Compared to conventional, low-concentration electrolytes, LHCEs still exhibit significantly higher viscosity and lower ionic conductivity, a problem that is only exacerbated as temperature plummets [ID: 25, 42, 48]. While you focus on the desolvation energy (R_ct), you neglect the other major contributors to polarization at low temperature: bulk electrolyte resistance (R_bulk) and SEI resistance (R_SEI) [ID: 29, 80]. A low desolvation barrier is meaningless if ions cannot physically reach the interface in a timely manner due to a sluggish, viscous bulk electrolyte.
+
+Furthermore, your proposed electrolyte formulation—using exotic fluorinated ethers like TTE or BTFE—is commercially unviable. These are specialty chemicals, not scalable industrial solvents [ID: 6, 69]. A pragmatic approach must consider cost and scalability. My advocacy for ester-based electrolytes like methyl propionate (MP) or ethyl acetate (EA) is grounded in practicality; they have low melting points, low viscosity, and are cost-effective [ID: 56, 202].
+
+You also create a false narrative that FEC is universally detrimental to fast charging. While some studies show it can increase initial impedance [ID: 103], this is an oversimplification. The *quality* of the resulting SEI is what matters for long-term performance. A well-formed, stable SEI with low Li+ transport resistance, even if it has a higher formation impedance, will outperform a "low-resistance" SEI that is constantly cracking and reforming. In fact, work by Yang et al. and others demonstrates that electrolytes using weakly-solvating molecules like fluorinated esters, often in combination with FEC, enable *both* fast charging at room temperature and excellent performance at low temperature, precisely because they create a stable, low-resistance SEI and facilitate desolvation [ID: 10, 105].
+
+### 3. A Synergistic Solution: Weak Solvation without High Concentration
+
+My position is not an "empirical fix" but a **synergistic design** that reconciles the conflicting demands of low-temperature operation. The goal is to achieve weak Li⁺ solvation *without* the crippling viscosity and cost of LHCEs.
+
+This is accomplished by combining low-viscosity, low-melting-point ester solvents with fluorinated co-solvents or additives [ID: 133, 134]. This approach attacks all kinetic bottlenecks simultaneously:
+*   **Low Bulk Resistance:** Ester solvents like EA or MP maintain low viscosity and high ionic conductivity down to extreme temperatures, ensuring Li⁺ can reach the interface [ID: 202, 56].
+*   **Low Desolvation Energy:** The strategic use of fluorinated molecules (e.g., ethyl difluoroacetate, fluoroethylene carbonate) tunes the Li⁺ solvation sheath, weakening the Li⁺-solvent bond and lowering the desolvation energy barrier [ID: 10, 69, 119]. This achieves the primary benefit you claim for LHCEs, but with superior bulk transport properties.
+*   **A Robust, Composite SEI:** The fluorinated components preferentially decompose to form a stable, inorganic-rich (e.g., LiF, Li₃PO₄) inner SEI, while the esters contribute to a flexible organic outer layer [ID: 41, 44, 50]. This composite structure is mechanically resilient and ionically conductive, preventing both fracture and continuous electrolyte consumption.
+
+Your criticism of a room-temperature formation protocol is misplaced. It is a standard, necessary step for creating a thermodynamically preferred, stable interphase before subjecting the cell to kinetic stress [ID: 10, 105]. An SEI formed at -20°C is a product of kinetic trapping, resulting in metastable, organic-rich, and highly resistive films [ID: 45]. A controlled formation is a hallmark of robust engineering, not a sign of weakness.
+
+### A More Revealing Experimental Protocol
+
+Your proposed experiment is sound, but I suggest we refine the test systems and add a critical dimension: long-term stability and practical viability.
+
+1.  **Test Systems:**
+    a.  **Baseline:** 1 M LiPF₆ in EC/EMC (3:7).
+    b.  **Your LHCE:** 1.5 M LiFSI in DME/bis(2,2,2-trifluoroethyl) ether (BTFE) (1:2) [ID: 6].
+    c.  **My Synergistic Electrolyte:** 1.0 M LiPF₆ in Ethyl Difluoroacetate (EDFA)/Fluoroethylene Carbonate (FEC) [ID: 69, 133]. This system is explicitly designed to balance weak solvation, low viscosity, and the formation of a robust, inorganic-rich SEI.
+
+2.  **Characterization (with a focus on degradation):**
+    *   **Long-Term, Low-Temperature Cycling:** We must go beyond a few dozen cycles. I propose 500 cycles at -20°C at C/3 charge, 1C discharge. This will expose the mechanical fragility and long-term parasitic reactions you overlook. I predict the capacity retention of my system will far exceed the LHCE due to a more mechanically stable SEI.
+    *   **Temperature-Dependent EIS with Activation Energy Analysis:** We will separate R_bulk, R_SEI, and R_ct as a function of temperature [ID: 80]. This will quantify the trade-offs. I predict my system will show a lower overall impedance at low temperatures due to superior bulk conductivity, even if the initial R_ct is comparable. We will calculate the activation energy for Li+ transport through the SEI, which I hypothesize will be lower and more stable over cycling in my system [ID: 80, 426].
+    *   **Cryo-TEM and XPS Depth Profiling (Post-Cycling):** Essential for visualizing the SEI nanostructure after 100 cycles at -20°C [ID: 45, 271]. We will specifically look for micro-cracks in the LHCE-derived SEI and quantify the thickness and chemical heterogeneity. I expect to see a durable, bilayer structure in my system versus a fractured, thickened inorganic layer in yours.
+    *   **Gas Chromatography (GC) and Titration:** We will quantify gas evolution (a sign of ongoing decomposition) and inactive lithium formation after fast-charge cycling at low temperature [ID: 30, 116]. This will provide hard data on which system is truly more stable and less prone to plating under stress.
+
+In summary, you have fixated on a single parameter—anion-driven SEI formation—while ignoring the complex interplay of mechanics, bulk transport, and cost. Your LHCE approach is a brittle, expensive, and ultimately impractical solution. My proposed synergistic electrolyte design offers a more robust and pragmatic path forward. It creates a mechanically resilient, low-resistance composite SEI and maintains low viscosity for superior bulk ion transport, addressing the full scope of challenges for low-temperature graphite performance. That is the true path of rational, mechanistic design.
+
+--- Evidence Appendix (auto-generated from snapshot) ---
+Snapshot: Scientist B
+- [ID: 6 | Lili Jiang, 2020 | Inhibiting Solvent Co‐Intercalation in a Graphite Anode by a Localized High‐Concentration Electrolyte in Fast‐Charging Batteries | Venue: Angewandte Chemie International Edition | DOI: https://doi.org/10.1002/anie.202009738 | OpenAlexID: https://openalex.org/W3094540307]
+- [ID: 11 | Mingfu He, 2019 | The intrinsic behavior of lithium fluoride in solid electrolyte interphases on lithium | Venue: Proceedings of the National Academy of Sciences | DOI: https://doi.org/10.1073/pnas.1911017116 | OpenAlexID: https://openalex.org/W2996591717]
+- [ID: 45 | Suting Weng, 2023 | Temperature-dependent interphase formation and Li+ transport in lithium metal batteries | Venue: Nature Communications | DOI: https://doi.org/10.1038/s41467-023-40221-0 | OpenAlexID: https://openalex.org/W4385257145]
+- [ID: 80 | A. S. Keefe, 2019 | Temperature Dependent EIS Studies Separating Charge Transfer Impedance from Contact Impedance in Lithium-Ion Symmetric Cells | Venue: Journal of The Electrochemical Society | DOI: https://doi.org/10.1149/2.0541914jes | OpenAlexID: https://openalex.org/W2975867039]
+- [ID: 96 | Zhicheng Wang, 2023 | Co-Intercalation-Free Ether-Based Weakly Solvating Electrolytes Enable Fast-Charging and Wide-Temperature Lithium-Ion Batteries | Venue: ACS Nano | DOI: https://doi.org/10.1021/acsnano.3c04907 | OpenAlexID: https://openalex.org/W4386496450]
+- [ID: 103 | Q. Q. Liu, 2017 | Effects of Electrolyte Additives and Solvents on Unwanted Lithium Plating in Lithium-Ion Cells | Venue: Journal of The Electrochemical Society | DOI: https://doi.org/10.1149/2.1081706jes | OpenAlexID: https://openalex.org/W2605145269]
+- [ID: 154 | Yao Gao, 2022 | Probing the Mechanically Stable Solid Electrolyte Interphase and the Implications in Design Strategies | Venue: Advanced Materials | DOI: https://doi.org/10.1002/adma.202205421 | OpenAlexID: https://openalex.org/W4307230762]
+
+
+============================================================
+[FINAL SYNTHESIS]
+To: Low-Temperature Battery Research Team
+From: Research Director
+Date: October 2, 2023
+Subject: Review and Strategic Direction on Low-Temperature Graphite Electrolyte/SEI Design
+
+I have completed my review of the internal debate between Scientist A (Battery-system specialist) and Scientist B (Electrolyte and interphase specialist) regarding the design of low-temperature electrolytes for graphite anodes. Both scientists have provided a high-level, evidence-based analysis of the core challenge: reconciling bulk transport with interfacial kinetics.
+
+The debate correctly identifies that the primary bottlenecks at low temperatures are not bulk electrolyte freezing but the high activation energy of Li+ desolvation and sluggish Li+ transport through the Solid Electrolyte Interphase (SEI). The central question is how to engineer an electrolyte system that mitigates these coupled interfacial resistances without introducing new failure modes.
+
+### 1. Synthesis of the Debate
+
+The two positions represent distinct, albeit overlapping, design philosophies. Scientist A advocates for a "rational design" approach based on first principles, while Scientist B proposes a "synergistic engineering" approach that balances multiple practical constraints.
+
+| Topic of Contention | Scientist A: Rational Design (LHCE) | Scientist B: Synergistic Engineering (Weakly Solvating Esters) |
+| :--- | :--- | :--- |
+| **Core Philosophy** | Engineer the Li+ solvation shell using a Localized High-Concentration Electrolyte (LHCE) to dictate the formation of an ideal SEI. | Design a multi-component electrolyte using weakly solvating solvents and functional additives to create a balanced, composite SEI. |
+| **Electrolyte Composition** | A high-concentration salt (e.g., LiFSI) in an ether solvent (e.g., DME) with a non-solvating diluent (e.g., BTFE) (Scientist A [ID: 26, 35]). | A standard concentration salt (e.g., LiPF₆) in a weakly solvating, low-melting-point ester solvent (e.g., MP, EDFA) with a film-forming additive (e.g., FEC) (Scientist B [ID: 56, 69, 133]). |
+| **Desolvation Strategy** | Force anions into the primary solvation shell, creating weak Li+-solvent coordination and lowering the desolvation energy barrier (Scientist A [ID: 3, 52, 111]). | Use solvents with low donor numbers (fluorinated esters) to intrinsically weaken the Li+-solvent bond, thereby lowering the desolvation barrier (Scientist B [ID: 119, 133]). |
+| **SEI Design** | Anion-derived, thin, dense, and inorganic-rich (LiF) SEI that is highly conductive to Li+ and effectively blocks solvent co-intercalation (Scientist A [ID: 26, 194]). | A composite SEI with an inorganic inner layer (from additive reduction) and a flexible polymeric/organic outer layer, providing both ionic conductivity and mechanical compliance (Scientist B [ID: 41, 146, 194]). |
+| **Key Strengths** | Mechanistically prevents ether co-intercalation on graphite; ensures formation of a stable, inorganic-rich SEI regardless of temperature (Scientist A [ID: 26, 35]). | Low viscosity and high bulk conductivity at low temperatures; proven performance in pouch cells; cost-effective; mechanically flexible SEI (Scientist B [ID: 56, 146, 202]). |
+| **Critique of Opponent** | Ester-based systems are fundamentally unstable on graphite and rely on a "patch" from additives, a strategy that fails when the SEI is damaged at low temperature (Scientist A [ID: 125, 194]). | LHCEs are impractically viscous and expensive. The resulting purely inorganic SEI is brittle and will fracture on a graphite anode, leading to continuous degradation (Scientist B [ID: 11, 42, 146]). |
+
+### 2. Critical Assessment and Recommended Research Direction
+
+Both arguments have significant merit and expose the critical trade-offs.
+
+*   **Scientist A's LHCE approach** is mechanistically elegant. The ability to thermodynamically prevent solvent co-intercalation by eliminating "free" solvent is a powerful solution to a historic problem with ether-based electrolytes on graphite (Scientist A [ID: 26]). However, **Scientist B's critique is damningly practical**: the mechanical fragility of a purely inorganic SEI on a volume-changing graphite anode is a high-risk failure point (Scientist B [ID: 11, 154]). Furthermore, the high viscosity and cost of LHCEs remain significant barriers to commercial adoption (Scientist B [ID: 42]).
+
+*   **Scientist B's ester-based approach** is pragmatic and grounded in demonstrated cell performance (Scientist B [ID: 56, 105]). It directly targets low viscosity and weak solvation. However, **Scientist A's central criticism is valid**: the system's stability relies entirely on the integrity of an additive-derived SEI. This creates a vulnerability, as any mechanical damage at low temperatures could lead to direct solvent-graphite interaction and subsequent failure, a process governed by unfavorable low-temperature repair kinetics (Scientist A [ID: 194]).
+
+Neither approach is a panacea. The LHCE strategy is mechanistically robust but practically fragile. The ester strategy is practical but mechanistically vulnerable.
+
+Therefore, our path forward will be a hybrid approach that synthesizes the strengths of both arguments. We will pursue a system that achieves weak solvation through solvent design (per Scientist B) while engineering a robust, inorganic-rich, but mechanically compliant SEI (addressing the concerns of both).
+
+**The most probable successful composition will be a low-concentration, EC-free electrolyte based on fluorinated ester solvents with a combination of film-forming additives.**
+
+This strategy is chosen because it offers the most direct path to mitigating the key risks identified in the debate:
+1.  It directly lowers the desolvation energy barrier through rational solvent selection (Scientist B [ID: 69, 119]).
+2.  It maintains low viscosity and high bulk conductivity at low temperatures, unlike LHCEs (Scientist B [ID: 56, 202]).
+3.  By using a combination of additives, we can engineer a composite SEI that is both LiF-rich for fast ion transport and mechanically flexible to accommodate graphite's volume changes, mitigating the brittleness risk of a pure-LiF SEI (Scientist B [ID: 41, 194]).
+4.  The use of fluorinated esters, which have lower reduction potentials than non-fluorinated ethers, provides an additional layer of protection against catastrophic solvent co-intercalation should the SEI be compromised.
+
+### 3. Mandated Experimental Program
+
+To validate this direction, we will initiate a comparative study based on the excellent experimental plans proposed by both scientists.
+
+*   **Test Systems:**
+    1.  **Baseline:** 1 M LiPF₆ in EC/EMC (3:7).
+    2.  **LHCE (Scientist A):** 1.5 M LiFSI in DME/BTFE (1:2). This serves as a benchmark for the anion-derived SEI concept.
+    3.  **Proposed Hybrid (Synthesis):** 1.0 M LiPF₆ in Ethyl Difluoroacetate (EDFA) / Fluoroethylene Carbonate (FEC) / Ethyl Methyl Carbonate (EMC) (e.g., 4:1:5 by wt.). The EDFA provides weak solvation, FEC generates the LiF-rich composite SEI, and EMC maintains low viscosity.
+
+*   **Characterization Protocol:**
+    1.  **Decouple Resistances:** Employ temperature-dependent EIS on three-electrode pouch cells to extract and plot Arrhenius data for R_bulk, R_SEI, and R_ct. This will quantify the success of our desolvation and SEI transport strategy (Scientist A [ID: 239], Scientist B [ID: 80]).
+    2.  **Probe SEI Composition & Morphology:** Use Cryo-TEM and XPS depth profiling on anodes after formation and after 300 cycles at -20°C. We must confirm the formation of a thin, uniform, composite SEI and look for evidence of cracking (Scientist A [ID: 103], Scientist B [ID: 45, 271]).
+    3.  **Measure Mechanical Properties:** Directly test the SEI's mechanical resilience using nano-indentation on cryo-preserved anodes. This will provide a quantitative answer to Scientist B's critical point about brittleness (Scientist B [ID: 146, 154]).
+    4.  **Quantify Parasitic Reactions:** Use in-situ dilatometry and OEMS/GC during formation and long-term cycling to quantify irreversible swelling and gas evolution, providing direct evidence of graphite compatibility and long-term stability (Scientist A [ID: 155], Scientist B [ID: 30]).
+    5.  **Quantify Lithium Plating:** After high-rate cycling at -10°C, disassemble cells and use titration to quantify dead lithium, providing a direct measure of the system's failure threshold (Scientist A [ID: 461]).
+
+This integrated approach allows us to pursue a practical, scalable solution while rigorously validating the underlying mechanisms and addressing the critical failure modes identified by both specialists.
+
+### 4. Evidence Map
+
+The following recommendations are supported by the evidence presented in the debate:
+
+*   **Prioritize Weakly Solvating Fluorinated Ester Solvents:** This directly targets the desolvation energy barrier and maintains low viscosity.
+    *   Supporting Evidence: Scientist B [ID: 69, 119, 133, 56]
+*   **Engineer a Composite, Mechanically Compliant SEI:** This is critical for long-term stability on a graphite anode that undergoes volume changes. A purely inorganic SEI is too high-risk.
+    *   Supporting Evidence: Scientist B [ID: 11, 41, 146, 154, 194]
+*   **Validate Graphite Compatibility via Gas and Volume Analysis:** The risk of solvent co-intercalation, raised pointedly by Scientist A, must be directly measured and mitigated.
+    *   Supporting Evidence: Scientist A [ID: 26, 155, 406]
+*   **Systematically Decouple Interfacial Resistances (R_SEI, R_ct):** This is essential to confirm that our design is addressing the correct kinetic bottlenecks.
+    *   Supporting Evidence: Scientist A [ID: 172, 239, 376], Scientist B [ID: 80, 233, 486]
+*   **Utilize a Controlled Formation Protocol:** The temperature-dependence of SEI formation is a critical factor that must be engineered, not ignored.
+    *   Supporting Evidence: Scientist B [ID: 10, 45, 105], Scientist A [ID: 194]
+
+--- Evidence Appendix (Scientist A snapshot) ---
+- [ID: 26 | Lili Jiang, 2020 | Inhibiting Solvent Co‐Intercalation in a Graphite Anode by a Localized High‐Concentration Electrolyte in Fast‐Charging Batteries | Venue: Angewandte Chemie International Edition | DOI: https://doi.org/10.1002/anie.202009738 | OpenAlexID: https://openalex.org/W3094540307]
+- [ID: 103 | Yuzhang Li, 2017 | Atomic structure of sensitive battery materials and interfaces revealed by cryo–electron microscopy | Venue: Science | DOI: https://doi.org/10.1126/science.aam6014 | OpenAlexID: https://openalex.org/W2765279177]
+- [ID: 155 | Ben Rowden, 2020 | A review of gas evolution in lithium ion batteries | Venue: Energy Reports | DOI: https://doi.org/10.1016/j.egyr.2020.02.022 | OpenAlexID: https://openalex.org/W3027513684]
+- [ID: 194 | Suting Weng, 2023 | Temperature-dependent interphase formation and Li+ transport in lithium metal batteries | Venue: Nature Communications | DOI: https://doi.org/10.1038/s41467-023-40221-0 | OpenAlexID: https://openalex.org/W4385257145]
+- [ID: 239 | Ryoichi Tatara, 2018 | The Effect of Electrode-Electrolyte Interface on the Electrochemical Impedance Spectra for Positive Electrode in Li-Ion Battery | Venue: Journal of The Electrochemical Society | DOI: https://doi.org/10.1149/2.0121903jes | OpenAlexID: https://openalex.org/W2902013644]
+- [ID: 461 | Eric J. McShane, 2020 | Quantification of Inactive Lithium and Solid–Electrolyte Interphase Species on Graphite Electrodes after Fast Charging | Venue: ACS Energy Letters | DOI: https://doi.org/10.1021/acsenergylett.0c00859 | OpenAlexID: https://openalex.org/W3026488851]
+
+--- Evidence Appendix (Scientist B snapshot) ---
+- [ID: 30 | Eric J. McShane, 2020 | Quantification of Inactive Lithium and Solid–Electrolyte Interphase Species on Graphite Electrodes after Fast Charging | Venue: ACS Energy Letters | DOI: https://doi.org/10.1021/acsenergylett.0c00859 | OpenAlexID: https://openalex.org/W3026488851]
+- [ID: 42 | Xia Cao, 2020 | Review—Localized High-Concentration Electrolytes for Lithium Batteries | Venue: Journal of The Electrochemical Society | DOI: https://doi.org/10.1149/1945-7111/abd60e | OpenAlexID: https://openalex.org/W3117664282]
+- [ID: 80 | A. S. Keefe, 2019 | Temperature Dependent EIS Studies Separating Charge Transfer Impedance from Contact Impedance in Lithium-Ion Symmetric Cells | Venue: Journal of The Electrochemical Society | DOI: https://doi.org/10.1149/2.0541914jes | OpenAlexID: https://openalex.org/W2975867039]
+

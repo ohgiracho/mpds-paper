@@ -1,0 +1,507 @@
+[RUN CONFIG]
+run_timestamp_utc: 2026-09-22T10:42:00.140544+00:00
+model: gemini-2.5-pro
+temperature: 0.5
+max_output_tokens: 8192
+language: "en"
+min_evidence_pointers: 3
+turn_sleep_sec: 0.2
+rounds: 3
+simulation_date: 2022
+topic: How should a liquid electrolyte for practical lithium-metal batteries reconcile interfacial electrochemical stability with high ionic conductivity and high-rate transport?
+
+knowledge_a_file: [LOCAL_PATH_REDACTED]
+REPRODUCIBILITY:
+provider: OpenAlex Works API
+keyword: lithium metal battery weakly solvating electrolyte
+start_year: 2013
+end_year: 2022
+master_size: 550
+selected_top_n: 500
+ranking: default search relevance_score descending
+pagination: cursor
+retrieved_at: 2026-09-22T10:10:31.663222+00:00
+retrieval_id: q4_case_02_pool_A_2026-09-22T10:10:31.663222+00:00
+============================================================
+
+knowledge_b_file: [LOCAL_PATH_REDACTED]
+REPRODUCIBILITY:
+provider: OpenAlex Works API
+keyword: electrolyte solvation ion clustering ionic conductivity lithium battery
+start_year: 2013
+end_year: 2022
+master_size: 550
+selected_top_n: 500
+ranking: default search relevance_score descending
+pagination: cursor
+retrieved_at: 2026-09-22T10:10:46.900332+00:00
+retrieval_id: q4_case_02_pool_B_2026-09-22T10:10:46.900332+00:00
+============================================================
+
+Context: [User's Experimental Situation]
+- Background: Lithium-metal batteries require electrolytes that remain stable at both reactive lithium metal and high-voltage cathodes while supporting practical current density and lean-electrolyte operation.
+- Interfacial bottleneck: Weakly solvating, anion-rich solvation environments can suppress parasitic reactions and stabilize both interfaces.
+- Transport bottleneck: The same weak-solvation formulations often show lower ionic conductivity than conventional carbonate or ether electrolytes, limiting high-rate cycling.
+- Coupled constraint: Raising salt concentration or changing solvent coordination can alter viscosity, ion association, desolvation, wetting, and interphase chemistry simultaneously; improving one quantity may worsen another.
+- Core question: What molecular-level electrolyte design can reduce ion aggregation and transport resistance without destroying the interfacially favorable solvation structure?
+- Goals:
+    1) State a testable relationship among solvation structure, ion association, conductivity, and interphase stability.
+    2) Define formulation controls that separate conductivity gains from viscosity or concentration artifacts.
+    3) Specify spectroscopic, scattering, simulation, and full-cell measurements that could falsify the proposal.
+
+============================================================
+
+[Electrolyte solvation specialist (Scientist A) - Round 1]
+Excellent question. You've precisely identified the central dilemma in electrolyte design for lithium metal batteries (LMBs): the inherent, frustrating trade-off between engineering a stable interface and maintaining practical bulk ion transport. The community has spent years chasing high Coulombic efficiency (CE) with formulations that ultimately fail the rate-capability test, or vice-versa. My position is that this is not an insurmountable paradox, but a complex optimization problem that requires moving beyond simplistic, single-solvent systems.
+
+### Diagnosis of the Problem: The Solvation Shell Dichotomy
+
+The root of the problem lies in the dual role of the electrolyte. The stability of the lithium metal anode is fundamentally dictated by the composition of the Li⁺ solvation shell at the moment of reduction.
+
+1.  **For Stability, Anions Must Participate:** In conventional carbonate or even standard ether electrolytes (e.g., 1M LiPF₆ in EC/DMC or 1M LiTFSI in DOL/DME), the Li⁺ is strongly solvated by solvent molecules. The anion is largely excluded from the primary solvation sheath, existing as a solvent-separated ion pair (SSIP) [ID: 102, 219]. When this solvated cation is reduced at the anode, the solvent decomposes first, forming a mechanically weak, organic-rich, and ionically resistive solid electrolyte interphase (SEI) that is prone to rupture and continuous reformation. The solution, as demonstrated by high-concentration electrolytes (HCEs), is to force anions into the primary solvation shell [ID: 2, 6]. This can also be achieved more elegantly with weakly solvating electrolytes (WSEs), where solvents with lower donicity or significant steric hindrance, like 1,2-diethoxyethane (DEE), cannot effectively shield the Li⁺, promoting the formation of contact ion pairs (CIPs) and aggregates (AGGs) even at moderate concentrations [ID: 1, 15, 94]. The reduction of these anion-rich solvates leads to a desirable inorganic-rich SEI (e.g., LiF, Li₂S, Li₃N from FSI⁻ decomposition), which is denser and more stable [ID: 5, 94].
+
+2.  **For Transport, Ions Must Be Mobile:** Herein lies the trade-off. The very ion association (CIPs, AGGs) that benefits the SEI is detrimental to transport. These larger, charged or neutral clusters have lower mobility than free ions. Furthermore, the strategies used to induce this association—high salt concentration or weakly coordinating solvents—often lead to high viscosity and low ionic conductivity [ID: 6, 8]. Even if a stable, LiF-rich SEI is formed, the intrinsically low ionic conductivity of LiF itself can create a transport bottleneck at the interface, leading to localized Li⁺ flux and promoting dendritic growth under high current densities [ID: 36].
+
+Simply put, the molecular structure that creates a good SEI (anion-rich solvates) is often the same structure that cripples bulk transport.
+
+### Proposed Solution: The Localized High-Concentration Electrolyte (LHCE) Principle
+
+The most promising path forward is not to abandon the principle of anion-driven SEI formation, but to decouple the local solvation environment from the bulk fluid properties. This is the core concept of **Localized High-Concentration Electrolytes (LHCEs)** [ID: 8].
+
+My proposal is to design electrolytes based on a binary solvent system composed of:
+*   **A primary solvating solvent:** A molecule with moderate-to-weak solvating power (e.g., ethers like DME, DEE, or even siloxanes [ID: 94, 97]) that, at a high local salt ratio, forms the desired anion-rich Li⁺-solvate clusters.
+*   **A non-solvating diluent:** An electrochemically inert, low-viscosity fluid that does not coordinate with Li⁺. Its sole purpose is to "dilute" the solvate clusters, reducing bulk viscosity and increasing the mobility of the charge-carrying species without breaking apart the fundamental Li⁺-anion coordination within the clusters [ID: 8, 45].
+
+This approach preserves the "high-concentration" chemistry at the molecular level, ensuring the formation of a robust, anion-derived SEI, while achieving "low-concentration" physical properties (low viscosity, high conductivity) at the macroscopic level.
+
+### A Testable Hypothesis and Experimental Falsification Plan
+
+This leads to a clear, testable hypothesis:
+
+**Hypothesis:** *A stable, high-rate LMB electrolyte can be formulated by creating Li⁺-(anion)ₓ-(solvent)ᵧ clusters using a primary solvating solvent, and then dispersing these clusters in a non-coordinating, low-viscosity diluent. This architecture decouples interfacial stability (governed by the cluster chemistry) from bulk transport (governed by cluster mobility in the diluent).*
+
+To rigorously test and potentially falsify this, I propose the following integrated plan:
+
+**1. Formulation Controls:**
+*   **Primary Solvent:** Systematically vary the solvating power. Compare a strong ether solvator like DME with a weakly solvating one like DEE [ID: 15] or a siloxane [ID: 94].
+*   **Salt & Concentration:** Use LiFSI as the primary salt due to its proven ability to form stable SEIs [ID: 2]. The key is to establish a high *local* molar ratio of salt-to-primary-solvent (e.g., 1:1.5 to 1:3).
+*   **Diluent:** This is the critical variable. Screen candidates for non-solvating character. A classic example is a hydrofluoroether (HFE) like TTE [ID: 8, 32]. Crucially, we must also explore non-fluorinated alternatives like specifically designed aromatic ethers to address cost and reductive stability concerns [ID: 45].
+
+**2. Measurements to Test the Mechanism (Falsification Points):**
+*   **Solvation Structure (Raman, FTIR, NMR):** This is non-negotiable. We must use vibrational spectroscopy to track the anion's coordination state. For LiFSI, the S-N-S vibration (~700-780 cm⁻¹) is a sensitive probe for free anions, CIPs, and AGGs [ID: 1, 15]. **Falsification condition:** If the addition of the "diluent" causes a significant shift from AGG/CIP peaks back to the free anion peak, it is acting as a co-solvent, not a diluent, and is breaking the essential local structure. The hypothesis would be invalid for that formulation.
+*   **Cluster Formation (Small-Angle X-ray/Neutron Scattering - SAXS/SANS):** Directly probe for the existence of nanoscale solvate-cluster domains suspended in the diluent [ID: 479]. **Falsification condition:** If scattering data shows a homogenous liquid with no evidence of nanoscale heterogeneity, the "localized" model is incorrect.
+*   **Transport Properties (PFG-NMR & Electrochemical):** Measure the self-diffusion coefficients of Li⁺, anions, solvent, and diluent separately [ID: 182]. This allows us to see if the Li⁺ is diffusing as part of a larger cluster. Correlate this with bulk ionic conductivity and Li⁺ transference number (t+). **Falsification condition:** If the diluent significantly increases the diffusion of free solvent molecules away from the Li⁺ (indicating cluster breakdown) or if the measured t+ remains low (<0.5), the design has failed to improve useful charge transport.
+*   **Computational Modeling (MD & DFT):** Calculate Li⁺ coordination numbers, binding energies, and radial distribution functions [ID: 51, 102]. This provides theoretical support for the diluent's "non-solvating" nature. We can simulate the entire LHCE to visualize clusters and predict transport properties. **Falsification condition:** If simulations show the diluent molecule frequently entering the first solvation shell of the Li⁺, it is not an inert diluent.
+
+**3. Practical Validation (The Ultimate Test):**
+*   **Full-Cell Cycling:** Assemble Li||NMC811 or Li||LCO cells under *practical* and stringent conditions: cathode loading > 3.5 mAh/cm², Li anode thickness < 50 µm, and lean electrolyte (E/C ratio < 3 g/Ah) [ID: 1, 5, 15].
+*   **Performance Metrics:** Evaluate CE, rate capability (from C/10 to 5C), and long-term cycling stability.
+*   **Falsification Condition:** If an LHCE with proven high bulk conductivity and the "correct" spectroscopic signature fails under these practical cell conditions (e.g., shows low CE or rapid capacity fade), it means we have not successfully decoupled the interface from the bulk, or that a new, unforeseen failure mode has emerged. The hypothesis, in its current form, would be insufficient.
+
+By rigorously applying this multi-faceted approach, we can move beyond the trial-and-error methods that have plagued the field and rationally design electrolytes that finally reconcile the conflicting demands of interfacial stability and high-rate performance for the practical lithium metal battery.
+
+--- Evidence Appendix (auto-generated from snapshot) ---
+Snapshot: Scientist A
+- [ID: 2 | Jiangfeng Qian, 2015 | High rate and stable cycling of lithium metal anode | Venue: Nature Communications | DOI: https://doi.org/10.1038/ncomms7362 | OpenAlexID: https://openalex.org/W2047775546]
+- [ID: 8 | Xia Cao, 2020 | Review—Localized High-Concentration Electrolytes for Lithium Batteries | Venue: Journal of The Electrochemical Society | DOI: https://doi.org/10.1149/1945-7111/abd60e | OpenAlexID: https://openalex.org/W3117664282]
+- [ID: 15 | Yuelang Chen, 2021 | Steric Effect Tuned Ion Solvation Enabling Stable Cycling of High-Voltage Lithium Metal Battery | Venue: Journal of the American Chemical Society | DOI: https://doi.org/10.1021/jacs.1c09006 | OpenAlexID: https://openalex.org/W3209770929]
+- [ID: 36 | Shuo‐Qing Zhang, 2022 | Tackling realistic Li+ flux for high-energy lithium metal batteries | Venue: Nature Communications | DOI: https://doi.org/10.1038/s41467-022-33151-w | OpenAlexID: https://openalex.org/W4296044379]
+- [ID: 45 | Junyeob Moon, 2022 | Non-fluorinated non-solvating cosolvent enabling superior performance of lithium metal negative electrode battery | Venue: Nature Communications | DOI: https://doi.org/10.1038/s41467-022-32192-5 | OpenAlexID: https://openalex.org/W4289779533]
+- [ID: 94 | Jianyang Wu, 2022 | Designing Anion-Derived Solid Electrolyte Interphase in a Siloxane-Based Electrolyte for Lithium-Metal Batteries | Venue: ACS Applied Materials & Interfaces | DOI: https://doi.org/10.1021/acsami.2c05098 | OpenAlexID: https://openalex.org/W4282034136]
+- [ID: 182 | Jack Fawdon, 2021 | Characterising lithium-ion electrolytes via operando Raman microspectroscopy | Venue: Nature Communications | DOI: https://doi.org/10.1038/s41467-021-24297-0 | OpenAlexID: https://openalex.org/W3114534037]
+- [ID: 479 | Kun Qian, 2020 | Insights into the Nanostructure, Solvation, and Dynamics of Liquid Electrolytes through Small‐Angle X‐Ray Scattering | Venue: Advanced Energy Materials | DOI: https://doi.org/10.1002/aenm.202002821 | OpenAlexID: https://openalex.org/W3113035789]
+
+[Ion-transport and interphase specialist (Scientist B) - Round 1]
+Your diagnosis of the stability-transport trade-off is astute, and the Localized High-Concentration Electrolyte (LHCE) concept has certainly been a valuable step in moving the field's thinking beyond the simple 1M concentration paradigm. However, I contend that the LHCE model, as you've presented it, is an oversimplification—a clever but ultimately transitional engineering fix rather than a fundamental solution. It treats the diluent as a physically inert "spacer," which I believe is a flawed premise that masks the true underlying chemistry and limits our design space.
+
+My position is that a more elegant and powerful solution lies in **direct, molecular-level engineering of the entire solvation environment**, where every component—solvent, anion, and additive—is an active chemical participant, not just a physical placeholder.
+
+### Critique of the LHCE Model
+
+The LHCE hypothesis rests on the idea of a non-solvating diluent that simply reduces viscosity. I challenge this on several fronts:
+
+1.  **The "Inert" Diluent Is a Myth:** No component in an electrochemical cell is truly inert. The ubiquitous hydrofluoroether (HFE) diluents, such as TTE, are not merely passive spectators. While they have low donor numbers, they possess significant polarity and interact with the solvate clusters [ID: 303]. More critically, they are not perfectly stable at the low potentials of a lithium metal anode. Their decomposition, while perhaps less aggressive than that of carbonates, still contributes to the SEI in an uncontrolled manner [ID: 303]. This introduces complexity and cost, and the reliance on fluorinated compounds is a dead end from a sustainability and cost perspective [ID: 88, 194].
+
+2.  **It Overlooks the Full Spectrum of Intermolecular Forces:** The LHCE model focuses almost exclusively on the Li⁺-solvent and Li⁺-anion coordination. It largely ignores the crucial role of **anion-solvent interactions**. As Fadel et al. have shown, the oxidative stability of an electrolyte is not determined by the HOMO of the isolated solvent, but by the energy of the *anion-solvent charge-transfer complex* [ID: 277]. An effective electrolyte design must consider the quantum chemical coupling of all species, not just the primary solvation shell of the cation.
+
+3.  **It Is a Brute-Force Approach:** Creating high-concentration clusters and then diluting them is a blunt instrument. It achieves anion participation by overwhelming the solvent with salt. This leads to systems that are often on the edge of solubility, with high cost and viscosity that, even after dilution, can remain problematic, especially at low temperatures [ID: 83].
+
+### A More Elegant Solution: Molecular-Level Solvation Engineering
+
+Instead of physically separating pre-formed, high-concentration clusters, I propose we rationally design electrolytes where the desired anion-rich solvation structure is the *thermodynamically favored state* even at moderate, practical concentrations. This requires a multi-pronged approach based on fundamental chemical principles:
+
+**1. Rational Solvent Design via Steric and Electronic Tuning:** We can achieve the goals of HCEs—anion participation in the solvation shell—without resorting to super-high concentrations. The key is to use solvents that are intrinsically weak solvators. A prime example from my knowledge base is the work by Chen et al. (2021), which demonstrates that simply replacing the methoxy groups in DME with larger ethoxy groups to form 1,2-diethoxyethane (DEE) creates steric hindrance [ID: 12]. This weaker Li⁺-DEE interaction naturally promotes the inclusion of FSI⁻ anions into the primary solvation shell, forming a more stable, inorganic-rich SEI. This is not dilution; this is *design*. It achieves the desired local structure while maintaining lower viscosity and avoiding expensive, fluorinated diluents. Further work on novel fluorinated ethers combines cyclic and linear segments in a single molecule to tune solvation and stability simultaneously [ID: 11].
+
+**2. Anion-Centric Design and Anion-Solvent Coupling:** The anion is not just a source of LiF for the SEI; it is an active chemical lever.
+    *   By selecting anions with specific donor numbers (DN), we can directly influence their competition with the solvent for the Li⁺ cation [ID: 49]. For instance, the inclusion of NO₃⁻, which has a DN comparable to many solvents, has been shown to actively enter the Li⁺ solvation sheath, reducing solvent polarity and forming a highly stable, Li₃N-containing SEI [ID: 194]. This is a targeted chemical modification of the solvate, not a brute-force concentration effect.
+    *   Furthermore, we must account for the anion's effect on the entire electrolyte. As shown by Rajput et al. (2015) for multivalent systems, the formation of ion pairs can activate the anion and make it *more* susceptible to decomposition [ID: 143]. Understanding these complex interactions is critical for designing stability.
+
+**3. Targeted Interfacial Additives:** Instead of relying on the bulk electrolyte composition to passively form the SEI upon decomposition, we can proactively build a better interface using functional additives. These additives are designed to be the "first responders" at the electrode surface.
+    *   For example, adding a molecule like octaphenyl polyoxyethylene creates a stable complex layer on the lithium surface, which then templates the formation of a robust, cross-linked SEI [ID: 118]. This decouples the SEI formation from bulk electrolyte degradation.
+    *   Another sophisticated approach is to use anionic additives that are specifically designed to reorganize the electric double layer (EDL) at the cathode interface, forming a passivating, cation-rich structure that prevents solvent oxidation at high voltages [ID: 58]. This is precision engineering of the interface itself.
+
+### A Falsifiable Counter-Proposal
+
+My hypothesis is: *By rationally tuning the steric and electronic properties of the solvent, the chemical nature of the anion, and incorporating targeted interfacial additives, we can create a thermodynamically stable, anion-inclusive solvation environment at moderate concentrations that provides both excellent interfacial stability and high bulk transport, surpassing the performance and practicality of LHCEs.*
+
+My experimental plan to test this against the LHCE model:
+
+1.  **Solvent Design Challenge:**
+    *   Prepare two electrolytes: 4M LiFSI in DME (a classic HCE) and 4M LiFSI in DEE (a sterically-hindered electrolyte) [ID: 12].
+    *   **Characterize:** Measure viscosity, conductivity, and use Raman/NMR to confirm that the DEE system has a higher degree of anion aggregation (CIPs/AGGs) than the DME system at the *same concentration*.
+    *   **Test:** Cycle both in practical Li||NMC811 cells.
+    *   **Falsification:** If the DME-based HCE significantly outperforms the DEE system despite the latter having a more "desirable" solvation structure and lower viscosity, then simple steric hindrance is insufficient to create a stable system, and the high-concentration effect is more than just forcing anion association.
+
+2.  **Anion-as-Actor Challenge:**
+    *   Prepare two ether-based electrolytes at a moderate concentration (e.g., 1.5 M). One with only LiFSI, the other with a LiFSI/LiNO₃ mixture.
+    *   **Characterize:** Use XPS and cryo-TEM to analyze the SEI formed on cycled lithium.
+    *   **Test:** Compare long-term cycling and CE in Li||Cu cells.
+    *   **Falsification:** If the SEI composition is identical in both cases and performance is unimproved, it would indicate the anion's role is passive, merely a source of decomposition fragments, contradicting the principle of anion-centric design [ID: 77, 194].
+
+3.  **Interface vs. Bulk Challenge:**
+    *   Take a standard, but poorly performing, carbonate electrolyte (e.g., 1M LiPF₆ in EC/DMC).
+    *   System 1: No modification. System 2: Add a functional additive designed for interfacial protection (e.g., [ID: 118, 58]).
+    *   **Characterize:** Confirm that the bulk conductivity and viscosity are largely unchanged by the small amount of additive.
+    *   **Test:** Compare cycling stability in a Li||NMC cell.
+    *   **Falsification:** If the additive provides no significant improvement in cycle life, it would suggest that bulk electrolyte properties are overwhelmingly dominant and that direct interfacial engineering is an ineffective strategy.
+
+In conclusion, while the LHCE concept correctly identified the importance of anion-rich solvation, it represents a first-generation solution. The path to a truly practical LMB lies in a deeper, more fundamental understanding of solvation chemistry. We must move from being electrolyte *mixers* to electrolyte *architects*, using the full toolkit of molecular design to create systems that are not just physically diluted, but chemically optimized.
+
+--- Evidence Appendix (auto-generated from snapshot) ---
+Snapshot: Scientist B
+- [ID: 11 | Yan Zhao, 2022 | Fluorinated ether electrolyte with controlled solvation structure for high voltage lithium metal batteries | Venue: Nature Communications | DOI: https://doi.org/10.1038/s41467-022-29199-3 | OpenAlexID: https://openalex.org/W4229079925]
+- [ID: 12 | Yuelang Chen, 2021 | Steric Effect Tuned Ion Solvation Enabling Stable Cycling of High-Voltage Lithium Metal Battery | Venue: Journal of the American Chemical Society | DOI: https://doi.org/10.1021/jacs.1c09006 | OpenAlexID: https://openalex.org/W3209770929]
+- [ID: 49 | Hyunwon Chu, 2019 | Achieving three-dimensional lithium sulfide growth in lithium-sulfur batteries using high-donor-number anions | Venue: Nature Communications | DOI: https://doi.org/10.1038/s41467-018-07975-4 | OpenAlexID: https://openalex.org/W2910256922]
+- [ID: 58 | Weili Zhang, 2022 | Engineering a passivating electric double layer for high performance lithium metal batteries | Venue: Nature Communications | DOI: https://doi.org/10.1038/s41467-022-29761-z | OpenAlexID: https://openalex.org/W4224217455]
+- [ID: 83 | Alexandra J. Ringsby, 2021 | Transport Phenomena in Low Temperature Lithium-Ion Battery Electrolytes | Venue: Journal of The Electrochemical Society | DOI: https://doi.org/10.1149/1945-7111/ac1735 | OpenAlexID: https://openalex.org/W3186351921]
+- [ID: 118 | Hongliu Dai, 2020 | Stabilizing lithium metal anode by octaphenyl polyoxyethylene-lithium complexation | Venue: Nature Communications | DOI: https://doi.org/10.1038/s41467-020-14505-8 | OpenAlexID: https://openalex.org/W3003721858]
+- [ID: 143 | Nav Nidhi Rajput, 2015 | The Coupling between Stability and Ion Pair Formation in Magnesium Electrolytes from First-Principles Quantum Mechanics and Classical Molecular Dynamics | Venue: Journal of the American Chemical Society | DOI: https://doi.org/10.1021/jacs.5b01004 | OpenAlexID: https://openalex.org/W2152502531]
+- [ID: 194 | Zhijie Wang, 2022 | Non‐Flammable Ester Electrolyte with Boosted Stability Against Li for High‐Performance Li Metal Batteries | Venue: Angewandte Chemie International Edition | DOI: https://doi.org/10.1002/anie.202206682 | OpenAlexID: https://openalex.org/W4293809358]
+- [ID: 277 | Eric Fadel, 2019 | Role of solvent-anion charge transfer in oxidative degradation of battery electrolytes | Venue: Nature Communications | DOI: https://doi.org/10.1038/s41467-019-11317-3 | OpenAlexID: https://openalex.org/W2963775826]
+- [ID: 303 | Kimberly A. See, 2016 | Effect of Hydrofluoroether Cosolvent Addition on Li Solvation in Acetonitrile-Based Solvate Electrolytes and Its Influence on S Reduction in a Li–S Battery | Venue: ACS Applied Materials & Interfaces | DOI: https://doi.org/10.1021/acsami.6b11358 | OpenAlexID: https://openalex.org/W2550578000]
+
+[Electrolyte solvation specialist (Scientist A) - Round 2]
+Your analysis is sharp, and I agree with your foundational premise: the path to a practical lithium metal battery is paved with a molecular-level understanding of the electrolyte. We are aligned in our rejection of "hero cell" results and our demand for mechanistic proof. However, your characterization of Localized High-Concentration Electrolytes (LHCEs) as a "brute-force" and "transitional" fix is, I believe, a misinterpretation of their elegance and utility. You create a false dichotomy between LHCEs and what you term "molecular-level solvation engineering." I argue that LHCEs are, in fact, a prime example of it.
+
+The core challenge is not simply achieving anion participation in the solvation shell, but doing so while preserving practical transport properties. Your proposed solutions—weakly solvating electrolytes (WSEs) and additives—are valid concepts, but they are not a panacea and suffer from their own significant trade-offs, which you've conveniently overlooked. The LHCE framework, far from being a blunt instrument, offers a more robust and tunable platform for resolving the inherent conflict between interfacial stability and bulk transport.
+
+### The Limitations of "Elegant" Weakly Solvating Electrolytes
+
+Your primary proposal is to use intrinsically weakly solvating solvents, like 1,2-diethoxyethane (DEE), to promote anion association at moderate concentrations [ID: 15]. While the principle is sound, the practical reality is more complex.
+
+1.  **WSEs Still Require High Concentrations:** Your own cited example, Chen et al. [ID: 15], uses a **4 M** LiFSI/DEE electrolyte to achieve its impressive results. Pham et al. also find success with a **3.5 m** LiFSI-DEE system [ID: 1]. These are not "moderate" concentrations; they are squarely in the high-concentration regime. This demonstrates that steric hindrance alone is insufficient. You still need a high salt-to-solvent ratio to force the anions into the primary solvation shell and suppress free solvent activity. Therefore, a high-performing WSE *is* a form of high-concentration electrolyte, blurring the very distinction you seek to create.
+
+2.  **Inherent Flaws of WSEs:** As a strategy, WSEs face severe limitations. It is well-known that they often struggle with poor salt solubility and limited oxidative stability, restricting their use with high-voltage cathodes [ID: 5]. Jiang et al. explicitly state that traditional WSEs "fail to cycle at a cut-off voltage above 4.5 V" [ID: 5]. Your proposed solution trades one problem for another.
+
+### The True Role of the LHCE Diluent: A Functional Tuning Knob
+
+You dismiss the diluent in an LHCE as a non-ideal "inert spacer." I contend it is a crucial and sophisticated design element that allows us to decouple properties that are otherwise inextricably linked in a single-solvent system.
+
+An HCE provides a desirable anion-rich solvation structure, leading to a stable, inorganic SEI [ID: 2, 66]. However, it comes at the cost of high viscosity and poor transport. A WSE might offer lower viscosity but often has poor solubility and voltage stability. The LHCE architecture allows us to have the best of both worlds: we create the ideal, HCE-like solvate clusters, and then use the diluent to tune the bulk physical properties (viscosity, wettability, cost) *without* disrupting that local chemical environment [ID: 8].
+
+Furthermore, your critique of fluorinated diluents, while valid from a cost perspective, is already being addressed. Moon et al. (2022) have demonstrated high-performance LHCEs using **non-fluorinated** non-solvating cosolvents like diphenyl ether [ID: 45]. By spectroscopically screening for Li⁺ solvation ability and miscibility, they established design principles for NFNSCs (non-fluorinated non-solvating cosolvents) that achieve CEs up to 99.0% over 1400 cycles [ID: 45]. This proves the *concept* of the LHCE is robust and adaptable, not fundamentally tied to expensive fluorinated chemistry.
+
+### A Unified and Practical Framework: From HCE to WSE to LHCE
+
+The evolution from HCEs to WSEs and LHCEs is not a series of competing ideas, but a logical progression of a single, unified concept: **control the Li⁺ solvation environment to dictate the SEI composition.**
+
+1.  **The Principle (HCE):** High concentrations force anion participation, creating a stable, anion-derived SEI [ID: 2, 6, 146]. This is the foundational discovery.
+2.  **The Refinement (WSE):** We can assist this process by using solvents with weaker solvating power, like ethers with bulky side groups (DEE) [ID: 1, 15] or siloxanes [ID: 94, 97]. This makes it "easier" to achieve an anion-rich sheath, but as we've seen, high concentrations are still typically required for high performance.
+3.  **The Engineering Solution (LHCE):** We can take a stable HCE or WSE formulation and add a non-solvating diluent to optimize bulk transport properties without sacrificing the local solvation structure [ID: 8, 45].
+
+This framework is far more powerful than a search for a single, magical solvent that has perfect solvating power, stability, viscosity, and cost. Such a molecule likely does not exist.
+
+### Reconciling the LiF-Rich SEI Paradox
+
+My persona demands we address the elephant in the room: the LiF-rich SEI. You correctly imply that relying on anion decomposition is a feature of these systems. But a purely LiF SEI would be a disaster due to its abysmal ionic conductivity. How do we reconcile the observed stability with the need for Li⁺ transport?
+
+The answer lies in the *heterogeneity* of the SEI. Anion-derived SEIs formed from FSI⁻ are not pure LiF. They are composites of LiF, Li₂S, Li₃N, and other organic/inorganic fragments [ID: 1, 191]. This mosaic structure is key. The mechanically robust, electronically insulating LiF provides the passivation, while other components or grain boundaries within this matrix provide the pathways for Li⁺ transport. Zhang et al. (2022) have developed a mechanistic model that directly addresses this, identifying a kinetic parameter, *k*, that describes the homogeneity of Li⁺ flux across the SEI and is determined by the mobility of Li⁺ through its various components [ID: 36]. An ideal SEI is not a uniform single-component film, but a well-designed composite. WSEs and LHCEs are the most effective methods we have for creating this ideal composite interphase.
+
+### A Counter-Proposal Grounded in Practicality
+
+Your proposed experiments are interesting academic exercises, but I will counter with a proposal that adheres to my core principle of practicality. We must evaluate these systems under conditions that matter.
+
+**The Ultimate Test:**
+1.  **Electrolyte 1 (Your "Elegant" WSE):** 2.0 M LiFSI in DEE. This is a "moderate" concentration for a WSE.
+2.  **Electrolyte 2 (My "Engineered" LHCE):** 1.2 M LiFSI in DME/TTE (1:2 molar ratio), a classic LHCE formulation [ID: 8].
+3.  **Electrolyte 3 (My "Pragmatic" WSE):** 4.6 M LiBF₄ in DME, an anion-regulated WSE shown by Jiang et al. to work under practical conditions [ID: 5].
+
+**The Conditions:**
+*   **Cathode:** NMC811 or LCO, with loading >4.0 mAh/cm² (Jiang et al. used 10.7 mg/cm² LCO, which is an excellent benchmark) [ID: 5].
+*   **Anode:** 50 μm lithium foil.
+*   **Electrolyte:** Lean conditions, E/C ratio < 3 g/Ah.
+
+**Characterization and Hypothesis:**
+*   We will measure bulk transport properties (conductivity, viscosity). I predict Electrolyte 1 will have the best transport properties, and Electrolyte 3 the worst.
+*   We will use Raman/NMR to confirm the solvation structure. I predict Electrolytes 2 and 3 will show a higher degree of anion-in-sheath character than Electrolyte 1.
+*   We will cycle the cells. I predict Electrolyte 1 will fail rapidly due to insufficient anion participation and oxidative instability. I predict Electrolytes 2 and 3 will demonstrate superior long-term cycling stability, even if their bulk transport properties are nominally inferior. Specifically, the system from Jiang et al. [ID: 5] will show outstanding rate capability despite its HCE-like nature, proving that a properly engineered, anion-derived interface can overcome bulk transport limitations.
+
+**Conclusion:** The distinction between WSE and LHCE is semantic. Both are strategies to achieve an anion-rich solvation environment. The LHCE approach is not a "brute-force" crutch but a sophisticated engineering strategy that decouples local chemistry from bulk physics, offering a wider and more practical design space. By using the full toolkit—solvent choice, concentration, *and* functional diluents—we can design electrolytes that form robust, heterogeneous interphases capable of supporting a practical, high-energy lithium metal battery [ID: 5, 8, 15, 45]. That is the most promising path forward.
+
+--- Evidence Appendix (auto-generated from snapshot) ---
+Snapshot: Scientist A
+- [ID: 1 | Thuy Duong Pham, 2022 | Practical High‐Voltage Lithium Metal Batteries Enabled by Tuning the Solvation Structure in Weakly Solvating Electrolyte | Venue: Small | DOI: https://doi.org/10.1002/smll.202107492 | OpenAlexID: https://openalex.org/W4214655180]
+- [ID: 5 | Zhipeng Jiang, 2022 | Anion‐Regulated Weakly Solvating Electrolytes for High‐Voltage Lithium Metal Batteries | Venue: Energy & environment materials | DOI: https://doi.org/10.1002/eem2.12440 | OpenAlexID: https://openalex.org/W4281697669]
+- [ID: 8 | Xia Cao, 2020 | Review—Localized High-Concentration Electrolytes for Lithium Batteries | Venue: Journal of The Electrochemical Society | DOI: https://doi.org/10.1149/1945-7111/abd60e | OpenAlexID: https://openalex.org/W3117664282]
+- [ID: 15 | Yuelang Chen, 2021 | Steric Effect Tuned Ion Solvation Enabling Stable Cycling of High-Voltage Lithium Metal Battery | Venue: Journal of the American Chemical Society | DOI: https://doi.org/10.1021/jacs.1c09006 | OpenAlexID: https://openalex.org/W3209770929]
+- [ID: 36 | Shuo‐Qing Zhang, 2022 | Tackling realistic Li+ flux for high-energy lithium metal batteries | Venue: Nature Communications | DOI: https://doi.org/10.1038/s41467-022-33151-w | OpenAlexID: https://openalex.org/W4296044379]
+- [ID: 45 | Junyeob Moon, 2022 | Non-fluorinated non-solvating cosolvent enabling superior performance of lithium metal negative electrode battery | Venue: Nature Communications | DOI: https://doi.org/10.1038/s41467-022-32192-5 | OpenAlexID: https://openalex.org/W4289779533]
+
+[Ion-transport and interphase specialist (Scientist B) - Round 2]
+You make a compelling case for the utility of Localized High-Concentration Electrolytes (LHCEs), and I appreciate that you ground your argument in the same principles of solvation structure engineering that I hold dear. You rightly point out that the lines between these electrolyte families are blurring, and that high salt-to-solvent ratios are a common feature in many high-performance systems.
+
+However, this blurring does not vindicate the LHCE approach; it exposes its limitations and highlights the very direction I advocate: the rational design of the primary solvent molecule itself. You frame the diluent as a "functional tuning knob," an elegant engineering solution. I see it as a necessary but ultimately crude patch—a workaround for the fundamental inadequacies of the primary solvating solvent. True progress lies not in adding a third component to fix the problems of the first two, but in designing a better first component from the outset.
+
+### The Diluent: A Compromise, Not a Panacea
+
+Your central thesis is that the diluent allows one to decouple interfacial chemistry from bulk transport. While this is true to an extent, it is not a "free lunch." The diluent introduces its own set of compromises that you have not fully addressed.
+
+The most critical compromise is on the **lithium-ion transference number (t+)**. A key benefit of transitioning from dilute to highly concentrated electrolytes (HCEs) is the increase in t+ due to the formation of large, slow-moving anionic aggregates [ID: 135, 199]. This suppresses the concentration gradients that lead to Li dendrite formation under high current. However, the addition of a non-solvating diluent to create an LHCE fundamentally undermines this benefit. Watanabe et al. (2022) performed a direct investigation of this effect, diluting a highly concentrated Li-salt/sulfolane electrolyte with a hydrofluoroether (HFE) [ID: 372]. Their results are unequivocal: while the diluent increased ionic conductivity and diffusivity, it simultaneously *decreased* the Li+ transference number [ID: 372]. The diluent breaks up the very ionic networks that give HCEs their high t+, reintroducing the problem of anion-dominated transport. Therefore, the LHCE is not a "best of both worlds" solution; it is a trade-off, sacrificing some of the interfacial stability gained from a high t+ in exchange for better bulk kinetics.
+
+Furthermore, the concept of an "inert" diluent is an idealization. At the molecular level, these diluents can still participate in the formation of the solid electrolyte interphase (SEI), adding another layer of complexity and potential failure modes [ID: 10, 64]. A two-component system of a well-designed solvent and a salt is inherently more controllable and predictable than a three-component mixture.
+
+### The Superiority of Molecular Design: A More Fundamental Path
+
+Instead of fixing a suboptimal solvent like 1,2-dimethoxyethane (DME) with high concentrations and diluents, we should focus our efforts on designing better solvents. This is the core of my position. Your argument that even Weakly Solvating Electrolytes (WSEs) require high concentrations [ID: 12] is a feature, not a bug, of using simple, off-the-shelf ethers. It proves that their solvation power is still too strong to be overcome easily.
+
+The real breakthrough comes from *de novo* solvent design. Consider the work of Zhao et al. (2022) on 2,2-dimethoxy-4-(trifluoromethyl)-1,3-dioxolane (DTDL) [ID: 11]. This is the epitome of rational molecular engineering. They designed a single molecule that combines a cyclic fluorinated ether segment (for high voltage stability) with a linear ether segment (for Li-ion solvation). This is not mixing components in a vial; it is building the desired functionality into the solvent molecule itself.
+
+The results speak for themselves. This DTDL-based electrolyte, at a moderate **2 M** concentration, achieves:
+*   High oxidation stability up to **5.5 V** [ID: 11].
+*   An exceptional Li-ion transference number of **0.75** [ID: 11].
+*   Excellent performance in a practical cell: a 20 μm Li || LiNi₀.₈Co₀.₁Mn₀.₁O₂ full cell retains 84% capacity after 200 cycles [ID: 11].
+
+This single, engineered solvent accomplishes what the LHCE approach struggles to do with three components. It achieves a high t+ *without* the viscosity penalty of a traditional HCE, and it achieves high voltage stability *without* needing to rely solely on forcing anions into the solvation sheath at extreme concentrations. This is a far more elegant and fundamental solution than the LHCE "patch." The work on sterically hindered ethers like DEE [ID: 12] is a step in this direction, but DTDL represents a more advanced implementation of the same core philosophy.
+
+### My Counter-Proposal: A True Test of Philosophies
+
+Your proposed experiment is a good starting point, but it compares electrolytes at different concentrations, confounding the variables. I propose an experiment that directly pits the "engineering fix" philosophy against the "molecular design" philosophy.
+
+**Objective:** To determine whether a three-component LHCE can outperform a rationally designed two-component electrolyte under practical conditions.
+
+**Systems to Compare:**
+1.  **The "Engineering Fix" (LHCE):** 1.2 M LiFSI in DME/TTE (1:2 molar ratio). This is a classic LHCE designed to rescue the poor transport of a DME-based HCE.
+2.  **The "Molecular Design" (Engineered WSE):** 2 M LiFSI in DTDL. This is a two-component system where the solvent itself is engineered for performance [ID: 11].
+
+**Conditions:** We will use the same stringent, practical conditions you wisely suggested:
+*   **Cathode:** LiNi₀.₈Co₀.₁Mn₀.₁O₂ with a high mass loading (>4.0 mAh/cm²).
+*   **Anode:** Thin lithium foil (≤ 50 μm).
+*   **Electrolyte:** Lean conditions (E/C ratio < 3 g/Ah).
+
+**Characterization and Hypothesis:**
+*   **Spectroscopy & Transport (Raman, NMR, EIS):** We will characterize the solvation structure, ionic conductivity, and transference number of both electrolytes. I hypothesize that the LHCE will show higher bulk conductivity, but the DTDL system will exhibit a significantly higher Li-ion transference number (t+) [ID: 11, 372].
+*   **Electrochemical Cycling:** We will perform long-term cycling at moderate rates (e.g., C/3) and rate capability tests.
+*   **My Prediction:** The DTDL-based cell will demonstrate vastly superior long-term cycling stability and Coulombic efficiency. The LHCE cell, despite its higher initial conductivity, will suffer from a lower t+, leading to earlier dendrite formation and more rapid capacity fade under lean electrolyte conditions. The DTDL system's combination of a stable, anion-participating SEI and intrinsically high t+ will prove to be the more robust and sustainable solution for a practical high-energy battery.
+
+**Conclusion:** The LHCE is a clever and important stepping stone in our understanding, demonstrating that we can manipulate bulk properties by adding a non-solvating component. However, it is a transitional technology. The future lies in applying the principles we've learned from HCEs and LHCEs to design single-solvent molecules that possess all the desired attributes—appropriate solvating power, high voltage stability, and favorable transport properties—without the need for diluents or other crutches. That is the path of true molecular-level design, and it is the path that will ultimately lead to a viable lithium-metal battery.
+
+--- Evidence Appendix (auto-generated from snapshot) ---
+Snapshot: Scientist B
+- [ID: 11 | Yan Zhao, 2022 | Fluorinated ether electrolyte with controlled solvation structure for high voltage lithium metal batteries | Venue: Nature Communications | DOI: https://doi.org/10.1038/s41467-022-29199-3 | OpenAlexID: https://openalex.org/W4229079925]
+- [ID: 12 | Yuelang Chen, 2021 | Steric Effect Tuned Ion Solvation Enabling Stable Cycling of High-Voltage Lithium Metal Battery | Venue: Journal of the American Chemical Society | DOI: https://doi.org/10.1021/jacs.1c09006 | OpenAlexID: https://openalex.org/W3209770929]
+- [ID: 372 | Yoshifumi Watanabe, 2022 | Does Li-ion transport occur rapidly in localized high-concentration electrolytes? | Venue: Physical Chemistry Chemical Physics | DOI: https://doi.org/10.1039/d2cp05319e | OpenAlexID: https://openalex.org/W4313038159]
+
+[Electrolyte solvation specialist (Scientist A) - Round 3]
+Your argument is sharp and well-founded in the ideal of molecular perfection. I commend your focus on `de novo` solvent design as the ultimate scientific goal. However, in our pursuit of a *practical* lithium metal battery, we must not let the perfect be the enemy of the good—or, in this case, the enemy of the demonstrably excellent and tunable.
+
+You characterize the localized high-concentration electrolyte (LHCE) as a "crude patch." I see it as a powerful example of systems engineering, where we intelligently combine existing, scalable components to achieve properties that none could possess alone. Your proposed "molecular design" approach, exemplified by DTDL, is not a more fundamental path; it is simply a different, and I will argue, far less practical one. It shifts the complexity from the formulation tank to the synthesis flask, incurring significant costs in scalability and introducing its own set of unacknowledged compromises.
+
+### The Diluent is a Design Lever, Not a Crutch
+
+Your primary technical objection is that the diluent compromises the Li-ion transference number (t+), undoing the benefits of high concentration. This is a gross oversimplification based on a single data point. The diluent is not a simple viscosity-reducing agent; it is a functional component that fundamentally alters the electrolyte's properties, and its effect on transport is not universally negative.
+
+In fact, the right diluent can *enhance* Li+ transport dynamics beyond what simple viscosity reduction would suggest. Dong et al. (2021) demonstrated this with a high-polarity fluoroalkyl ether diluent, THE [ID: 119]. They found that THE, by having a large adsorption energy with the primary ether solvent, effectively reduces the Li+ solvation strength. This enables a "solvation-free" Li+ transfer mechanism at the interface, leading to a *ten-fold enhancement* in the Li+ transference number at the interface and dramatically improved rate capability [ID: 119]. This directly contradicts your assertion that diluents universally degrade t+.
+
+Furthermore, the idea that only fluorinated diluents are viable is outdated. Moon et al. (2022) have already established design principles for non-fluorinated non-solvating cosolvents (NFNSCs), identifying suitable physicochemical properties through spectroscopic and theoretical screening [ID: 45]. They demonstrated that NFNSCs based on aromatic structures can achieve a Coulombic efficiency of 99.0% over 1400 cycles, with NMR data confirming the diluent's stability [ID: 45]. This proves that the diluent is a rich and accessible design space for tuning cost, stability, and transport—a far more versatile approach than synthesizing a single, complex "hero" solvent.
+
+### The Prohibitive Cost and Hidden Risks of "Molecular Design"
+
+You champion DTDL [ID: 10] as the pinnacle of molecular engineering. I see it as a prime example of an academic "hero" molecule that fails the test of practicality.
+
+1.  **Cost and Scalability:** The synthesis of molecules like DTDL or the one proposed by Zhou et al. is a complex, multi-step process involving fluorinated precursors [ID: 10, 121]. Compare this to the LHCE approach: mixing LiFSI, DME, and a diluent like TTE—all commercially available or readily scalable materials. For any practical application, the cost of the electrolyte is a critical parameter. A "perfect" solvent that costs orders of magnitude more than its components is not a solution.
+
+2.  **The LiF Paradox:** You correctly challenge me to acknowledge trade-offs, so let's apply that standard to your own proposal. Fluorinated electrolytes, including DTDL, achieve stability by forming a LiF-rich SEI [ID: 10, 93]. However, you conveniently ignore the well-known downside: LiF is a poor ionic conductor. As Zhang et al. (2022) have modeled, a LiF-rich SEI can disturb Li+ diffusion, inducing transfer-driven dendrite growth at high rates [ID: 36]. The LHCE approach, by creating a more complex, multi-component SEI from both anion and solvent fragments, offers a potential pathway to a more ionically conductive, mosaic-style interphase that a purely LiF-dominated SEI cannot.
+
+3.  **A False Dichotomy:** You frame this as a "three-component mixture" versus a "two-component system." This is misleading. Your DTDL molecule is an "integrated ring-chain" design, a chimera of two different solvent types covalently bonded [ID: 121]. The LHCE simply achieves this same functional mixing *in situ* without the synthetic overhead. Both are multi-functional systems; the LHCE is simply more modular, tunable, and economical.
+
+### My Counter-Proposal: A True Test of Practicality and Performance
+
+Your experiment is a reasonable start, but it pits a specific LHCE against your chosen champion. A more rigorous test would evaluate the entire landscape of modern ether-based electrolytes under practical constraints.
+
+**Objective:** To identify the most viable electrolyte strategy by balancing electrochemical performance, physical properties, safety, and cost under realistic cell conditions.
+
+**Systems to Compare:**
+1.  **HCE (Baseline):** 4 M LiFSI in DME. The historical benchmark, known for high viscosity but excellent Li stability [ID: 2, 15].
+2.  **WSE (Weakly Solvating):** 3.5 m LiFSI in DEE. A simple, non-fluorinated system relying on steric hindrance to weaken solvation [ID: 1, 15]. This represents a low-cost, minimalist design approach.
+3.  **LHCE (Engineered System):** 1.2 M LiFSI in DME/TTE (1:2 molar ratio). The archetypal example of decoupling bulk and interfacial properties.
+4.  **Engineered Solvent (Idealist):** 2 M LiFSI in DTDL. Your proposed system, representing the `de novo` synthesis approach [ID: 10].
+
+**Conditions:** We agree on the stringent, practical cell setup:
+*   Cathode: High-loading NMC811 (>4.0 mAh/cm²).
+*   Anode: Thin lithium (≤ 50 μm).
+*   Electrolyte: Lean (E/C ratio < 3 g/Ah).
+
+**Characterization and Hypothesis:**
+*   **Mechanism & Transport (Raman, NMR, PFG-NMR, EIS):** We must rigorously characterize the solvation structure (confirming anion participation), bulk ionic conductivity, viscosity, and true bulk transference numbers for all systems.
+*   **Interfacial Chemistry (XPS, Cryo-TEM):** We will analyze the SEI and CEI composition and morphology after formation and after extended cycling. This will directly test the hypothesis that a purely anion-derived SEI is superior. I predict the mixed-origin SEI from the LHCE will prove more robust.
+*   **Electrochemical Performance:** Long-term cycling at C/3 and high-rate capability tests (up to 5C).
+*   **Safety & Degradation (ARC, In-situ Gas Analysis):** We must assess thermal runaway propensity and gas generation. The high fluorine content of DTDL and the known thermal issues of LiFSI-based concentrated systems demand this scrutiny [ID: 35].
+*   **Techno-economic Analysis:** A simple cost-per-liter calculation based on precursor costs and synthesis complexity.
+
+**My Prediction:** The DTDL system will show impressive voltage stability but will be eliminated on grounds of cost. The HCE will fail due to transport limitations under lean conditions. The competition will be between the WSE and the LHCE. I predict the **LHCE will demonstrate the best overall balance**, showing superior rate capability to the WSE and better long-term stability than the HCE, all while using scalable, cost-effective components. The ability to independently tune viscosity with the diluent while maintaining an anion-rich primary solvation shell is a decisive engineering advantage that a single-solvent system cannot easily replicate.
+
+**Conclusion:** The LHCE strategy is not a temporary fix. It is a sophisticated and pragmatic design philosophy that acknowledges the inherent trade-offs in any single material. By creating a system of components—a strong solvator, a salt, and a non-solvating diluent—we gain orthogonal control over interfacial chemistry and bulk transport. This modularity is the key to navigating the complex optimization space required for a practical, safe, and affordable lithium metal battery. The future is not a single magic-bullet molecule; it is a rationally engineered, multi-component system.
+
+--- Evidence Appendix (auto-generated from snapshot) ---
+Snapshot: Scientist A
+- [ID: 10 | Yan Zhao, 2022 | Fluorinated ether electrolyte with controlled solvation structure for high voltage lithium metal batteries | Venue: Nature Communications | DOI: https://doi.org/10.1038/s41467-022-29199-3 | OpenAlexID: https://openalex.org/W4229079925]
+- [ID: 35 | Junxian Hou, 2020 | Thermal runaway of Lithium-ion batteries employing LiN(SO2F)2-based concentrated electrolytes | Venue: Nature Communications | DOI: https://doi.org/10.1038/s41467-020-18868-w | OpenAlexID: https://openalex.org/W3092189325]
+- [ID: 36 | Shuo‐Qing Zhang, 2022 | Tackling realistic Li+ flux for high-energy lithium metal batteries | Venue: Nature Communications | DOI: https://doi.org/10.1038/s41467-022-33151-w | OpenAlexID: https://openalex.org/W4296044379]
+- [ID: 45 | Junyeob Moon, 2022 | Non-fluorinated non-solvating cosolvent enabling superior performance of lithium metal negative electrode battery | Venue: Nature Communications | DOI: https://doi.org/10.1038/s41467-022-32192-5 | OpenAlexID: https://openalex.org/W4289779533]
+- [ID: 119 | Liwei Dong, 2021 | High‐Polarity Fluoroalkyl Ether Electrolyte Enables Solvation‐Free Li+ Transfer for High‐Rate Lithium Metal Batteries | Venue: Advanced Science | DOI: https://doi.org/10.1002/advs.202104699 | OpenAlexID: https://openalex.org/W4200260904]
+- [ID: 121 | Tianhong Zhou, 2022 | Integrated Ring‐Chain Design of a New Fluorinated Ether Solvent for High‐Voltage Lithium‐Metal Batteries | Venue: Angewandte Chemie International Edition | DOI: https://doi.org/10.1002/anie.202115884 | OpenAlexID: https://openalex.org/W4220685943]
+
+[Ion-transport and interphase specialist (Scientist B) - Round 3]
+Your argument for the Localized High-Concentration Electrolyte (LHCE) is a compelling case for pragmatic engineering. You frame it as a victory of tunable, modular systems over monolithic, costly "hero" molecules. However, what you call "systems engineering," I call "uncontrolled complexity." The LHCE approach is not an elegant decoupling of properties; it is a chaotic, three-component mixture where favorable outcomes are hoped for, not designed. My approach, which you dismiss as the pursuit of an "impractical, academic hero," is in fact the only path to true, fundamental control over the battery's internal environment.
+
+### The Diluent: A Pandora's Box, Not a Design Lever
+
+You champion the diluent as a functional component, a "design lever." I see it as a variable that introduces a host of poorly understood and detrimental trade-offs.
+
+First, your claim that diluents can *enhance* the Li-ion transference number (t+) is based on a very generous interpretation of interfacial phenomena. Bulk transport properties, which dictate performance at practical current densities, tell a different story. In a direct study of a Li-salt/sulfolane system diluted with a non-coordinating hydrofluoroether (HFE)—the very definition of an LHCE—Watanabe et al. (2022) found that dilution *decreases* the Li+ transference number [ID: 372]. This aligns with fundamental principles: adding a non-conducting, non-solvating species reduces the density of charge carriers and increases the tortuosity of ion transport pathways on a molecular level. The notion of "solvation-free" transfer at the interface is an interesting effect, but it cannot defy the physics of bulk transport that govern rate capability.
+
+Second, the introduction of a diluent fundamentally compromises the core principle of the high-concentration strategy. The stability of HCEs stems from a unique solvation structure where all solvent molecules are bound to Li+, leaving no "free" solvent to engage in parasitic reactions and forcing anions into the primary solvation sheath [ID: 5, 98]. The LHCE concept presumes these Li+-centered clusters remain intact within a sea of "inert" diluent. This is a convenient fiction. Molecular dynamics simulations consistently show that electrolyte structure is a dynamic equilibrium of solvent-separated pairs (SSIPs), contact-ion pairs (CIPs), and larger aggregates (AGGs) [ID: 119, 179, 293]. A diluent, even a weakly-solvating one, will inevitably partition into these structures, disrupting the precise anion-rich coordination that provides stability. You are not preserving the HCE state; you are simply creating a new, more complex, and less understood solvate environment.
+
+### The Illusion of Control and the Reality of Molecular Design
+
+You paint my "molecular design" approach as a costly pursuit of perfection. I argue it is the only way to achieve predictable, reliable performance.
+
+1.  **Control vs. Chance:** An LHCE is a statistical system. You mix three components and hope that the desired anion-rich solvation structure preferentially forms and is stable at the interface. In contrast, a molecule like 1,2-diethoxyethane (DEE) [ID: 12] or DTDL [ID: 11] is an exercise in deterministic design. By tuning steric hindrance [ID: 12] or integrating specific functional groups into a single molecule [ID: 11], we rationally force the system into a desired state. We are not hoping for a favorable outcome; we are architecting it. This is the essence of "solvation structure engineering."
+
+2.  **The LiF Paradox is a Design Challenge, Not a Fatal Flaw:** You correctly identify the poor ionic conductivity of LiF as a challenge for fluorinated systems [ID: 152]. However, you fail to recognize that this is a materials design problem that my approach is uniquely suited to solve. No SEI is a pure, single component. The decomposition of fluorinated electrolytes forms a composite of LiF, Li₂O, and organic fragments [ID: 380]. The goal is to rationally design a solvent that produces an optimal mosaic SEI—one with a mechanically robust LiF framework perforated by more ionically conductive species. Zhang et al. (2022), whom you cite, actually support my view by proposing the *design* of a dual-halide SEI to homogenize Li+ flux [ID: 68]—a feat of precise chemical control, not random mixing.
+
+3.  **The Unseen Instability of LHCEs:** The focus on the Li metal anode has led to a critical blind spot: the high-voltage cathode. While the DME/LiFSI clusters may stabilize the anode, what happens to the "inert" diluent at potentials exceeding 4.4 V vs Li/Li+? The oxidative stability of these diluents is often far lower than the core electrolyte components. Jia et al. (2021) required additives to make their TMPa-based LHCE work with an NCM cathode, demonstrating the LHCE is not a standalone solution [ID: 64]. Furthermore, gas generation from reactions with high-nickel cathodes is a major safety and performance concern, and recent work shows that LHCEs do not eliminate this problem, especially after cycling [ID: 449].
+
+### My Counter-Proposal: A Rigorous Mechanistic Comparison
+
+Your proposed experiment is a good starting point, but it lacks the deep, mechanistic scrutiny required to make an irrefutable conclusion. We must not only see *what* works, but understand *why*.
+
+**Objective:** To rigorously compare the degree of control over solvation structure, ion transport, and interfacial chemistry afforded by the "systems engineering" (LHCE) versus "molecular design" (engineered solvent) approaches.
+
+**Systems to Compare:** I accept your four proposed systems as representative of the competing philosophies.
+1.  **HCE:** 4 M LiFSI in DME [ID: 5]
+2.  **WSE:** 3.5 m LiFSI in DEE [ID: 12]
+3.  **LHCE:** 1.2 M LiFSI in DME/TTE
+4.  **Engineered Solvent:** 2 M LiFSI in DTDL [ID: 11]
+
+**Conditions:** We are in agreement on the stringent, practical cell parameters (high-loading NMC811, thin Li, lean electrolyte).
+
+**Enhanced Characterization & Hypothesis:**
+*   **1. Solvation Structure (MD, Raman, 2D NMR):** We will begin with molecular dynamics (MD) simulations for all four systems to generate *a priori* hypotheses about the dominant solvate species (CIP, AGG, etc.) and coordination numbers [ID: 54, 147, 179]. These hypotheses will then be tested experimentally using Raman spectroscopy and, critically, 2D Heteronuclear Overhauser Effect Spectroscopy (HOESY) NMR, which provides direct, unambiguous evidence of through-space proximity between Li+ and specific atoms on the anions and solvents [ID: 263]. This moves beyond simple peak fitting to true structural elucidation.
+
+*   **2. Ion Transport (PFG-NMR, EIS):** We must measure the self-diffusion coefficients of *all* mobile species (Li+, anion, solvent(s), diluent) using Pulsed-Field Gradient (PFG) NMR [ID: 100]. This allows for a fundamental analysis of transport, revealing correlated ion motion (e.g., Li+ moving with anions in clusters) and calculating a true transference number based on mobility, not just polarization experiments [ID: 385, 446]. This will directly test your claims of enhanced t+.
+
+*   **3. Interfacial Stability (Cryo-TEM, XPS):** We will perform depth-profiling XPS and cryo-TEM on *both* the Li anode and the NMC811 cathode after formation and after 100 cycles. My hypothesis is that the LHCE will show evidence of diluent decomposition on the cathode and a thicker, more heterogeneous SEI on the anode due to the presence of less-stable DME fragments, compared to the thin, uniform, and purely anion/solvent-derived interphases of the DTDL system. We must look for the "ghosts" of all three components at the interfaces.
+
+*   **4. Electrochemical Performance and Safety:** We will perform long-term cycling and rate tests as you suggest. Crucially, we must add in-situ gas analysis during high-voltage cycling and Accelerating Rate Calorimetry (ARC) on full cells [ID: 449]. I predict the LHCE, with its more complex mixture and volatile DME component, will exhibit greater gas generation and a lower thermal runaway onset temperature than the single, high-boiling-point engineered solvent.
+
+**My Prediction:** The Engineered Solvent (DTDL) will demonstrate the highest, most stable Coulombic efficiency over long-term cycling due to the formation of a thin, homogeneous, and highly protective SEI/CEI derived from a single, predictable decomposition pathway. While its bulk conductivity may be slightly lower than the LHCE, its superior interfacial stability will result in lower impedance growth and better performance retention. The LHCE will show initial promise but will ultimately fail due to "component bleed-through"—the less stable DME and diluent components will contribute to ongoing parasitic reactions, gas generation, and impedance rise, proving that this "tunable" system is fundamentally less stable.
+
+**Conclusion:** The path to a practical lithium metal battery is paved with control, not compromise. The LHCE approach is an attempt to patch the flaws of conventional electrolytes by adding more components, leading to a system whose complexity is its own undoing. True progress lies in the rational design of single-solvent molecules where stability and transport properties are encoded at the atomic level. This is not idealism; it is rigorous, mechanism-driven science. It is the only way to build an electrolyte that is not just good enough for today, but robust enough for the future.
+
+--- Evidence Appendix (auto-generated from snapshot) ---
+Snapshot: Scientist B
+- [ID: 5 | Jiangfeng Qian, 2015 | High rate and stable cycling of lithium metal anode | Venue: Nature Communications | DOI: https://doi.org/10.1038/ncomms7362 | OpenAlexID: https://openalex.org/W2047775546]
+- [ID: 11 | Yan Zhao, 2022 | Fluorinated ether electrolyte with controlled solvation structure for high voltage lithium metal batteries | Venue: Nature Communications | DOI: https://doi.org/10.1038/s41467-022-29199-3 | OpenAlexID: https://openalex.org/W4229079925]
+- [ID: 12 | Yuelang Chen, 2021 | Steric Effect Tuned Ion Solvation Enabling Stable Cycling of High-Voltage Lithium Metal Battery | Venue: Journal of the American Chemical Society | DOI: https://doi.org/10.1021/jacs.1c09006 | OpenAlexID: https://openalex.org/W3209770929]
+- [ID: 64 | Hao Nan Jia, 2021 | Advanced Low‐Flammable Electrolytes for Stable Operation of High‐Voltage Lithium‐Ion Batteries | Venue: Angewandte Chemie International Edition | DOI: https://doi.org/10.1002/anie.202102403 | OpenAlexID: https://openalex.org/W3149149691]
+- [ID: 68 | Shuo‐Qing Zhang, 2022 | Tackling realistic Li+ flux for high-energy lithium metal batteries | Venue: Nature Communications | DOI: https://doi.org/10.1038/s41467-022-33151-w | OpenAlexID: https://openalex.org/W4296044379]
+- [ID: 100 | Jack Fawdon, 2021 | Characterising lithium-ion electrolytes via operando Raman microspectroscopy | Venue: Nature Communications | DOI: https://doi.org/10.1038/s41467-021-24297-0 | OpenAlexID: https://openalex.org/W3114534037]
+- [ID: 152 | Handan Yıldırım, 2015 | First-Principles Analysis of Defect Thermodynamics and Ion Transport in Inorganic SEI Compounds: LiF and NaF | Venue: ACS Applied Materials & Interfaces | DOI: https://doi.org/10.1021/acsami.5b02904 | OpenAlexID: https://openalex.org/W2343093142]
+- [ID: 263 | Vikas Kumar, 2019 | Lithium Speciation in the LiPF6/PC Electrolyte Studied by Two-Dimensional Heteronuclear Overhauser Enhancement and Pulse-Field Gradient Diffusometry NMR | Venue: The Journal of Physical Chemistry C | DOI: https://doi.org/10.1021/acs.jpcc.8b11599 | OpenAlexID: https://openalex.org/W2933170577]
+- [ID: 372 | Yoshifumi Watanabe, 2022 | Does Li-ion transport occur rapidly in localized high-concentration electrolytes? | Venue: Physical Chemistry Chemical Physics | DOI: https://doi.org/10.1039/d2cp05319e | OpenAlexID: https://openalex.org/W4313038159]
+- [ID: 380 | Yumin Zhang, 2020 | Engineering Solid Electrolyte Interphase Composition by Assessing Decomposition Pathways of Fluorinated Organic Solvents in Lithium Metal Batteries | Venue: Journal of The Electrochemical Society | DOI: https://doi.org/10.1149/1945-7111/ab836b | OpenAlexID: https://openalex.org/W3016242619]
+- [ID: 449 | Jayse T. Langdon, 2022 | Gas Generation in Lithium Cells with High-Nickel Cathodes and Localized High-Concentration Electrolytes | Venue: ACS Energy Letters | DOI: https://doi.org/10.1021/acsenergylett.2c01444 | OpenAlexID: https://openalex.org/W4285794888]
+
+
+============================================================
+[FINAL SYNTHESIS]
+**TO:** Lithium Metal Battery Research Team
+**FROM:** Research Director
+**DATE:** September 23, 2022
+**SUBJECT:** MEMORANDUM: Synthesis of Debate and Strategic Direction on Advanced Liquid Electrolytes
+
+This memorandum outlines our strategic direction following the debate on reconciling interfacial stability with high-rate transport in liquid electrolytes for practical lithium-metal batteries (LMBs). I have reviewed the arguments presented by Scientist A (proponent of the systems-engineering approach) and Scientist B (proponent of the molecular-design approach). Both have presented compelling, evidence-based cases that highlight the central challenges and opportunities in our field.
+
+### 1. Synthesis of the Debate
+
+Both scientists correctly identify the core dilemma: electrolyte formulations that promote a stable, anion-derived solid electrolyte interphase (SEI) through strong ion aggregation often exhibit high viscosity and low ionic conductivity, hindering transport. The debate centers on the best strategy to decouple these conflicting requirements.
+
+*   **Point of Consensus:** The fundamental principle of modern electrolyte design is to control the Li⁺ solvation environment to ensure anions participate in the primary solvation sheath. This leads to the formation of a more stable, inorganic-rich SEI upon reduction at the anode (Scientist A [ID: 2, 6, 94]; Scientist B [ID: 12, 194]). Simple, dilute electrolytes based on strong solvents like carbonates or standard ethers are insufficient.
+
+*   **Scientist A's Position: The "Systems Engineering" Approach.** Scientist A advocates for the **Localized High-Concentration Electrolyte (LHCE)** as a pragmatic and tunable platform. This strategy involves creating the desired anion-rich solvate clusters using a primary solvent and high salt concentration, and then dispersing these clusters in a non-solvating, low-viscosity diluent. The core argument is that this approach decouples the local chemistry required for a stable interface from the bulk physical properties governing transport (Scientist A [ID: 8]). This is presented as a modular, cost-effective method that uses readily available components and can be adapted, for instance, by using non-fluorinated diluents to reduce cost (Scientist A [ID: 45]).
+
+*   **Scientist B's Position: The "Molecular Architect" Approach.** Scientist B critiques the LHCE model as a "crude patch," arguing that the diluent is not truly inert and introduces uncontrolled complexity and compromises, such as a potential decrease in the Li-ion transference number (t+) (Scientist B [ID: 372]). The proposed superior path is the *de novo* design of single solvent molecules. By rationally engineering properties like steric hindrance (Scientist B [ID: 12]) or integrating functional groups for high voltage stability into one molecule (Scientist B [ID: 11]), one can achieve the desired anion-rich solvation and high t+ at moderate concentrations without a diluent. This is framed as a more fundamental and controllable approach.
+
+### 2. Critical Assessment and Strategic Decision
+
+Scientist B's vision of a single, perfectly engineered solvent molecule is the theoretical ideal. A two-component (solvent + salt) system is inherently more controllable than a three-component one. The reported performance of molecules like DTDL, with high voltage stability and a high t+ of 0.75, is exceptionally impressive (Scientist B [ID: 11]).
+
+However, as Research Director in 2022, I must weigh this ideal against practical constraints of scalability, cost, and time-to-market. The multi-step synthesis of such complex fluorinated molecules (Scientist A [ID: 121]) presents a significant barrier to commercial viability in the near term.
+
+Scientist A's LHCE approach, while perhaps less elegant, represents a more immediate and pragmatic path forward. It leverages existing, scalable chemical building blocks (DME, LiFSI, TTE, etc.) in a modular framework. The ability to tune bulk properties like viscosity and wettability by simply changing the diluent is a powerful engineering advantage. The recent demonstration of high-performance, non-fluorinated diluents (Scientist A [ID: 45]) directly mitigates the primary cost and sustainability concerns raised by Scientist B.
+
+The debate over the Li-ion transference number (t+) is a critical point of contention. While Scientist B points to evidence of t+ reduction upon dilution (Scientist B [ID: 372]), Scientist A presents a case where a specific diluent can improve interfacial transfer (Scientist A [ID: 119]). This indicates that the effect is not universal and depends on the specific chemistry of the diluent-solvate interaction. The net effect on full-cell performance under practical conditions is the ultimate arbiter.
+
+**Decision:** The **LHCE framework represents the most probable path to a successful, practical LMB electrolyte in the near-to-mid term.** It offers the best balance of performance, tunability, and scalability given the current state of chemical manufacturing. However, the principles of molecular design championed by Scientist B are invaluable and must be integrated into our long-term strategy.
+
+### 3. Recommended Research Program
+
+Our research will proceed on two parallel tracks, with an emphasis on the more pragmatic approach.
+
+**Primary Focus (70% Effort): The Optimized LHCE Platform**
+The goal is to develop a cost-effective, high-performance LHCE by systematically optimizing all three components, incorporating the mechanistic rigor advocated by Scientist B.
+
+*   **1. Rational Diluent Screening:** We will move beyond TTE and establish a screening program for non-fluorinated, non-solvating diluents. Candidates (e.g., aromatic ethers) will be evaluated for non-solvating character (Raman, NMR), miscibility, cost, and electrochemical stability at both anode and cathode potentials.
+*   **2. Hybrid Solvator Systems:** We will explore using weakly solvating ethers (e.g., DEE) as the primary solvator *within* the LHCE framework. This combines the benefits of Scientist A's modularity with Scientist B's principle of sterically-tuned solvation.
+*   **3. Definitive Transport Analysis:** We must resolve the t+ question. For our lead candidates, we will use PFG-NMR to measure the self-diffusion coefficients of all mobile species (Li+, anion, solvent, diluent) to calculate a true, mobility-based transference number. This will be correlated with full-cell rate capability under lean electrolyte conditions.
+*   **4. Comprehensive Interfacial Characterization:** We will use depth-profiling XPS and cryo-TEM on both the Li anode and NMC cathode after formation and extended cycling. The goal is to understand the final composition of the interphases and determine if the diluent participates, for better or worse.
+
+**Secondary Focus (30% Effort): Next-Generation Solvent Design**
+This track will pursue Scientist B's vision as a longer-term, high-risk/high-reward project.
+
+*   **1. Computational Design & Screening:** We will leverage DFT and MD simulations to design and screen novel single-solvent molecules. The focus will be on integrating moderate solvating power, high voltage stability, and features that promote a composite (e.g., LiF/Li₂S) rather than a pure LiF SEI.
+*   **2. Targeted Synthesis and Evaluation:** Based on screening, we will synthesize and test the top 1-2 most promising candidates. The primary goal is to validate our design principles and establish performance benchmarks, even if the synthesis is not yet scalable.
+
+This dual-track approach allows us to pursue a practical solution aggressively while simultaneously investing in the fundamental science that will drive the next generation of LMBs.
+
+### 4. Evidence Map
+
+The recommendations above are grounded in the following key evidence from the debate:
+
+*   **Primary Focus: Optimized LHCE Platform**
+    *   **Core Concept:** The LHCE framework provides a tunable platform for decoupling interface from bulk (Scientist A [ID: 8]).
+    *   **Diluent Screening:** Non-fluorinated diluents are a viable, cost-effective path (Scientist A [ID: 45]).
+    *   **Hybrid Solvators:** Weakly solvating ethers like DEE promote favorable anion coordination (Scientist A [ID: 1, 15]; Scientist B [ID: 12]).
+    *   **Transport Analysis:** The effect of diluents on t+ is contested and requires detailed study via PFG-NMR (Scientist A [ID: 119]; Scientist B [ID: 100, 372]).
+    *   **Interfacial Analysis:** The SEI is a composite whose ionic conductivity is critical for rate capability (Scientist A [ID: 36]; Scientist B [ID: 68]).
+
+*   **Secondary Focus: Next-Generation Solvent Design**
+    *   **Core Concept:** Single, engineered solvent molecules can provide superior performance and control (Scientist B [ID: 11]).
+    *   **Design Principles:** Tuning can be achieved via steric hindrance (Scientist B [ID: 12]) or integrating functional groups (Scientist B [ID: 11]; Scientist A [ID: 121]).
+    *   **Performance Target:** High t+ (>0.7) is an achievable goal with this approach (Scientist B [ID: 11]).
+    *   **Practical Hurdles:** Cost and scalability of complex synthesis are the primary challenges to overcome (Scientist A [ID: 121]).
+
+--- Evidence Appendix (Scientist A snapshot) ---
+- [ID: 8 | Xia Cao, 2020 | Review—Localized High-Concentration Electrolytes for Lithium Batteries | Venue: Journal of The Electrochemical Society | DOI: https://doi.org/10.1149/1945-7111/abd60e | OpenAlexID: https://openalex.org/W3117664282]
+- [ID: 36 | Shuo‐Qing Zhang, 2022 | Tackling realistic Li+ flux for high-energy lithium metal batteries | Venue: Nature Communications | DOI: https://doi.org/10.1038/s41467-022-33151-w | OpenAlexID: https://openalex.org/W4296044379]
+- [ID: 45 | Junyeob Moon, 2022 | Non-fluorinated non-solvating cosolvent enabling superior performance of lithium metal negative electrode battery | Venue: Nature Communications | DOI: https://doi.org/10.1038/s41467-022-32192-5 | OpenAlexID: https://openalex.org/W4289779533]
+- [ID: 119 | Liwei Dong, 2021 | High‐Polarity Fluoroalkyl Ether Electrolyte Enables Solvation‐Free Li+ Transfer for High‐Rate Lithium Metal Batteries | Venue: Advanced Science | DOI: https://doi.org/10.1002/advs.202104699 | OpenAlexID: https://openalex.org/W4200260904]
+- [ID: 121 | Tianhong Zhou, 2022 | Integrated Ring‐Chain Design of a New Fluorinated Ether Solvent for High‐Voltage Lithium‐Metal Batteries | Venue: Angewandte Chemie International Edition | DOI: https://doi.org/10.1002/anie.202115884 | OpenAlexID: https://openalex.org/W4220685943]
+
+--- Evidence Appendix (Scientist B snapshot) ---
+- [ID: 11 | Yan Zhao, 2022 | Fluorinated ether electrolyte with controlled solvation structure for high voltage lithium metal batteries | Venue: Nature Communications | DOI: https://doi.org/10.1038/s41467-022-29199-3 | OpenAlexID: https://openalex.org/W4229079925]
+- [ID: 12 | Yuelang Chen, 2021 | Steric Effect Tuned Ion Solvation Enabling Stable Cycling of High-Voltage Lithium Metal Battery | Venue: Journal of the American Chemical Society | DOI: https://doi.org/10.1021/jacs.1c09006 | OpenAlexID: https://openalex.org/W3209770929]
+- [ID: 68 | Shuo‐Qing Zhang, 2022 | Tackling realistic Li+ flux for high-energy lithium metal batteries | Venue: Nature Communications | DOI: https://doi.org/10.1038/s41467-022-33151-w | OpenAlexID: https://openalex.org/W4296044379]
+- [ID: 372 | Yoshifumi Watanabe, 2022 | Does Li-ion transport occur rapidly in localized high-concentration electrolytes? | Venue: Physical Chemistry Chemical Physics | DOI: https://doi.org/10.1039/d2cp05319e | OpenAlexID: https://openalex.org/W4313038159]
+

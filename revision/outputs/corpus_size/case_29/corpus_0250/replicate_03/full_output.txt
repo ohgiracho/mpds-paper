@@ -1,0 +1,517 @@
+[RUN CONFIG]
+run_timestamp_utc: 2026-09-20T21:59:30.548908+00:00
+model: gemini-2.5-pro
+temperature: 0.5
+max_output_tokens: 8192
+language: "en"
+min_evidence_pointers: 3
+turn_sleep_sec: 0.2
+rounds: 3
+simulation_date: 2024
+topic: What testing protocol and cathode evaluation framework would most reliably distinguish intrinsic alpha-MnO2 behavior from electrolyte-, counter-electrode-, and cell-configuration artifacts in aqueous ZIBs?
+
+knowledge_a_file: [LOCAL_PATH_REDACTED]
+REPRODUCIBILITY:
+provider: OpenAlex Works API
+keyword: manganese dioxide cathodes
+start_year: 2015
+end_year: 2024
+master_size: 1000
+selected_top_n: 250
+ranking: default search relevance_score descending
+pagination: cursor
+retrieved_at: 2026-09-20T13:26:22.232375+00:00
+retrieval_id: case_29_pool_A_2026-09-20T13:26:22.232375+00:00
+============================================================
+
+knowledge_b_file: [LOCAL_PATH_REDACTED]
+REPRODUCIBILITY:
+provider: OpenAlex Works API
+keyword: zinc-ion testing
+start_year: 2015
+end_year: 2024
+master_size: 1000
+selected_top_n: 250
+ranking: default search relevance_score descending
+pagination: cursor
+retrieved_at: 2026-09-20T13:30:13.527803+00:00
+retrieval_id: case_29_pool_B_2026-09-20T13:30:13.527803+00:00
+============================================================
+
+Context: [User's Experimental Situation]
+- Background:
+ We are evaluating alpha-MnO2 cathodes in aqueous zinc-ion cells, and the main objective is to isolate intrinsic cathode behavior from protocol-dependent artifacts.
+- Main bottleneck:
+ Apparent ZIB performance can be distorted by Mn dissolution, parasitic reactions, pH-driven side products, and unstable Zn counter-electrode behavior rather than the alpha-MnO2 cathode itself.
+- Transport bottleneck:
+ Electrochemical signatures can change with amorphous-versus-crystalline alpha-MnO2, electrolyte composition, and cell configuration, so transport-related conclusions are easy to misread when the protocol is inconsistent.
+- Structural bottleneck:
+ Mass loading, current density, separator choice, electrolyte volume, and Zn anode condition all change the apparent cycling stability, making cross-study comparison unreliable.
+- Process concern:
+ Electrochemical testing protocol has to define a rigorous evaluation workflow rather than introduce another material modification that still cannot be interpreted consistently.
+
+============================================================
+
+[The Architect (Scientist A) - Round 1]
+Excellent question. Your team is grappling with the central challenge that plagues the aqueous zinc-ion battery (ZIB) field. The literature is flooded with performance claims that are often artifacts of the testing conditions, not intrinsic properties of the cathode material itself. This makes it nearly impossible to benchmark progress.
+
+As a materials chemist focused on practical outcomes, I see this as a critical failure of scientific rigor. A "high-performance" cathode that only works under idealized, impractical conditions is not a breakthrough; it's a distraction.
+
+### Diagnosis of the Problem
+
+The core of the problem is a pervasive ambiguity in the charge storage mechanism. Many papers still default to a simple Zn²⁺ intercalation/deintercalation model, which is often an oversimplification or outright incorrect in mild aqueous electrolytes. Our community has known for years that the reality is far more complex.
+
+The actual electrochemical process in a Zn/MnO₂ cell is a competition between at least three pathways:
+1.  **Cation Intercalation:** The insertion of charge carriers (Zn²⁺ and/or H⁺) into the MnO₂ host structure [ID: 19, ID: 89].
+2.  **Conversion Reaction:** The formation of new phases, such as zinc hydroxide sulfate (ZHS), driven by local pH changes from proton consumption [ID: 37, ID: 95]. This was a critical finding back in 2016 and is still not universally accounted for [ID: 37].
+3.  **Dissolution/Deposition:** The dissolution of MnO₂ into Mn²⁺, followed by redeposition, often as a different phase, during charging [ID: 69, ID: 179].
+
+These mechanisms are not mutually exclusive and their dominance depends heavily on electrolyte composition, pH, current density, and the MnO₂ polymorph itself [ID: 53, ID: 89]. Attributing a high capacity solely to Zn²⁺ intercalation in α-MnO₂ without ruling out proton co-insertion or ZHS formation is a frequent and fundamental error. For instance, DFT calculations have repeatedly shown that proton insertion is often kinetically and thermodynamically more favorable than divalent Zn²⁺ insertion in many MnO₂ structures [ID: 22]. Your observation that performance is sensitive to mass loading, electrolyte volume, and the Zn anode's condition is a direct symptom of these competing, system-dependent reactions.
+
+### Proposed Solution: A Three-Stage Evaluation Framework
+
+To solve this, we need to move away from single-point "hero" experiments and adopt a standardized, multi-stage framework designed to deconvolve these effects. This protocol will systematically isolate the intrinsic properties of your α-MnO₂ from system-level artifacts.
+
+---
+
+#### **Stage 1: Standardized Baseline Electrochemical Screening**
+
+The goal here is to create a reproducible, comparable baseline. This is not for claiming record performance, but for establishing a common ground.
+
+1.  **Standardized Cell Assembly:**
+    *   **Anode:** Freshly polished zinc foil (e.g., 0.25 mm thickness) of a defined area. The state of the Zn anode is a massive variable; starting fresh is key [ID: 101].
+    *   **Cathode:** Your α-MnO₂ with a fixed, low mass loading (e.g., **1.5 ± 0.5 mg/cm²**). High mass loading introduces significant ionic and electronic transport limitations that mask intrinsic material properties [ID: 17].
+    *   **Electrolyte:** A simple, standard electrolyte, such as **2 M ZnSO₄**, without any additives (e.g., MnSO₄). The electrolyte-to-cathode mass ratio must be fixed and reported (e.g., **30 µL/mg** of active material). Lean electrolyte conditions come later.
+    *   **Separator:** A standard separator, like Whatman glass fiber (GF/D), to ensure consistent electrolyte wicking and volume.
+
+2.  **Initial Electrochemical Characterization:**
+    *   **Cyclic Voltammetry (CV):** Perform sweeps at various rates (e.g., 0.1 to 5 mV/s) to get a qualitative sense of the kinetics.
+    *   **Galvanostatic Cycling (GCD):** Cycle at defined C-rates (e.g., C/10, 1C, 10C), where 1C is defined against the theoretical capacity of a one-electron reaction (308 mAh/g). This normalizes the current against the material, not arbitrary values.
+    *   **Rate Capability Test:** A standardized step-wise increase and decrease in current density.
+
+This stage provides your baseline performance metrics (capacity, efficiency, rate performance). Any deviation in later stages can be attributed to the variable being tested.
+
+---
+
+#### **Stage 2: Mechanistic Deconvolution**
+
+This is the most critical stage. Here, we use a suite of characterization techniques to determine *what* is actually happening inside the cell. These are not one-off tests; they should be performed on cells built to the Stage 1 standard.
+
+1.  **Identify the Charge Carrier and Byproducts:**
+    *   ***In situ* pH Measurement:** Embed a micro-pH electrode near the cathode or use a pH indicator in the electrolyte [ID: 80]. A drop in pH on charging and a rise on discharging is a definitive signature of H⁺ involvement [ID: 37]. This is non-negotiable for any serious study.
+    *   ***Ex situ* XRD and Raman Spectroscopy:** Analyze the cathode at different states of charge (e.g., fully discharged, half-charged, fully charged). Look for the emergence of new peaks corresponding to ZHS (Zn₄(OH)₆(SO₄)·5H₂O) [ID: 11, ID: 95] or phase transformations to zinc-buserite or spinel (ZnMn₂O₄) [ID: 3, 197]. Raman is particularly sensitive to different Mn-O bond environments and can distinguish polymorphs and phases like MnOOH [ID: 117, ID: 138].
+    *   **ICP-OES/MS of Electrolyte:** After a set number of cycles, dissolve the electrolyte and separator in acid and measure the Mn concentration. This directly quantifies manganese dissolution, a primary failure mode [ID: 46, ID: 210].
+
+2.  **Probe the Kinetics and Structural Evolution:**
+    *   **Galvanostatic Intermittent Titration Technique (GITT):** Use GITT to estimate the apparent diffusion coefficient [ID: 15]. However, interpret this with extreme caution. The calculated D_app is only meaningful if you know the diffusing species (H⁺ or Zn²⁺?). Correlate GITT results with your pH data. If H⁺ is involved, the diffusion coefficient is likely for protons, not zinc.
+    *   ***In situ* XRD/EQCM:** If available, *in situ* XRD provides real-time structural information during cycling [ID: 19]. An Electrochemical Quartz Crystal Microbalance (EQCM) can track mass changes, helping to distinguish between ion intercalation (mass increase) and dissolution/precipitation reactions [ID: 231].
+
+At the end of this stage, you should be able to state with confidence whether your α-MnO₂ is operating via H⁺ insertion, Zn²⁺ insertion, a co-insertion mechanism, or a conversion/dissolution-deposition pathway.
+
+---
+
+#### **Stage 3: Practical Viability Assessment**
+
+Only after understanding the fundamental mechanism should you proceed to test more practical configurations. This stage evaluates how the intrinsic properties hold up under more demanding, application-relevant conditions.
+
+1.  **High Mass Loading Electrodes:** Gradually increase the mass loading to **>10 mg/cm²**. This will test the material's electronic conductivity and its ability to function with the tortuosity and ionic gradients present in a thick electrode. A material that relies on ZHS formation might fail here due to pore clogging [ID: 17].
+2.  **Pouch Cell Fabrication:** Move from coin cells to pouch cells. This format changes the pressure, electrolyte distribution, and form factor, providing a much better indicator of real-world performance [ID: 6, ID: 7].
+3.  **Lean Electrolyte and Anode-Limited Conditions:** Reduce the electrolyte-to-cathode ratio and use a Zn anode with a capacity closer to that of the cathode (e.g., N/P ratio of 3-5). This starves side reactions and quickly exposes any instabilities that were masked by a flood of electrolyte and a massive zinc sink.
+4.  **Electrolyte Additive Studies:** Now, and only now, should you test the effect of additives like MnSO₄ [ID: 210], which are known to suppress dissolution, or organic co-solvents [ID: 25, ID: 165] that alter the solvation shell. With the baseline and mechanistic understanding from Stages 1 & 2, you can correctly interpret *why* these additives improve (or worsen) performance.
+
+By following this three-stage framework, you move from simply measuring performance to truly understanding it. You will be able to definitively say, "Our α-MnO₂ material exhibits a capacity of X mAh/g via a proton-assisted mechanism, with a diffusion coefficient of Y. It is limited by Mn dissolution, which we have quantified at Z ppm/cycle, but shows promise in pouch cells with high mass loading." That is a scientifically robust and valuable claim. Anything less is just adding to the noise.
+
+--- Evidence Appendix (auto-generated from snapshot) ---
+Snapshot: Scientist A
+- [ID: 15 | Yunzhao Wu, 2019 | Proton Inserted Manganese Dioxides as a Reversible Cathode for Aqueous Zn-Ion Batteries | Venue: ACS Applied Energy Materials | DOI: https://doi.org/10.1021/acsaem.9b01554 | OpenAlexID: https://openalex.org/W2990406775]
+- [ID: 17 | Chuanqiang Li, 2022 | Reversible Transformation of a Zinc Salt-Boosted High Areal Capacity Manganese Dioxide Cathode for Energy-Dense and Stable Aqueous Zinc Batteries | Venue: ACS Applied Energy Materials | DOI: https://doi.org/10.1021/acsaem.1c02853 | OpenAlexID: https://openalex.org/W4210412662]
+- [ID: 19 | Buke Wu, 2018 | Graphene Scroll‐Coated α‐MnO 2 Nanowires as High‐Performance Cathode Materials for Aqueous Zn‐Ion Battery | Venue: Small | DOI: https://doi.org/10.1002/smll.201703850 | OpenAlexID: https://openalex.org/W2789422871]
+- [ID: 22 | Mingming Han, 2019 | Oxygen Defects in β-MnO2 Enabling High-Performance Rechargeable Aqueous Zinc/Manganese Dioxide Battery | Venue: iScience | DOI: https://doi.org/10.1016/j.isci.2019.100797 | OpenAlexID: https://openalex.org/W2998705289]
+- [ID: 37 | Boeun Lee, 2016 | Critical Role of pH Evolution of Electrolyte in the Reaction Mechanism for Rechargeable Zinc Batteries | Venue: ChemSusChem | DOI: https://doi.org/10.1002/cssc.201600702 | OpenAlexID: https://openalex.org/W2521787484]
+- [ID: 80 | Christian Friedrich Bischoff, 2020 | Revealing the Local pH Value Changes of Acidic Aqueous Zinc Ion Batteries with a Manganese Dioxide Electrode during Cycling | Venue: Journal of The Electrochemical Society | DOI: https://doi.org/10.1149/1945-7111/ab6c57 | OpenAlexID: https://openalex.org/W3004258213]
+- [ID: 101 | Rui Yao, 2021 | A Versatile Cation Additive Enabled Highly Reversible Zinc Metal Anode | Venue: Advanced Energy Materials | DOI: https://doi.org/10.1002/aenm.202102780 | OpenAlexID: https://openalex.org/W4200608542]
+- [ID: 210 | Sijin Park, 2022 | Improvement of structural stability of cathode by manganese additive in electrolyte for zinc‐ion batteries | Venue: International Journal of Energy Research | DOI: https://doi.org/10.1002/er.7687 | OpenAlexID: https://openalex.org/W4206195084]
+- [ID: 231 | Yi-Fan Zhang, 2022 | Realization of an anion insertion mechanism for high-rate electrochemical energy storage in highly crystalline few-layered potassium manganese dioxide nanosheets | Venue: Journal of Materials Chemistry A | DOI: https://doi.org/10.1039/d1ta10587f | OpenAlexID: https://openalex.org/W4210459946]
+
+[The Engineer (Scientist B) - Round 1]
+Your diagnosis of the problem is astute, and the structured, three-stage approach you propose is a significant step up from the haphazard testing that permeates much of the literature. You correctly identify the complex and competing reaction mechanisms—cation intercalation, conversion reactions, and dissolution-deposition—that make evaluating MnO₂ cathodes so difficult [ID: 9, 12, 42]. Your call for mechanistic deconvolution using techniques like `in situ` pH measurement and `ex situ` XRD is absolutely essential [ID: 116].
+
+However, from my perspective, your framework, while well-intentioned, still treats the battery's components in a sequence. It begins with the cathode, standardizes the other parts as "controls," and only addresses their complexities in a final "practicality" stage. This is a critical flaw. A battery is not a sequence; it's a system in constant, dynamic equilibrium. The anode and electrolyte are not passive background actors; they are protagonists in the electrochemical drama from the very first cycle. An unstable anode can kill a perfectly good cathode by altering the electrolyte pH, leading to cathode dissolution [ID: 42]. Ignoring this interplay until the final stage means you're not understanding the system; you're just delaying the inevitable failure.
+
+Therefore, I propose a more integrated and concurrent evaluation framework, which I call the **Coupled Electrode-Electrolyte Protocol (CEEP)**. This protocol is designed to analyze the anode, cathode, and electrolyte in parallel, recognizing that their behaviors are inextricably linked.
+
+---
+
+### **The Coupled Electrode-Electrolyte Protocol (CEEP)**
+
+This protocol reorganizes the evaluation into two main phases: **(1) System Definition and Interfacial Analysis** and **(2) Practical Performance Validation**. It forces the researcher to confront the entire system from day one.
+
+#### **Phase 1: System Definition and Interfacial Analysis**
+
+The goal here is to simultaneously map the operational boundaries and probe the fundamental interfacial dynamics of *both* electrodes within a defined electrolyte environment.
+
+1.  **Parallel Electrode Characterization:** Instead of just preparing a cathode, you prepare three test vehicles in parallel using the *exact same electrolyte batch*:
+    *   **Vehicle A (Cathode):** Your α-MnO₂ cathode (e.g., 3–5 mg/cm²) vs. a stable, oversized Zn anode. This cell is for probing the cathode's intrinsic behavior.
+    *   **Vehicle B (Anode):** A Zn||Zn symmetric cell. This cell is crucial for evaluating the stability of the zinc anode itself under the chosen electrolyte and current density conditions. It directly measures plating/stripping overpotential, dendrite formation propensity, and cycle life independent of the cathode [ID: 7, 11, 104].
+    *   **Vehicle C (Side Reactions):** A Zn||Ti or Zn||Cu asymmetric cell. This allows for precise quantification of the Coulombic efficiency (CE) of Zn plating/stripping and, when coupled with techniques like DEMS, direct measurement of H₂ evolution [ID: 6, 46].
+
+2.  **Electrolyte as a Design Parameter, Not a Control:** The choice of electrolyte fundamentally defines the system. We must move beyond treating 2 M ZnSO₄ as a universal standard.
+    *   **Solvation Structure Analysis:** Before any cell is built, characterize the electrolyte itself. Use Raman spectroscopy and DFT calculations to understand the Zn²⁺ solvation sheath [ID: 23, 41]. Is it [Zn(H₂O)₆]²⁺, or have anions entered the primary solvation shell? This dictates the desolvation penalty at the cathode and the reactivity of water at the anode.
+    *   **Comparative Electrolytes:** Run the parallel tests (Vehicles A, B, C) in at least two distinct electrolyte systems: a standard mild aqueous solution (e.g., 2 M ZnSO₄) and an electrolyte designed to modify the solvation environment, such as an organic co-solvent [ID: 69, 128] or a "water-in-salt" formulation [ID: 26, 40]. This immediately reveals how sensitive your cathode and anode are to the electrolyte chemistry.
+
+3.  **Concurrent Mechanistic Investigation:** Perform these analyses during the initial cycling of all three vehicles.
+    *   **On the Cathode (Vehicle A):** Employ `in situ`/`ex situ` XRD and Raman to track phase changes and byproduct formation (e.g., ZHS) [ID: 42, 62]. Use ICP-MS on the electrolyte post-cycling to quantify Mn dissolution, a key failure mode, especially at low current densities [ID: 248].
+    *   **On the Anode (Vehicles B & C):** This is a non-negotiable part of Phase 1. Use `in situ` optical microscopy to visualize Zn deposition morphology. Quantify H₂ evolution via DEMS or gas chromatography [ID: 46]. Use `ex situ` SEM and XPS to characterize the anode surface and any forming interphase after a set number of cycles [ID: 99, 104].
+
+At the end of Phase 1, you will have a comprehensive understanding. You can state, for example: "In 2 M ZnSO₄, our α-MnO₂ undergoes a H⁺/Zn²⁺ co-insertion mechanism leading to ZHS formation, while the Zn anode fails after 100 hours due to dendritic growth and H₂ evolution. In contrast, in a hybrid electrolyte, H⁺ activity is suppressed, the mechanism shifts towards pure Zn²⁺ intercalation, and the anode is stable for over 1000 hours." This is a complete, actionable scientific finding.
+
+#### **Phase 2: Practical Performance Validation**
+
+This phase tests the most promising system identified in Phase 1 under conditions that approach commercial reality. Your suggestions here are good, but I would enforce stricter reporting standards, as these are the numbers that truly matter [ID: 178, 146].
+
+1.  **Pouch Cell Assembly with Rigorous Metrics:**
+    *   **High Mass Loading & Areal Capacity:** Target a loading >10 mg/cm² and an areal capacity >3 mAh/cm² [ID: 16, 35].
+    *   **Controlled N/P Ratio and Zn DoD:** This is paramount. Report the N/P ratio (aim for < 4) and calculate the corresponding depth of discharge (DoD) of the zinc anode [ID: 194]. A battery claiming 1000 cycles at 1% Zn DoD is an academic exercise, not a practical device. We need to see stability at >30% Zn DoD [ID: 6, 217].
+    *   **Lean Electrolyte:** Report the electrolyte-to-capacity ratio (E/C) in g/Ah or µL/mAh. Push this value as low as possible to reflect real-world cell design [ID: 233].
+    *   **Full Cell Energy Density:** Report energy density based on the total mass of the *entire cell stack* (cathode, anode, separator, electrolyte), not just the active material [ID: 146].
+
+2.  **Durability and Calendar Life Assessment:**
+    *   **Long-Term Cycling:** Test at a moderate rate (e.g., C/2) to expose degradation mechanisms like cathode dissolution that are masked by high-rate testing [ID: 42].
+    *   **Shelf-Life Test:** Monitor the open-circuit voltage and perform capacity checks after storing the cell for extended periods (e.g., 1-4 weeks) to quantify self-discharge and corrosion [ID: 42].
+
+By adopting this coupled protocol, we stop chasing cathode-centric "hero" results in idealized systems. We force ourselves to address the entire electrochemical conversation—cathode, anode, and electrolyte—from the outset. This approach will more reliably distinguish intrinsic material properties from system artifacts and, more importantly, will accelerate the development of AZIBs that are not just high-performing in the lab, but genuinely viable for real-world energy storage.
+
+--- Evidence Appendix (auto-generated from snapshot) ---
+Snapshot: Scientist B
+- [ID: 42 | Yangmoon Kim, 2022 | Corrosion as the origin of limited lifetime of vanadium oxide-based aqueous zinc ion batteries | Venue: Nature Communications | DOI: https://doi.org/10.1038/s41467-022-29987-x | OpenAlexID: https://openalex.org/W4225285080]
+- [ID: 46 | Fuhua Yang, 2022 | Understanding H2 Evolution Electrochemistry to Minimize Solvated Water Impact on Zinc‐Anode Performance | Venue: Advanced Materials | DOI: https://doi.org/10.1002/adma.202206754 | OpenAlexID: https://openalex.org/W4297855505]
+- [ID: 116 | Christian Friedrich Bischoff, 2020 | Revealing the Local pH Value Changes of Acidic Aqueous Zinc Ion Batteries with a Manganese Dioxide Electrode during Cycling | Venue: Journal of The Electrochemical Society | DOI: https://doi.org/10.1149/1945-7111/ab6c57 | OpenAlexID: https://openalex.org/W3004258213]
+- [ID: 146 | Sailin Liu, 2024 | Zinc ion Batteries: Bridging the Gap from Academia to Industry for Grid‐Scale Energy Storage | Venue: Angewandte Chemie International Edition | DOI: https://doi.org/10.1002/anie.202400045 | OpenAlexID: https://openalex.org/W4392086370]
+- [ID: 194 | Xian‐Fu Zhang, 2024 | Design Strategies for Aqueous Zinc Metal Batteries with High Zinc Utilization: From Metal Anodes to Anode-Free Structures | Venue: Nano-Micro Letters | DOI: https://doi.org/10.1007/s40820-023-01304-1 | OpenAlexID: https://openalex.org/W4390589786]
+- [ID: 233 | Xuesong Ge, 2022 | Single‐Ion‐Functionalized Nanocellulose Membranes Enable Lean‐Electrolyte and Deeply Cycled Aqueous Zinc‐Metal Batteries | Venue: Advanced Functional Materials | DOI: https://doi.org/10.1002/adfm.202200429 | OpenAlexID: https://openalex.org/W4229073937]
+- [ID: 248 | Yuhang Dai, 2024 | Inhibition of Vanadium Cathodes Dissolution in Aqueous Zn‐Ion Batteries | Venue: Advanced Materials | DOI: https://doi.org/10.1002/adma.202310645 | OpenAlexID: https://openalex.org/W4390912254]
+
+[The Architect (Scientist A) - Round 2]
+Your "Coupled Electrode-Electrolyte Protocol" is a commendable effort to bring system-level thinking to the forefront, and I agree with its core premise: a battery is an interconnected system, not a series of isolated components. Your emphasis on parallel testing of symmetric cells and quantifying anode-side reactions like hydrogen evolution is a necessary and often-neglected step [ID: 101]. Your Phase 2, with its strict requirements for pouch cells, high mass loading, and lean electrolyte, is exactly the kind of rigor our field needs [ID: 17, 72].
+
+However, your protocol, while holistic, puts the cart before the horse. It attempts to define and test a "system" without first fundamentally understanding its most complex and variable component: the manganese dioxide cathode itself. The intrinsic properties of the α-MnO₂ polymorph—its tunnel structure, pre-existing stabilizing cations, and defect chemistry—are not just inputs; they *dictate* the reaction pathways that the rest of the system must accommodate [ID: 89, 114, 169]. Attributing failure solely to a "system mismatch" without first decoding the cathode's intrinsic behavior is an incomplete diagnosis.
+
+The central flaw is that you can't intelligently design or interpret a "system" test without an *a priori* mechanistic hypothesis for the cathode. For example, if DFT and preliminary tests suggest a material is prone to a proton-driven conversion reaction [ID: 22, 37], then focusing on an anode-stabilizing electrolyte that does nothing to manage pH is a waste of resources. The cathode's behavior defines the problems the anode and electrolyte will face.
+
+Therefore, I propose a more efficient, targeted framework: the **Mechanism-First Hierarchical Protocol (MFHP)**. This protocol prioritizes a deep, fundamental understanding of the cathode material first, using that knowledge to guide intelligent system integration and, ultimately, practical validation.
+
+---
+
+### **The Mechanism-First Hierarchical Protocol (MFHP)**
+
+This protocol is structured in three sequential phases, where the findings of each phase directly inform the experiments of the next. It builds knowledge from the atom-up, ensuring that by the time we test a full cell, we understand *why* it is succeeding or failing.
+
+#### **Phase 0: Intrinsic Mechanistic Deconvolution**
+
+The goal here is to establish the fundamental reaction pathway(s) of the specific α-MnO₂ material in a controlled environment, isolated from the complexities of a zinc anode.
+
+1.  **Material Fingerprinting:** Before any electrochemical testing, the as-synthesized α-MnO₂ must be rigorously characterized. This includes XRD for phase purity, but more importantly, techniques to identify the tunnel-stabilizing cations (e.g., K⁺, Ag⁺, H₃O⁺) and their concentration [ID: 208]. Our work and others' have shown these tunnel occupants are not passive; they directly impact Li⁺, and by extension Zn²⁺, diffusion kinetics and structural stability [ID: 185, 208].
+2.  **Theoretical Guidance with DFT:** We must start with theory. DFT calculations should be used to predict the thermodynamic and kinetic viability of different charge storage mechanisms for *this specific α-MnO₂ structure*. What are the calculated diffusion barriers for H⁺ versus Zn²⁺? [ID: 12, 88, 169]. Is a conversion reaction to ZnMn₂O₄ or the formation of zinc hydroxide sulfate (ZHS) thermodynamically favorable at operating potentials? [ID: 37, 95]. This provides a critical hypothesis to test experimentally.
+3.  **Controlled Electrochemical Analysis:** Using a three-electrode cell with a stable reference, we probe the cathode's intrinsic response.
+    *   **Cyclic Voltammetry (CV) & GITT:** Map the redox processes and determine ion diffusion coefficients. This helps distinguish between fast surface-controlled pseudocapacitance and slower, diffusion-limited intercalation [ID: 12, 15].
+    *   ***In situ* XRD and Raman Spectroscopy:** This is non-negotiable. We must directly observe the structural evolution during cycling. Does the α-MnO₂ framework remain stable, or does it convert to a layered buserite, spinel, or amorphous phase? [ID: 3, 19, 89]. Is ZHS forming on the surface? [ID: 11, 37].
+    *   ***In operando* pH Monitoring:** A micro-pH electrode placed near the cathode surface provides direct evidence of the charge carrier. H⁺ insertion consumes protons, causing a local pH increase, whereas reactions involving water can cause pH to drop [ID: 80, 37]. This data is crucial for separating H⁺-driven mechanisms from pure Zn²⁺ intercalation.
+
+At the end of Phase 0, we have a scientifically-grounded mechanistic model. We can state with confidence: "Our α-MnO₂ cathode operates via a synergistic H⁺/Zn²⁺ co-insertion mechanism, but is susceptible to irreversible ZHS formation at lower potentials due to Mn³⁺ disproportionation."
+
+#### **Phase 1: System Integration and Bottleneck Identification**
+
+With a clear mechanistic model, we now integrate the cathode into a full coin cell to see how its intrinsic behavior interacts with a Zn anode and a standard electrolyte (e.g., 2 M ZnSO₄). The goal is to identify the primary failure mode of the *system*.
+
+1.  **Standardized Cell Cycling:** Assemble an α-MnO₂ || Zn coin cell and cycle it at moderate rates (e.g., C/5 to 2C).
+2.  **Post-Mortem Failure Analysis:** After a set number of cycles or capacity fade, disassemble the cell.
+    *   **Cathode:** Has the predicted mechanism held? Is there evidence of Mn dissolution (via ICP-MS of the electrolyte) or unexpected phase transformation (XRD)? [ID: 46, 210].
+    *   **Anode:** Is the anode covered in dendrites or passivated by byproducts? (SEM, XPS).
+3.  **Targeted Optimization:** The failure mode dictates the solution. If Mn dissolution is the bottleneck, we introduce Mn²⁺ salts into the electrolyte [ID: 210]. If the H⁺-driven mechanism is causing issues, we might explore electrolyte additives that buffer pH or alter the Zn²⁺ solvation shell to suppress proton activity [ID: 25, 165]. If the anode is the first point of failure, *now* is the time to implement your CEEP-style anode-focused tests (symmetric cells, CE measurements).
+
+#### **Phase 2: Practical Performance Validation**
+
+This phase mirrors your proposal, as it represents the final, necessary check against commercial reality. We take the optimized system from Phase 1 and build it into a practical format.
+
+1.  **Pouch Cell Fabrication:** Test in a pouch cell, not a coin cell [ID: 7].
+2.  **Strict Reporting Standards:**
+    *   **High Mass Loading:** >10 mg/cm², with goals toward the 50 mg/cm² demonstrated in recent literature [ID: 17].
+    *   **Lean Electrolyte:** Report the E/C ratio (e.g., in µL/mAh) [ID: 72].
+    *   **Realistic N/P Ratio:** Aim for N/P < 4 and report the Zn anode depth-of-discharge (DoD).
+    *   **Full-Cell Energy Density:** Calculate based on the total mass of all active and inactive components (electrodes, separator, electrolyte, current collectors).
+    *   **Long-Term Stability:** Demonstrate thousands of cycles, including at moderate rates (C/2) that expose slow degradation phenomena masked by fast cycling [ID: 53].
+
+My MFHP framework is not merely sequential; it is hierarchical. It builds a robust foundation of mechanistic understanding at the material level before tackling the complexities of the system. This avoids the shotgun approach of testing countless material-electrolyte combinations blindly. It allows us to fail faster, learn more from each experiment, and ultimately design better, more reliable aqueous batteries. We must understand the protagonist before we can understand the play.
+
+--- Evidence Appendix (auto-generated from snapshot) ---
+Snapshot: Scientist A
+- [ID: 7 | Xinjun Huang, 2022 | Revealing the Real Charge Carrier in Aqueous Zinc Batteries Based on Polythiophene/Manganese Dioxide Cathode | Venue: Small Structures | DOI: https://doi.org/10.1002/sstr.202200221 | OpenAlexID: https://openalex.org/W4310195193]
+- [ID: 17 | Chuanqiang Li, 2022 | Reversible Transformation of a Zinc Salt-Boosted High Areal Capacity Manganese Dioxide Cathode for Energy-Dense and Stable Aqueous Zinc Batteries | Venue: ACS Applied Energy Materials | DOI: https://doi.org/10.1021/acsaem.1c02853 | OpenAlexID: https://openalex.org/W4210412662]
+- [ID: 53 | Huilin Pan, 2019 | Electrolyte Effect on the Electrochemical Performance of Mild Aqueous Zinc-Electrolytic Manganese Dioxide Batteries | Venue: ACS Applied Materials & Interfaces | DOI: https://doi.org/10.1021/acsami.9b09252 | OpenAlexID: https://openalex.org/W2974420579]
+- [ID: 72 | Yida Hu, 2023 | Reconstructing interfacial manganese deposition for durable aqueous zinc–manganese batteries | Venue: National Science Review | DOI: https://doi.org/10.1093/nsr/nwad220 | OpenAlexID: https://openalex.org/W4385852270]
+- [ID: 101 | Rui Yao, 2021 | A Versatile Cation Additive Enabled Highly Reversible Zinc Metal Anode | Venue: Advanced Energy Materials | DOI: https://doi.org/10.1002/aenm.202102780 | OpenAlexID: https://openalex.org/W4200608542]
+- [ID: 208 | Altuğ S. Poyraz, 2017 | Tunnel Structured α-MnO2with Different Tunnel Cations (H+, K+, Ag+) as Cathode Materials in Rechargeable Lithium Batteries: The Role of Tunnel Cation on Electrochemistry | Venue: Journal of The Electrochemical Society | DOI: https://doi.org/10.1149/2.0911709jes | OpenAlexID: https://openalex.org/W2736049529]
+- [ID: 210 | Sijin Park, 2022 | Improvement of structural stability of cathode by manganese additive in electrolyte for zinc‐ion batteries | Venue: International Journal of Energy Research | DOI: https://doi.org/10.1002/er.7687 | OpenAlexID: https://openalex.org/W4206195084]
+
+[The Engineer (Scientist B) - Round 2]
+Your "Mechanism-First" protocol is a classic, reductionist approach, and I respect its intellectual tidiness. The desire to deconstruct a system to its constituent parts is a powerful scientific impulse. However, in the complex, dynamic world of an aqueous zinc-ion battery, this approach is not just inefficient; it is fundamentally flawed. It is predicated on the dangerous assumption that a cathode's "intrinsic" behavior, studied in an idealized three-electrode cell, is a meaningful predictor of its performance in a real battery. It is not.
+
+The reality, which my two decades of experience have repeatedly confirmed, is that the cathode, anode, and electrolyte are locked in a constant, aggressive dialogue from the very first cycle. The anode corrodes, altering local pH; the cathode may dissolve, releasing ions that poison the anode; and the electrolyte's water activity dictates the kinetics of every reaction [ID: 42, 116]. Your protocol attempts to understand this dialogue by listening to one component's monologue in a soundproof room. It's an academic exercise that yields elegant but often irrelevant conclusions.
+
+The most glaring flaw is in your Phase 0. The mechanism you so carefully deconvolute in a pristine, zinc-free, three-electrode setup is an artifact. For instance, paper [ID: 42] definitively shows that corrosion at the *zinc anode* perturbs the electrolyte pH, which in turn triggers the formation of an electrochemically inactive zinc pyrovanadate phase on the *vanadium oxide cathode*. Your protocol, by isolating the cathode first, would completely miss this coupled failure mechanism. You would waste months optimizing a cathode against a ghost, while the real culprit—the anode-electrolyte interaction—goes undiagnosed. You cannot intelligently design a system if you refuse to observe the system in action.
+
+Furthermore, relying on post-mortem analysis in your Phase 1 is insufficient. It tells you *what* failed, but not *why* or *when*. Was it anode dendrites that shorted the cell, or did a pH fluctuation from the cathode initiate the dendritic growth? An autopsy is no substitute for real-time diagnostics.
+
+I propose a more pragmatic and effective framework: the **Coupled Electrode-Electrolyte Protocol (CEEP)**. This protocol is not a linear sequence but a parallel investigation. It evaluates the anode, cathode, and electrolyte as an integrated system from day one, because that is what a battery is.
+
+---
+
+### **The Coupled Electrode-Electrolyte Protocol (CEEP)**
+
+This protocol is designed to rapidly diagnose the system's weakest link under realistic operating conditions and guide targeted, effective interventions.
+
+#### **Phase 1: Baseline System Diagnostics**
+
+The goal is to get a rapid, holistic "physical exam" of the complete cell to identify the primary bottleneck.
+
+1.  **Standardized Full Cell Test:** Assemble α-MnO₂ || Zn coin cells with a baseline electrolyte (e.g., 2 M ZnSO₄). Cycle at both a moderate rate (C/5) to reveal slow degradation and a high rate (e.g., 5C) to test kinetics. This provides our baseline capacity, voltage profile, and cycle life.
+2.  **Parallel Anode Stability Screening:** In parallel, assemble and test Zn||Zn symmetric cells using the *exact same electrolyte* [ID: 7, 8, 34]. This isolates the anode's plating/stripping behavior and tells us its intrinsic stability *in that specific chemical environment*. If the symmetric cell dies in 50 hours, we know the anode is a primary suspect, regardless of the cathode.
+3.  **Quantify Parasitic Reactions:** The "thorny issues" of hydrogen evolution and corrosion must be quantified from the start, not inferred later. Use gas chromatography or in-situ pressure monitoring on a full cell to measure H₂ evolution [ID: 46]. Track the bulk electrolyte pH throughout the initial cycles [ID: 116]. These side reactions consume water and active material, and their rate is a critical indicator of system stability.
+4.  ***Operando* Full-Cell Characterization:** Forget the three-electrode cell for now. Place the *entire coin cell* in the beamline. Use *operando* XRD or Raman for the first 10-20 cycles to watch for the real-time formation of byproducts like zinc hydroxide sulfate (ZHS) or irreversible phase transitions in the MnO₂ [ID: 12, 42]. This gives us a true, not theoretical, picture of the initial reaction pathway.
+
+At the end of Phase 1, we have a system-level diagnosis. We can state, for example, "The system shows rapid capacity fade, high H₂ evolution, and the symmetric cell confirms poor anode reversibility. The anode is the primary failure mode."
+
+#### **Phase 2: Targeted Intervention and Mechanistic Deep-Dive**
+
+With a system-level diagnosis, we can now apply targeted solutions and use more advanced characterization to understand the "why."
+
+1.  **Anode-Centric Solutions:** If the anode is the problem, we implement anode-focused strategies. This could be an artificial protective layer [ID: 6, 11, 52], a 3D current collector to reduce local current density [ID: 109], or electrolyte additives designed to suppress dendrites and corrosion [ID: 16, 54, 136]. We then re-run the Phase 1 protocol to confirm the fix and check for unintended consequences on the cathode.
+2.  **Cathode-Centric Solutions:** If Phase 1 revealed cathode instability (e.g., dissolution confirmed by ICP-MS of the electrolyte), we can now focus there. Strategies include pre-intercalating stabilizing cations into the MnO₂ tunnels [ID: 4, 17, 62] or adding Mn²⁺ to the electrolyte to suppress dissolution via Le Chatelier's principle [ID: 248].
+3.  **Electrolyte Engineering as a System Lever:** Often, the most powerful interventions address the entire system. Modifying the electrolyte with high-concentration salts [ID: 114], organic co-solvents [ID: 128], or functional additives [ID: 23, 124] can simultaneously alter the Zn²⁺ solvation shell to suppress water activity at both electrodes, inhibit corrosion, and promote the formation of a stable interphase. This is the epitome of system-level thinking.
+
+#### **Phase 3: The Practical Viability Gauntlet**
+
+This is the final filter. An optimized system from Phase 2 must prove its worth under conditions that matter for real-world application. My standards here are uncompromising.
+
+1.  **Pouch Cell Validation:** Performance must be demonstrated in a practical pouch cell format, not an idealized, pressure-clamped coin cell [ID: 6, 35].
+2.  **High-Utilization and Lean Conditions:** This is non-negotiable.
+    *   **High Cathode Mass Loading:** >10 mg/cm² is a minimum starting point [ID: 159].
+    *   **High Zinc Utilization:** We must move beyond using massive excesses of zinc. Report the anode's depth-of-discharge (DoD) and aim for values exceeding 50%, with a clear path toward anode-free configurations [ID: 194, 217]. A cell with 5% Zn utilization is an academic curiosity, not a product [ID: 146].
+    *   **Lean Electrolyte:** The electrolyte-to-capacity ratio (E/C) must be reported and minimized. Flooding a cell with electrolyte masks a multitude of problems, from ion depletion to byproduct accumulation [ID: 233].
+3.  **Rigorous Stability & Efficiency Metrics:**
+    *   **Long-Term Cycling:** Demonstrate thousands of stable cycles, not hundreds [ID: 4].
+    *   **Calendar Aging:** Test at low rates (e.g., C/10) and include rest periods to expose slow degradation mechanisms like cathode dissolution that are often masked by rapid cycling [ID: 42, 248].
+    *   **Coulombic Efficiency (CE):** For a full cell to be viable, the average CE must be >99.9% over hundreds of cycles. Anything less is a clear sign of unsustainable parasitic losses [ID: 69].
+
+Your MFHP seeks to understand the actor before the play begins. My CEEP framework insists on watching the entire dress rehearsal. It is a more direct, pragmatic, and ultimately faster path to identifying and solving the real, coupled challenges that stand between aqueous zinc-ion batteries and commercial reality [ID: 178].
+
+--- Evidence Appendix (auto-generated from snapshot) ---
+Snapshot: Scientist B
+- [ID: 4 | Jianhang Huang, 2018 | Polyaniline-intercalated manganese dioxide nanolayers as a high-performance cathode material for an aqueous zinc-ion battery | Venue: Nature Communications | DOI: https://doi.org/10.1038/s41467-018-04949-4 | OpenAlexID: https://openalex.org/W2883600665]
+- [ID: 42 | Yangmoon Kim, 2022 | Corrosion as the origin of limited lifetime of vanadium oxide-based aqueous zinc ion batteries | Venue: Nature Communications | DOI: https://doi.org/10.1038/s41467-022-29987-x | OpenAlexID: https://openalex.org/W4225285080]
+- [ID: 46 | Fuhua Yang, 2022 | Understanding H2 Evolution Electrochemistry to Minimize Solvated Water Impact on Zinc‐Anode Performance | Venue: Advanced Materials | DOI: https://doi.org/10.1002/adma.202206754 | OpenAlexID: https://openalex.org/W4297855505]
+- [ID: 69 | Fangwang Ming, 2022 | Co-Solvent Electrolyte Engineering for Stable Anode-Free Zinc Metal Batteries | Venue: Journal of the American Chemical Society | DOI: https://doi.org/10.1021/jacs.1c12764 | OpenAlexID: https://openalex.org/W4224244958]
+- [ID: 109 | Jiahui Zhou, 2021 | Encapsulation of Metallic Zn in a Hybrid MXene/Graphene Aerogel as a Stable Zn Anode for Foldable Zn‐Ion Batteries | Venue: Advanced Materials | DOI: https://doi.org/10.1002/adma.202106897 | OpenAlexID: https://openalex.org/W3202221354]
+- [ID: 114 | Zhuxin Li, 2020 | Insights into the Structure Stability of Prussian Blue for Aqueous Zinc Ion Batteries | Venue: Energy & environment materials | DOI: https://doi.org/10.1002/eem2.12108 | OpenAlexID: https://openalex.org/W3042878088]
+- [ID: 116 | Christian Friedrich Bischoff, 2020 | Revealing the Local pH Value Changes of Acidic Aqueous Zinc Ion Batteries with a Manganese Dioxide Electrode during Cycling | Venue: Journal of The Electrochemical Society | DOI: https://doi.org/10.1149/1945-7111/ab6c57 | OpenAlexID: https://openalex.org/W3004258213]
+- [ID: 128 | Yang Dong, 2021 | Non-concentrated aqueous electrolytes with organic solvent additives for stable zinc batteries | Venue: Chemical Science | DOI: https://doi.org/10.1039/d0sc06734b | OpenAlexID: https://openalex.org/W3136352565]
+- [ID: 146 | Sailin Liu, 2024 | Zinc ion Batteries: Bridging the Gap from Academia to Industry for Grid‐Scale Energy Storage | Venue: Angewandte Chemie International Edition | DOI: https://doi.org/10.1002/anie.202400045 | OpenAlexID: https://openalex.org/W4392086370]
+- [ID: 159 | Xuri Wang, 2023 | Magnesium Ion Doping and Micro‐Structural Engineering Assist NH4V4O10 as a High‐Performance Aqueous Zinc Ion Battery Cathode | Venue: Advanced Functional Materials | DOI: https://doi.org/10.1002/adfm.202306205 | OpenAlexID: https://openalex.org/W4384406555]
+- [ID: 178 | Giorgia Zampardi, 2022 | Open challenges and good experimental practices in the research field of aqueous Zn-ion batteries | Venue: Nature Communications | DOI: https://doi.org/10.1038/s41467-022-28381-x | OpenAlexID: https://openalex.org/W4210492038]
+- [ID: 233 | Xuesong Ge, 2022 | Single‐Ion‐Functionalized Nanocellulose Membranes Enable Lean‐Electrolyte and Deeply Cycled Aqueous Zinc‐Metal Batteries | Venue: Advanced Functional Materials | DOI: https://doi.org/10.1002/adfm.202200429 | OpenAlexID: https://openalex.org/W4229073937]
+- [ID: 248 | Yuhang Dai, 2024 | Inhibition of Vanadium Cathodes Dissolution in Aqueous Zn‐Ion Batteries | Venue: Advanced Materials | DOI: https://doi.org/10.1002/adma.202310645 | OpenAlexID: https://openalex.org/W4390912254]
+
+[The Architect (Scientist A) - Round 3]
+Your "Coupled Electrode-Electrolyte Protocol" is a compelling argument for pragmatism, and I concede that a battery is, ultimately, an integrated system. Your focus on full-cell testing and practical metrics from day one is an engineer's approach: build it, test it, see where it breaks, and fix it. However, this is engineering by brute force, not science. It mistakes the symptom for the disease and risks an endless, inefficient cycle of trial-and-error fixes without ever understanding the fundamental pathology.
+
+Your protocol's primary flaw is that it starts in chaos. By throwing the anode, cathode, and electrolyte together immediately, you create a system with too many confounding variables. Your Phase 1 "holistic physical exam" is more like an autopsy of a multi-car pile-up; you can see the wreckage, but discerning the initial point of failure is fraught with ambiguity. Did the cathode dissolve and poison the anode, or did anode-induced pH shifts destroy the cathode? Your *operando* full-cell data will show you *that* byproducts like zinc hydroxide sulfate (ZHS) formed, but it won't cleanly decouple the cause from the effect. The literature has been debating the charge storage mechanism for years, with compelling evidence for H⁺ intercalation, Zn²⁺ intercalation, and conversion/deposition reactions, often all occurring simultaneously or sequentially [ID: 2, 5, 65, 89]. To believe you can untangle this complex web in a dynamic full cell from the outset is optimistic at best.
+
+For example, a landmark 2016 paper in *ChemSusChem* demonstrated that ZHS precipitation is driven by pH increases from Mn³⁺ disproportionation at the cathode surface, a phenomenon that can occur even without a reactive zinc anode [ID: 37]. Your protocol, by immediately introducing the zinc anode, conflates this intrinsic cathode behavior with any additional pH shifts from the anode side. You cannot diagnose the system's "weakest link" if you don't have a reliable baseline for the intrinsic stability and reaction pathway of each component.
+
+I propose a more rigorous and ultimately more efficient framework: the **Hierarchical Mechanistic Protocol (HMP)**. This protocol builds understanding from the fundamental to the practical, using iterative loops to ensure that each step is informed by a solid mechanistic foundation. It doesn't ignore system-level interactions; it introduces them systematically so they can be understood and controlled.
+
+---
+
+### **The Hierarchical Mechanistic Protocol (HMP)**
+
+This protocol is designed to build a robust understanding from the material up to the device, ensuring that optimization efforts are targeted, effective, and grounded in solid science.
+
+#### **Phase 1: Intrinsic Cathode Behavior (The Foundational Baseline)**
+
+The goal is to establish the true, intrinsic electrochemical behavior of α-MnO₂ in the target electrolyte, free from the confounding influence of a reactive anode.
+
+1.  **Material Synthesis and Verification:** Synthesize and rigorously characterize the α-MnO₂ material. Confirm phase purity, morphology, and surface area using XRD, electron microscopy, and BET analysis [ID: 115, 250]. The Raman signature of α-MnO₂ is also distinct and must be verified [ID: 117].
+2.  **Three-Electrode Mechanistic Analysis:** Evaluate the cathode in a three-electrode cell with a stable reference electrode. This is non-negotiable. It is the only way to isolate the cathode's redox potentials and intrinsic stability. By coupling this with *in situ* characterization (e.g., XRD, Raman), we can definitively answer the first critical question: what is the primary charge storage mechanism? Is it H⁺ insertion to form MnOOH [ID: 22, 89], Zn²⁺ insertion to form a spinel [ID: 95], or a conversion reaction involving ZHS precipitation [ID: 37, 95]? Without this baseline, all subsequent analysis is guesswork.
+3.  **Theoretical Validation:** Concurrently, use DFT calculations to model the thermodynamics and kinetics of various ion (H⁺, Zn²⁺) insertion pathways into the α-MnO₂ tunnel structure [ID: 12, 169, 185]. This provides a theoretical framework to interpret the experimental results from step 2. For instance, DFT can predict whether H⁺ or Zn²⁺ insertion has a lower energy barrier, corroborating the dominant mechanism observed experimentally [ID: 89].
+
+#### **Phase 2: Diagnosing Electrode Crosstalk**
+
+Now, with a clear understanding of the cathode's intrinsic behavior, we introduce the zinc anode and systematically diagnose the "aggressive dialogue" you describe.
+
+1.  **Standardized Full-Cell Testing:** Assemble α-MnO₂ || Zn coin cells using the same batch of material from Phase 1. Cycle at various rates to obtain baseline performance metrics (capacity, rate capability, cycle life).
+2.  ***Operando* Differential Analysis:** This is the key. We perform *operando* XRD and pH monitoring on the full cell [ID: 19, 80]. By comparing the observed phase evolution and pH changes to the intrinsic behavior from Phase 1, we can precisely identify the anode's influence. If a new ZHS phase appears that was absent in the three-electrode cell, we know it's a result of the coupled system [ID: 11]. If the pH swing is more dramatic, we can quantify the anode's contribution [ID: 80].
+3.  **Post-Mortem Forensics:** After cycling, we conduct a targeted post-mortem analysis. We use ICP-MS on the electrolyte to quantify Mn dissolution [ID: 210] and SEM/XPS on the Zn anode to check for Mn plating or changes to the SEI. This provides quantitative evidence of the specific interactions occurring.
+
+#### **Phase 3: Mechanism-Guided Intervention**
+
+The diagnosis from Phase 2 is now clear and mechanistically grounded. We can now apply *intelligent* interventions, not just stabs in the dark.
+
+*   **Problem: Intrinsic structural instability during H⁺/Zn²⁺ insertion (diagnosed in Phase 1).**
+    *   **Solution:** Stabilize the MnO₂ framework. Pre-intercalating large "pillar" ions like K⁺, NH₄⁺, or polymers like PANI has been shown to brace the structure, improve kinetics, and dramatically extend cycle life [ID: 1, 49, 59, 139].
+*   **Problem: Severe Mn dissolution and ZHS formation (diagnosed in Phase 2).**
+    *   **Solution 1 (Cathode):** Apply a surface coating to physically block dissolution [ID: 144].
+    *   **Solution 2 (Electrolyte):** Add Mn²⁺ salts to the electrolyte to suppress dissolution via Le Chatelier's principle [ID: 210]. Or, engineer the electrolyte's solvation chemistry with co-solvents to reduce water activity and prevent ZHS formation [ID: 53, 165].
+*   **Problem: Sluggish kinetics and poor rate capability (diagnosed in Phase 1 & 2).**
+    *   **Solution:** Improve electronic/ionic conductivity. This can be achieved by creating oxygen vacancies [ID: 22, 34, 118], doping with heteroatoms [ID: 12, 248], or creating composites with conductive carbons [ID: 19, 26]. DFT can guide the selection of dopants by predicting their impact on the electronic band structure and ion diffusion barriers [ID: 12].
+
+Each intervention is followed by a rapid re-evaluation using the relevant tests from Phase 1 and 2 to confirm the fix and check for unintended tradeoffs.
+
+#### **Phase 4: The Practical Viability Gauntlet**
+
+I fully agree with your final set of standards. This is the crucial final filter. However, it is a filter for *promising, well-understood systems*, not a screening tool for every new idea.
+
+1.  **Pouch Cell Validation:** Demonstrate performance in a practical format with high mass loading (>10 mg/cm²) [ID: 7, 17].
+2.  **Lean and High-Utilization Conditions:** Report and minimize the electrolyte-to-capacity ratio. Move beyond massive zinc excess and report meaningful anode utilization.
+3.  **Long-Term Stability:** Demonstrate thousands of cycles with a cumulative coulombic efficiency approaching 100% [ID: 1, 18, 51, 59].
+
+Your CEEP protocol attempts to build a house by assembling all the walls and then worrying about the foundation. My HMP ensures the foundation is solid before the walls go up. It is a more disciplined, insightful, and ultimately faster path to developing a truly viable technology, because it replaces guesswork with a deep, mechanistic understanding at every stage of development.
+
+--- Evidence Appendix (auto-generated from snapshot) ---
+Snapshot: Scientist A
+- [ID: 11 | Hao Ren, 2019 | Inverse opal manganese dioxide constructed by few-layered ultrathin nanosheets as high-performance cathodes for aqueous zinc-ion batteries | Venue: Nano Research | DOI: https://doi.org/10.1007/s12274-019-2303-1 | OpenAlexID: https://openalex.org/W2921838163]
+- [ID: 12 | Feifei Gao, 2023 | Ni/Fe Bimetallic Ions Co-Doped Manganese Dioxide Cathode Materials for Aqueous Zinc-Ion Batteries | Venue: Batteries | DOI: https://doi.org/10.3390/batteries9010050 | OpenAlexID: https://openalex.org/W4315574236]
+- [ID: 37 | Boeun Lee, 2016 | Critical Role of pH Evolution of Electrolyte in the Reaction Mechanism for Rechargeable Zinc Batteries | Venue: ChemSusChem | DOI: https://doi.org/10.1002/cssc.201600702 | OpenAlexID: https://openalex.org/W2521787484]
+- [ID: 80 | Christian Friedrich Bischoff, 2020 | Revealing the Local pH Value Changes of Acidic Aqueous Zinc Ion Batteries with a Manganese Dioxide Electrode during Cycling | Venue: Journal of The Electrochemical Society | DOI: https://doi.org/10.1149/1945-7111/ab6c57 | OpenAlexID: https://openalex.org/W3004258213]
+- [ID: 89 | Qingyong Zhang, 2024 | Unveiling the Energy Storage Mechanism of MnO2 Polymorphs for Zinc‐Manganese Dioxide Batteries | Venue: Advanced Functional Materials | DOI: https://doi.org/10.1002/adfm.202306652 | OpenAlexID: https://openalex.org/W4393233900]
+- [ID: 95 | Thuy Nguyen Thanh Tran, 2021 | Reaction mechanisms for electrolytic manganese dioxide in rechargeable aqueous zinc-ion batteries | Venue: Scientific Reports | DOI: https://doi.org/10.1038/s41598-021-00148-2 | OpenAlexID: https://openalex.org/W3205705107]
+- [ID: 117 | Jeffrey E. Post, 2020 | Raman spectroscopy study of manganese oxides: Tunnel structures | Venue: American Mineralogist | DOI: https://doi.org/10.2138/am-2020-7390 | OpenAlexID: https://openalex.org/W3047487459]
+- [ID: 144 | Xilin Xiao, 2024 | Self‐Assembled Layer of Organic Phosphonic Acid Enables Highly Stable MnO2 Cathode for Aqueous Znic Batteries | Venue: Small | DOI: https://doi.org/10.1002/smll.202309271 | OpenAlexID: https://openalex.org/W4390611274]
+- [ID: 210 | Sijin Park, 2022 | Improvement of structural stability of cathode by manganese additive in electrolyte for zinc‐ion batteries | Venue: International Journal of Energy Research | DOI: https://doi.org/10.1002/er.7687 | OpenAlexID: https://openalex.org/W4206195084]
+
+[The Engineer (Scientist B) - Round 3]
+Your "Hierarchical Mechanistic Protocol" (HMP) is an elegant, textbook approach to deconstructionist science. It reflects a desire for pristine, controlled variables that is admirable in a purely academic setting. However, a battery is not a pristine academic exercise; it is a dynamic, and often messy, electrochemical system. Your protocol, with its rigid, linear progression, is fundamentally flawed because it is built on the illusion of isolation. It mistakes a controlled experiment for a relevant one.
+
+The central fallacy of your HMP lies in Phase 1: the quest for an "intrinsic cathode baseline" in a three-electrode cell. This baseline is a fiction. The electrochemical behavior of α-MnO₂ is not an intrinsic property; it is a response to its environment. Its reaction pathway—be it H⁺ insertion, Zn²⁺ insertion, or conversion—is dictated by the local pH, water activity, and ion concentrations at the electrode-electrolyte interface [ID: 116]. A three-electrode cell, with its stable but foreign reference electrode and absence of a dynamic zinc counter-electrode, creates an artificial environment that tells you nothing about how the cathode will behave in a real battery. The literature is unequivocal on this point: the anode and cathode are in constant, aggressive dialogue. Anode corrosion directly alters electrolyte pH, which in turn can trigger catastrophic dissolution of a vanadium oxide cathode and the formation of inert zinc pyrovanadate [ID: 42]. To ignore this interplay from the outset is to build your entire scientific house on a foundation of sand.
+
+Your protocol is not just flawed; it is profoundly inefficient. You propose to spend considerable resources establishing this fictional baseline, only to have it invalidated the moment you introduce the zinc anode in Phase 2. The interactions are not simply additive, where you can subtract one from the other to find the difference. They are synergistic and create emergent failure modes. For example, a cathode may appear stable in your three-electrode setup, but when coupled with a zinc anode, the resulting pH swings and Zn²⁺ flux can force a destructive conversion reaction, leading to the formation of passivating zinc hydroxide sulfate (ZHS) byproducts [ID: 12, 42, 116]. Your "differential analysis" is a false premise. You cannot diagnose a feedback loop by studying its components in isolation.
+
+Most critically, your HMP delays the most important question to the very end: does it work in a practical format? The annals of battery research are filled with promising materials that excelled in idealized coin cells with massive zinc excess and flooded electrolytes, only to fail completely in pouch cells under lean electrolyte conditions [ID: 146, 178]. Your protocol risks wasting months or years optimizing a system that is practically non-viable from day one. This is not a faster path; it is a longer, more scenic route to a potential dead end.
+
+I propose a more pragmatic and ultimately more effective framework: the **System-Integrated Diagnostic Protocol (SIDP)**. This protocol is not "engineering by brute force"; it is a disciplined, parallel-track approach that acknowledges the battery as an integrated system from the very beginning. It rapidly diagnoses system-level failures and uses that information to guide fundamental investigation, ensuring that our efforts are always tethered to reality.
+
+---
+
+### **The System-Integrated Diagnostic Protocol (SIDP)**
+
+This protocol is designed to be rapid, iterative, and focused on practical outcomes by evaluating the system as a whole.
+
+#### **Phase 1: Rapid System Triage & Component Sanity Check**
+
+The goal is to quickly identify the dominant failure mode of the *complete system* while simultaneously ensuring the basic viability of its parts. These two tracks run in parallel.
+
+1.  **Track A (System Stress Test):** Assemble standard α-MnO₂ || Zn coin cells immediately. This is our primary diagnostic tool. We subject them to a standardized cycling protocol (e.g., 50-100 cycles at various C-rates). The key outputs are the non-negotiable performance metrics: cycle life, voltage profiles, and, most importantly, **Coulombic efficiency (CE)** [ID: 12, 178]. A system that cannot achieve a stable CE >99.5% is already revealing a critical flaw, likely related to side reactions on the anode [ID: 8, 34]. A rapid post-mortem analysis (SEM, XRD) after these initial cycles provides a quick "triage" for obvious issues like severe dendrite growth, cathode structural collapse, or byproduct formation [ID: 45].
+
+2.  **Track B (Component Sanity Check):** In parallel, we perform abbreviated checks to ensure we aren't working with fundamentally dead materials.
+    *   **Anode Stability:** Assemble a Zn||Zn symmetric cell and cycle it for 100 hours at a practical current density (e.g., 1-5 mA cm⁻²) [ID: 7, 11]. If the voltage polarization skyrockets or the cell fails, the anode/electrolyte interface is unacceptably unstable, and no cathode will save it.
+    *   **Cathode Activity:** A brief three-electrode test confirms the material is electrochemically active and gives a rough estimate of its initial capacity. This is a 1-day sanity check, not a multi-week quest for a mythical "intrinsic" baseline.
+
+#### **Phase 2: Targeted Mechanistic Forensics of the Coupled System**
+
+With the primary failure mode identified from Phase 1 (e.g., low CE, rapid capacity fade, high polarization), we now deploy advanced diagnostics *on the full cell* to understand the "why".
+
+1.  ***Operando* Investigation:** We observe the failure as it happens. If Phase 1 indicated byproduct formation, we use *operando* pH sensing and XRD on the full cell to see precisely when and where pH shifts occur and ZHS precipitates [ID: 116]. This is direct evidence, not an inference from a dissimilar system. We can directly observe the complex co-insertion of H⁺ and Zn²⁺ that often governs these systems [ID: 9, 62].
+
+2.  **Interface and Solvation Analysis:** The interface is the crime scene. We use techniques like DFT and molecular dynamics to model the Zn²⁺ solvation structure *in our chosen electrolyte* [ID: 23, 40, 41]. This tells us if we have an excess of "free" or highly active water molecules that are prime culprits for side reactions [ID: 46, 55]. We use XPS on cycled electrodes to analyze the composition of the SEI, determining if it's a stable, protective layer or a porous, unstable one [ID: 6, 40].
+
+#### **Phase 3: System-Aware Intervention and Practicality Gauntlet**
+
+The diagnosis from Phase 2 informs our interventions, which are systemic by nature and immediately tested against practical constraints.
+
+*   **Diagnosis:** Low CE and anode failure from H₂ evolution and dendrites.
+    *   **Systemic Solution:** Instead of just coating the anode, we re-engineer the electrolyte. Introducing co-solvents [ID: 69, 128], additives that scavenge water [ID: 46], or molecules that modify the solvation shell [ID: 23, 41, 120] can simultaneously suppress H₂ evolution at the anode and stabilize the cathode interface. This is a holistic solution.
+    *   **Practicality Filter:** Is the additive cheap, stable, and effective in trace amounts? [ID: 124, 136, 192] We immediately test this improved system in a pouch cell with high mass loading (>10 mg cm⁻²) and lean electrolyte to confirm its real-world viability [ID: 6, 35, 146].
+
+*   **Diagnosis:** Rapid capacity fade from cathode dissolution.
+    *   **Systemic Solution:** We can stabilize the MnO₂ structure with "pillar" ions like polyaniline [ID: 4, 17], but we must also address the electrolyte. A high-concentration or "water-in-salt" electrolyte fundamentally reduces water activity, suppressing the dissolution mechanism itself [ID: 26, 114]. This dual approach attacks the problem from both sides.
+    *   **Practicality Filter:** Does the pillaring synthesis remain scalable? [ID: 4] Does the concentrated electrolyte have acceptable viscosity and cost? [ID: 205]
+
+*   **Diagnosis:** Poor ion transport and dendrite penetration.
+    *   **Systemic Solution:** We look beyond the electrodes to the separator. Designing a functional separator with tuned porosity and surface chemistry can homogenize Zn²⁺ flux, mechanically block dendrites, and improve the overall stability of the cell [ID: 13, 86, 89, 148].
+    *   **Practicality Filter:** Can this separator be manufactured as an ultrathin (<25 µm) and mechanically robust film? [ID: 89, 161]
+
+The SIDP is an agile, iterative loop: **Triage -> Diagnose -> Intervene -> Validate**. It confronts the messy, interconnected reality of a battery head-on. By integrating practical constraints from the very beginning and focusing our most powerful analytical tools on the complete, functioning system, we eliminate wasted effort on idealized curiosities. This is how we accelerate progress and distinguish a laboratory wonder from a truly viable energy storage solution.
+
+--- Evidence Appendix (auto-generated from snapshot) ---
+Snapshot: Scientist B
+- [ID: 4 | Jianhang Huang, 2018 | Polyaniline-intercalated manganese dioxide nanolayers as a high-performance cathode material for an aqueous zinc-ion battery | Venue: Nature Communications | DOI: https://doi.org/10.1038/s41467-018-04949-4 | OpenAlexID: https://openalex.org/W2883600665]
+- [ID: 42 | Yangmoon Kim, 2022 | Corrosion as the origin of limited lifetime of vanadium oxide-based aqueous zinc ion batteries | Venue: Nature Communications | DOI: https://doi.org/10.1038/s41467-022-29987-x | OpenAlexID: https://openalex.org/W4225285080]
+- [ID: 45 | Hongfei Li, 2015 | Enhancement on Cycle Performance of Zn Anodes by Activated Carbon Modification for Neutral Rechargeable Zinc Ion Batteries | Venue: Journal of The Electrochemical Society | DOI: https://doi.org/10.1149/2.0141508jes | OpenAlexID: https://openalex.org/W1542273847]
+- [ID: 46 | Fuhua Yang, 2022 | Understanding H2 Evolution Electrochemistry to Minimize Solvated Water Impact on Zinc‐Anode Performance | Venue: Advanced Materials | DOI: https://doi.org/10.1002/adma.202206754 | OpenAlexID: https://openalex.org/W4297855505]
+- [ID: 116 | Christian Friedrich Bischoff, 2020 | Revealing the Local pH Value Changes of Acidic Aqueous Zinc Ion Batteries with a Manganese Dioxide Electrode during Cycling | Venue: Journal of The Electrochemical Society | DOI: https://doi.org/10.1149/1945-7111/ab6c57 | OpenAlexID: https://openalex.org/W3004258213]
+- [ID: 205 | Sailin Liu, 2022 | From room temperature to harsh temperature applications: Fundamentals and perspectives on electrolytes in zinc metal batteries | Venue: Science Advances | DOI: https://doi.org/10.1126/sciadv.abn5097 | OpenAlexID: https://openalex.org/W4220854803]
+
+
+============================================================
+[FINAL SYNTHESIS]
+**To:** ZIB Cathode Evaluation Team
+**From:** Research Director
+**Date:** September 21, 2024
+**Subject:** Memorandum on a Standardized Testing Protocol for α-MnO₂ Cathodes
+
+This memorandum provides a directive for our research on α-MnO₂ cathodes in aqueous zinc-ion batteries (ZIBs). It synthesizes the recent debate between Scientist A ("The Architect") and Scientist B ("The Engineer") and establishes a unified path forward to ensure our results are robust, reproducible, and reliably distinguish intrinsic material properties from system-level artifacts.
+
+### 1. Synthesis of Arguments
+
+The debate highlighted two distinct but valuable philosophies for battery evaluation.
+
+*   **Scientist A (The Architect)** advocated for a **Hierarchical Mechanistic Protocol (HMP)**, a rigorous, bottom-up approach. This protocol prioritizes establishing a foundational understanding of the α-MnO₂ cathode's "intrinsic" behavior in isolation using three-electrode cells and theoretical modeling (DFT) (Scientist A [ID: 12, 89, 169]). Only after this mechanistic baseline is established would the cathode be integrated into a full cell to diagnose "crosstalk" with the zinc anode (Scientist A [ID: 80]). The strength of this approach is its scientific purity, aiming to deconvolve variables systematically. Its potential weakness is that an "intrinsic" baseline determined in an artificial environment may not be relevant to a real battery system, leading to inefficient research cycles (Scientist B [ID: 42]).
+
+*   **Scientist B (The Engineer)** proposed a **System-Integrated Diagnostic Protocol (SIDP)**, a pragmatic, top-down approach. This protocol insists on evaluating the complete cell (cathode, anode, electrolyte) as an integrated system from day one (Scientist B [ID: 42, 178]). It utilizes parallel testing of full cells and Zn||Zn symmetric cells to rapidly triage the system's weakest link (Scientist B [ID: 7, 34]). The strength of this approach is its immediate relevance to practical performance and its focus on emergent, system-level failure modes. Its potential weakness is that by starting in a complex system, it can be difficult to distinguish cause from effect without a clean baseline, risking misinterpretation of failure modes (Scientist A).
+
+Both scientists agree on the ultimate goal: validation in practical formats (pouch cells, high mass loading, lean electrolyte) and the necessity of advanced characterization (XRD, Raman, ICP, pH sensing) to understand the complex charge storage mechanisms involving H⁺/Zn²⁺ co-insertion, conversion reactions (ZHS), and Mn dissolution (Scientist A [ID: 37, 95, 210], Scientist B [ID: 116, 248]).
+
+### 2. Director's Assessment and Recommended Path Forward
+
+Neither protocol is sufficient on its own. Scientist A's hierarchical approach risks optimizing for an irrelevant baseline, while Scientist B's system-first approach risks misdiagnosing the root cause of failure. The most efficient and reliable path forward is a hybrid strategy that integrates the strengths of both.
+
+Therefore, we will adopt the **Integrated Mechanistic Framework (IMF)**. This is a parallel-track protocol designed to provide both a mechanistic baseline and a system-level diagnosis simultaneously, enabling rapid and accurate deconvolution of artifacts.
+
+**The Integrated Mechanistic Framework (IMF):**
+
+*   **Phase 1: Parallel Triage and Baseline Establishment.** This phase runs for a defined, short duration (e.g., 1-2 weeks). We will run three test vehicles in parallel using the exact same material batches and electrolyte:
+    1.  **Cathode Baseline (Architect's Insight):** A three-electrode cell with our α-MnO₂ cathode. The goal is a rapid (1-day) characterization to obtain a clean initial CV profile and Raman/XRD signature to serve as our "control" fingerprint (Scientist A [ID: 117]).
+    2.  **Anode Stability (Engineer's Insight):** A Zn||Zn symmetric cell. This test will run for 100-200 hours to quantify the intrinsic stability of the zinc anode and electrolyte interface, independent of the cathode (Scientist B [ID: 7, 11]).
+    3.  **System Performance (Primary Diagnostic):** A standard α-MnO₂ || Zn coin cell. This will be cycled to obtain initial performance (capacity, CE, cycle life) and will be the primary subject for post-mortem analysis.
+
+*   **Phase 2: Guided Mechanistic Diagnosis.** We will analyze the results from Phase 1 in a comparative manner.
+    *   If the full cell (1c) fails before the symmetric cell (1b), the cathode or its interaction with the anode is the primary suspect.
+    *   We will use *operando* techniques (XRD, pH sensing) on the **full cell** (Scientist B [ID: 116]). The data will be interpreted by comparing it against the "control" signature from the three-electrode cell (1a). The appearance of new phases (e.g., ZHS) or pH behavior not present in the control is definitive evidence of a coupled, system-level artifact (Scientist A [ID: 11, 37, 95]).
+    *   Post-mortem ICP-MS of the electrolyte will quantify Mn dissolution, and SEM/XPS of the anode will check for Mn plating or dendrites (Scientist A [ID: 210], Scientist B [ID: 99]).
+
+*   **Phase 3: Mechanism-Guided Intervention and Validation.** Based on the clear diagnosis from Phase 2, we will apply targeted interventions (e.g., electrolyte additives, cathode coatings, structural stabilizers). The success of any intervention will be validated by re-running the relevant Phase 1/2 tests before proceeding to the final, non-negotiable validation gauntlet agreed upon by both scientists: pouch cells, high mass loading (>10 mg/cm²), lean electrolyte (reporting E/C in µL/mAh), and realistic N/P ratios (<4) (Scientist A [ID: 17, 72], Scientist B [ID: 146, 194, 233]).
+
+This integrated framework avoids the pitfalls of either pure approach. It is faster and more relevant than a purely hierarchical protocol, and more mechanistically rigorous than a purely system-level one. This is our path to producing high-impact, reliable science.
+
+### 3. Evidence Map for Recommended Composition
+
+The following table outlines the core components of our new **Integrated Mechanistic Framework (IMF)** and links them to the evidence presented in the debate.
+
+| **Protocol Component** | **Action / Metric** | **Justification** | **Supporting Evidence** |
+| :--- | :--- | :--- | :--- |
+| **Cathode Baseline** | Brief 3-electrode cell test (CV, XRD/Raman). | Establishes a clean "control" signature of the cathode, free from anode-induced artifacts. | Scientist A [ID: 117, 37] |
+| **Anode Stability** | Parallel Zn||Zn symmetric cell cycling. | Isolates and quantifies the stability of the anode/electrolyte interface, a common failure point. | Scientist B [ID: 7, 11, 34, 104] |
+| **System Diagnostics** | *Operando* full-cell analysis (pH, XRD) compared against the 3-electrode baseline. | Directly observes and differentiates intrinsic cathode behavior from coupled system-level effects (e.g., ZHS). | Scientist A [ID: 80], Scientist B [ID: 42, 116] |
+| **Degradation Quantification** | Post-mortem ICP-MS of electrolyte; post-mortem SEM/XPS of electrodes. | Quantifies key failure modes like cathode dissolution and anode passivation/dendrite growth. | Scientist A [ID: 210], Scientist B [ID: 99, 248] |
+| **Targeted Intervention** | Additives (e.g., MnSO₄), co-solvents, or structural modifications (e.g., pillars). | Solutions are chosen based on a clear mechanistic diagnosis from the previous phase. | Scientist A [ID: 4, 165, 210], Scientist B [ID: 69, 128] |
+| **Practical Validation** | Pouch cell; mass loading >10 mg/cm²; report E/C ratio; N/P ratio < 4. | Ensures research is focused on commercially relevant outcomes and avoids misleading "hero cell" results. | Scientist A [ID: 7, 17, 72], Scientist B [ID: 35, 146, 178, 194, 233] |
+
+--- Evidence Appendix (Scientist A snapshot) ---
+- [ID: 80 | Christian Friedrich Bischoff, 2020 | Revealing the Local pH Value Changes of Acidic Aqueous Zinc Ion Batteries with a Manganese Dioxide Electrode during Cycling | Venue: Journal of The Electrochemical Society | DOI: https://doi.org/10.1149/1945-7111/ab6c57 | OpenAlexID: https://openalex.org/W3004258213]
+- [ID: 117 | Jeffrey E. Post, 2020 | Raman spectroscopy study of manganese oxides: Tunnel structures | Venue: American Mineralogist | DOI: https://doi.org/10.2138/am-2020-7390 | OpenAlexID: https://openalex.org/W3047487459]
+- [ID: 210 | Sijin Park, 2022 | Improvement of structural stability of cathode by manganese additive in electrolyte for zinc‐ion batteries | Venue: International Journal of Energy Research | DOI: https://doi.org/10.1002/er.7687 | OpenAlexID: https://openalex.org/W4206195084]
+
+--- Evidence Appendix (Scientist B snapshot) ---
+- [ID: 42 | Yangmoon Kim, 2022 | Corrosion as the origin of limited lifetime of vanadium oxide-based aqueous zinc ion batteries | Venue: Nature Communications | DOI: https://doi.org/10.1038/s41467-022-29987-x | OpenAlexID: https://openalex.org/W4225285080]
+- [ID: 99 | Siwei Zhao, 2023 | A Heteroanionic Zinc Ion Conductor for Dendrite‐Free Zn Metal Anodes | Venue: Advanced Materials | DOI: https://doi.org/10.1002/adma.202300195 | OpenAlexID: https://openalex.org/W4321479639]
+- [ID: 116 | Christian Friedrich Bischoff, 2020 | Revealing the Local pH Value Changes of Acidic Aqueous Zinc Ion Batteries with a Manganese Dioxide Electrode during Cycling | Venue: Journal of The Electrochemical Society | DOI: https://doi.org/10.1149/1945-7111/ab6c57 | OpenAlexID: https://openalex.org/W3004258213]
+

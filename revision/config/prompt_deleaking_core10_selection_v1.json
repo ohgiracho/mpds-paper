@@ -1,0 +1,51 @@
+{
+  "config_id": "prompt_deleaking_core10_selection_v1",
+  "created_date": "2026-09-21",
+  "selection_status": "FROZEN",
+  "selection_authorization": "user-confirmed",
+  "generation_status": "NOT_STARTED",
+  "evaluation_status": "NOT_STARTED",
+  "prompt_text_status": "DRAFT_AWAITING_AUTHOR_REVIEW_AND_HASH_FREEZE",
+  "api_calls_authorized_by_this_config": false,
+  "ordered_case_ids": [1, 2, 3, 4, 8, 15, 18, 22, 29, 30],
+  "case_count": 10,
+  "planned_replicates_per_case": 3,
+  "planned_new_deleaked_outputs": 30,
+  "comparison_condition": "existing frozen original-prompt Core10 MPDS n=3 outputs",
+  "analysis_unit": "case-level mean across three replicates",
+  "inferential_n": 10,
+  "selection_rules": [
+    "Reuse the prespecified Core10 stochastic-replication subset rather than selecting cases based on de-leaking outcomes.",
+    "Require existing original-prompt MPDS outputs at three replicates for every selected case.",
+    "Include both reviewer-relevant manuscript examples: repository Case 1 and PBA Case 8.",
+    "Cover multiple battery chemistries, ion carriers, material classes, prompt-leakage mechanisms, and task types.",
+    "Include a lower-risk case, Case 29, to avoid testing only extreme solution-cue prompts.",
+    "Keep inference case-clustered at n=10 and do not treat 30 outputs as independent cases."
+  ],
+  "case_risk_levels": {
+    "1": "very_high",
+    "2": "high",
+    "3": "high",
+    "4": "high",
+    "8": "very_high",
+    "15": "high",
+    "18": "high",
+    "22": "very_high",
+    "29": "moderate",
+    "30": "high"
+  },
+  "frozen_boundaries": {
+    "case_membership_and_order": "frozen",
+    "risk_classification_version": "analysis/deleak_full_screening_v1.csv",
+    "screening_protocol_version": "protocol/prompt_deleaking_screening_protocol_v1.md",
+    "de_leaked_prompt_text": "not yet frozen",
+    "generation_parameters_and_input_hashes": "not yet frozen"
+  },
+  "execution_guardrails": [
+    "Do not alter membership or order without creating a new versioned config and documenting the reason before viewing de-leaking results.",
+    "Do not begin Gemini generation until the lost-in-the-middle batch is complete.",
+    "Do not begin generation until all Core10 de-leaked situation and user-context files pass author review and hash validation.",
+    "Do not start Claude evaluation before all planned generation outputs and blind packets are complete.",
+    "Do not overwrite existing original-prompt or completed generation outputs."
+  ]
+}

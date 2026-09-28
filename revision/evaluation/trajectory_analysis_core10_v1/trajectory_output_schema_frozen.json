@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Trajectory evaluation output",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["packet_id", "trajectory_evaluations"],
+  "properties": {
+    "packet_id": {"type": "string"},
+    "trajectory_evaluations": {
+      "type": "array",
+      "minItems": 4,
+      "maxItems": 4,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "alias",
+          "tension_recognition",
+          "adaptive_revision",
+          "tradeoff_resolution",
+          "nonadditive_synthesis",
+          "major_revision_events",
+          "short_rationale"
+        ],
+        "properties": {
+          "alias": {"enum": ["Trajectory A", "Trajectory B", "Trajectory C", "Trajectory D"]},
+          "tension_recognition": {"type": "integer", "minimum": 0, "maximum": 4},
+          "adaptive_revision": {"type": "integer", "minimum": 0, "maximum": 4},
+          "tradeoff_resolution": {"type": "integer", "minimum": 0, "maximum": 4},
+          "nonadditive_synthesis": {"type": "integer", "minimum": 0, "maximum": 4},
+          "major_revision_events": {
+            "type": "array",
+            "maxItems": 3,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["initial_idea", "counterpoint_or_alternative", "final_change", "event_type", "substantive"],
+              "properties": {
+                "initial_idea": {"type": "string"},
+                "counterpoint_or_alternative": {"type": "string"},
+                "final_change": {"type": "string"},
+                "event_type": {"enum": ["mechanism_revision", "architecture_revision", "processing_revision", "feasibility_constraint", "performance_tradeoff", "evidence_interpretation", "rejection_of_initial_assumption", "other"]},
+                "substantive": {"type": "boolean"}
+              }
+            }
+          },
+          "short_rationale": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["tension_recognition", "adaptive_revision", "tradeoff_resolution", "nonadditive_synthesis"],
+            "properties": {
+              "tension_recognition": {"type": "string"},
+              "adaptive_revision": {"type": "string"},
+              "tradeoff_resolution": {"type": "string"},
+              "nonadditive_synthesis": {"type": "string"}
+            }
+          }
+        }
+      }
+    }
+  }
+}

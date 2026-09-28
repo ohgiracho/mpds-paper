@@ -1,0 +1,123 @@
+{
+  "config_id": "prompt_deleaking_targeted_v2",
+  "status": "FROZEN_INPUTS_NO_API",
+  "purpose": "TARGETED_PROMPT_DELEAKING_SENSITIVITY",
+  "selection": {
+    "screened_case_count": 30,
+    "very_high_risk_case_count": 8,
+    "rule": "all and only very-high-risk cases contained in the previously replicated Core10 subset",
+    "selected_case_ids": [1, 8, 22],
+    "selection_fixed_before_generation": true,
+    "screening_file": "analysis/deleak_full_screening_v1.csv"
+  },
+  "design": {
+    "condition": "mpds_deleaked",
+    "replicates": [1, 2, 3],
+    "expected_outputs": 9,
+    "expected_logical_generation_calls_per_output": 9,
+    "expected_minimum_generation_calls_total": 81,
+    "execution_order": [
+      {"case_id": 1, "replicate_id": 1},
+      {"case_id": 8, "replicate_id": 1},
+      {"case_id": 22, "replicate_id": 1},
+      {"case_id": 1, "replicate_id": 2},
+      {"case_id": 8, "replicate_id": 2},
+      {"case_id": 22, "replicate_id": 2},
+      {"case_id": 1, "replicate_id": 3},
+      {"case_id": 8, "replicate_id": 3},
+      {"case_id": 22, "replicate_id": 3}
+    ],
+    "original_control_policy": "reuse frozen original-prompt MPDS outputs; rescore original and de-leaked candidates together in new blinded pair packets"
+  },
+  "generation": {
+    "model": "gemini-2.5-pro",
+    "backend": "vertex-adc",
+    "vertex_location": "global",
+    "vertex_project_recorded": false,
+    "temperature": 0.5,
+    "max_output_tokens": 8192,
+    "rounds": 3,
+    "minimum_evidence_pointers": 3,
+    "turn_sleep_seconds": 0.2,
+    "source_commit": "fe30cc5f3c6bd2f20be3e2bf116b758b0e8c6314"
+  },
+  "cases": {
+    "1": {
+      "case_name": "Glitter-Cake(1)",
+      "simulation_date": 2024,
+      "debate_topic": "Within a fixed polycrystalline NCM811/LPSCl/existing-conductive-additive platform, what mechanofusion-compatible cathode microstructure and process strategy would best preserve ionic transport, electronic accessibility, packing density, and particle integrity above 85 wt% active material?",
+      "source_script": "code/02_case_specific_generation_code/Glitter-Cake(1)/mpds/run_mpds_case_01.py",
+      "source_script_sha256": "acff67d848a31116c24fd58d9c58e2c199d149461dd7fd3625da8c2af516d4a1",
+      "original_situation": "data/case_inputs/case_01/situation.txt",
+      "original_situation_sha256": "7390c0f6b5c2558848d4c9b531eb076ab1947807d4356070530c2d572c4e2c34",
+      "original_user_context": "data/case_inputs/case_01/user_context.txt",
+      "original_user_context_sha256": "a1d2e5591b73d41e31acf1c0a4ee7afa549f8936715ee8cdd5621908fd81f455",
+      "deleaked_situation": "deleak_inputs_targeted_v2/case_01/situation.txt",
+      "deleaked_situation_sha256": "55965ee9b4a2b0be6b4eaf6f038944b1aab10865f4569e74fb616158101f399a",
+      "deleaked_user_context": "deleak_inputs_targeted_v2/case_01/user_context.txt",
+      "deleaked_user_context_sha256": "ae64bcb7b326085bb921118dad32008266039600be676dd1b6233159f80bb6a7",
+      "knowledge_a": "[LOCAL_PATH_REDACTED]
+      "knowledge_a_sha256": "4949b1539a410e4ca9ca091e952371616f1bcf6b4b7d690fa3d3645044b54cf0",
+      "knowledge_b": "[LOCAL_PATH_REDACTED]
+      "knowledge_b_sha256": "fe99d9cb98d92fd85b4c5ee89f597235e6544a7dc67b1812f2c4e6966b16e78f"
+    },
+    "8": {
+      "case_name": "PBA(8)",
+      "simulation_date": 2019,
+      "debate_topic": "How should a PBA-derived transition-metal-sulfide/carbon composite be architected and processed to improve sodium-ion transport and cycling robustness while retaining practical electrode density and electrolyte access?",
+      "source_script": "code/02_case_specific_generation_code/PBA(8)/mpds/run_mpds_case_08.py",
+      "source_script_sha256": "878b1da216f41ac09369f0b3b8c5a17873c4c6abdf4eba145f8c0776904de5b7",
+      "original_situation": "data/case_inputs/case_08/situation.txt",
+      "original_situation_sha256": "5c560baa2efe0dcf30001fb962cc96057cd42389ccdf53ace598bf8c8d7d9591",
+      "original_user_context": "data/case_inputs/case_08/user_context.txt",
+      "original_user_context_sha256": "bcba644489405c62edce30d1981541b9c4727c4f5ad54cab578843f58b1a0102",
+      "deleaked_situation": "deleak_inputs_targeted_v2/case_08/situation.txt",
+      "deleaked_situation_sha256": "fdc96f37d35f60e86c138b6fc74c779d9c4c395ed38f05f4e95ad2de2dd3422d",
+      "deleaked_user_context": "deleak_inputs_targeted_v2/case_08/user_context.txt",
+      "deleaked_user_context_sha256": "ebc882a808b52d901bc910ee8634bb6e1d946e8c6325d2266198cf2c559c3828",
+      "knowledge_a": "[LOCAL_PATH_REDACTED]
+      "knowledge_a_sha256": "d71eda444b03a50363e212b4b373283aa33ead608ef8dcf16097de7513818f01",
+      "knowledge_b": "[LOCAL_PATH_REDACTED]
+      "knowledge_b_sha256": "f8a7e929b287725b217f4673822c3597622eeda49eac39580f01cce05b801018"
+    },
+    "22": {
+      "case_name": "NiO(22)",
+      "simulation_date": 2017,
+      "debate_topic": "How should a NiO lithium-ion anode be architected and processed to accommodate conversion-related volume change while retaining short ion paths, electrical continuity, practical density, and structural stability?",
+      "source_script": "code/02_case_specific_generation_code/NiO(22)/mpds/run_mpds_case_22.py",
+      "source_script_sha256": "a6b56ea6c955d534e34026d43f6445fe3314fd806a27d444f7cd2728182bdb7a",
+      "original_situation": "data/case_inputs/case_22/situation.txt",
+      "original_situation_sha256": "59a53bacf290b5550d35d0ea86c9224995690a732c2e6891225450536239343b",
+      "original_user_context": "data/case_inputs/case_22/user_context.txt",
+      "original_user_context_sha256": "0fb99176fc87ca329b4a9bfeebd21e48c4b0222c83e610fdf9841441ecebf93d",
+      "deleaked_situation": "deleak_inputs_targeted_v2/case_22/situation.txt",
+      "deleaked_situation_sha256": "45eb89cbe4423f44b9ddceb9a4bad4142b11ded0db42720eb5d6aed997a99573",
+      "deleaked_user_context": "deleak_inputs_targeted_v2/case_22/user_context.txt",
+      "deleaked_user_context_sha256": "bc01a700de038cc87c0748280f62bbf6eaad1c233115319d720900e40322212c",
+      "knowledge_a": "[LOCAL_PATH_REDACTED]
+      "knowledge_a_sha256": "52074094f1c4581f7572fd82321bb9d0304d8af3bcf21596fb41078853a54ebb",
+      "knowledge_b": "[LOCAL_PATH_REDACTED]
+      "knowledge_b_sha256": "7a3c8f0ae7edfa303d7b463a41f26cf9664d6b1a8bc57c253fb2e926bb656b0e"
+    }
+  },
+  "runtime": {
+    "compatibility_layer": "runtime/sitecustomize.py",
+    "compatibility_layer_sha256": "15270e5ab0b49b5a33c80be208c563466c691ca9665210336019df3d7fe85409"
+  },
+  "controls": {
+    "original_output_manifest": "analysis/deleak_original_control_manifest_v1.csv",
+    "analysis_plan": "protocol/prompt_deleaking_targeted_v2_analysis_plan.md",
+    "analysis_plan_sha256": "be2554fdbd7d9c9afb1dab92d3bb75c623a6db029d141bfaae29ab1aaa855323",
+    "target_recovery_rubric": "protocol/prompt_deleaking_target_recovery_rubric_v1.md",
+    "target_recovery_rubric_sha256": "2b73eebd1ac60a5b01136f6db82a51e3d9f2f24028082a36557e1d234878fd2d"
+  },
+  "execution_gate": {
+    "dependency": "runs_lost_in_middle_position_control_v1/batch_status.json",
+    "required_complete": 36,
+    "reason": "Do not run de-leaking generation concurrently with the frozen lost-in-the-middle batch."
+  },
+  "output": {
+    "run_set": "runs_prompt_deleaking_targeted_v2",
+    "batch_status_file": "runs_prompt_deleaking_targeted_v2/batch_status.json"
+  }
+}
