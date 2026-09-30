@@ -8,7 +8,7 @@ This folder is the curated GitHub upload candidate as of 2026-09-28. It extends 
 | --- | --- |
 | `code/` | Original 30-case generation and scoring source bundle, including the working-tree `score_ihq.py` file. |
 | `data/` | Original benchmark inputs, safe retrieval metadata, released outputs, and IHQ artifacts. |
-| `revision/data_s1/` | Latest `Data_S1_revision_260928_v3.xlsx`, including `Human_Expert` and `PBA_Followup` sheets. |
+| `revision/data_s1/` | Latest `Data_S1_revision_260930_v4.xlsx`, including `Human_Expert` and `PBA_Followup` sheets. |
 | `revision/config/`, `revision/protocol/`, `revision/tools/` | Revision experiment settings, frozen procedures, and analysis/generation scripts. |
 | `revision/inputs/` | Public-safe situation/context files and retrieval/block metadata. Plaintext OpenAlex abstract pools are not included. |
 | `revision/outputs/` | Final answers, sanitized debate outputs, and public run manifests for completed revision runs. |

@@ -13,7 +13,7 @@ All paths below are relative to this `revision/` directory. The parent README de
 | Reviewer 2 Q1 external diversity | 6 | `analysis/r2q1_si_table_results_v2.md`, `analysis/r2q1_pass1_sonnet5_v1/` |
 | PBA failure diagnostic (separate laboratory case study) | 5 | `analysis/pba_failure_diagnostic_n5_statistics_v1.md`, `analysis/pba_failure_diagnostic_top3_validation_v1.md` |
 
-`data_s1/Data_S1_revision_260928_v3.xlsx` is the current analysis workbook. The `Human_Expert` worksheet has two anonymized raters' scores for 70 run-2 outputs, and `analysis/human_expert_2rater_public_v1/` contains public aggregate analyses without the original filled evaluator forms or administrative blind key. The `PBA_Followup` worksheet summarizes the reported washing comparison; raw instrument files are not included.
+`data_s1/Data_S1_revision_260930_v4.xlsx` is the current analysis workbook. The `Human_Expert` worksheet has two anonymized raters' scores for 70 run-2 outputs, and `analysis/human_expert_2rater_public_v1/` contains public aggregate analyses without the original filled evaluator forms or administrative blind key. The `PBA_Followup` worksheet summarizes the reported washing comparison; raw instrument files are not included.
 
 `analysis/compute_usage_summary.csv` provides provider-reported token counts, API-call counts, failures, and recorded runtime for the 276 public generation manifests, together with the retained usage-based cost estimates for the official Claude Core10 Pass 2 evidence audit. `NR` denotes a value that is not retrospectively recoverable from the released records, not zero. For Gemini rows, cached-input tokens are already included in input tokens and are not added again.
 
